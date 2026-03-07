@@ -11,21 +11,21 @@ export default function B2CPage() {
       
       <div className="flex items-center gap-4 mb-2">
         <Users className="w-6 h-6 text-primary" />
-        <h2 className="text-2xl font-bold tracking-tight">ملخص تنفيذ خدمات الأفراد (B2C Snapshot)</h2>
+        <h2 className="text-2xl font-bold tracking-tight">B2C Fulfillment Snapshot</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        <KpiCard label="مشتركي الألياف النشطين" value={b2cSnapshotData.activeHomeFiberSubs.toLocaleString()} icon={Home} />
-        <KpiCard label="التركيبات المعلقة" value={b2cSnapshotData.pendingInstallations.toLocaleString()} icon={Clock} />
-        <KpiCard label="متوسط وقت التركيب" value={`${b2cSnapshotData.averageTimeToInstall} أيام`} icon={Clock} trend={{ value: "-0.5d", positive: true }} />
-        <KpiCard label="رضا العملاء (CSAT)" value={b2cSnapshotData.customerSatisfactionScore} icon={Smile} />
+        <KpiCard label="Active Home Fiber Subs" value={b2cSnapshotData.activeHomeFiberSubs.toLocaleString()} icon={Home} />
+        <KpiCard label="Pending Installations" value={b2cSnapshotData.pendingInstallations.toLocaleString()} icon={Clock} />
+        <KpiCard label="Avg Time to Install" value={`${b2cSnapshotData.averageTimeToInstall} days`} icon={Clock} trend={{ value: "-0.5d", positive: true }} />
+        <KpiCard label="Customer Satisfaction (CSAT)" value={b2cSnapshotData.customerSatisfactionScore} icon={Smile} />
       </div>
 
       <Card className="executive-card">
         <CardHeader>
           <CardTitle className="text-lg font-bold flex items-center gap-2">
             <MapPin className="w-5 h-5" />
-            أداء التركيبات حسب المناطق السكنية
+            Installation Performance by Residential Area
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -35,11 +35,11 @@ export default function B2CPage() {
                 <h3 className="font-bold text-lg">{area.area}</h3>
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">الطلب:</span>
+                    <span className="text-muted-foreground">Demand:</span>
                     <span className="font-medium text-primary">{area.demand}</span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-muted-foreground">حالة الشبكة:</span>
+                    <span className="text-muted-foreground">Network Status:</span>
                     <span className="font-medium">{area.status}</span>
                   </div>
                 </div>

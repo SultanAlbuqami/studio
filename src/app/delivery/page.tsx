@@ -13,7 +13,7 @@ export default function DeliveryPage() {
       
       <div className="flex items-center gap-4 mb-2">
         <Truck className="w-6 h-6 text-primary" />
-        <h2 className="text-2xl font-bold tracking-tight">برج مراقبة التنفيذ (Delivery Control Tower)</h2>
+        <h2 className="text-2xl font-bold tracking-tight">Delivery Control Tower</h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -35,7 +35,7 @@ export default function DeliveryPage() {
               </CardHeader>
               <CardContent>
                 <div className="text-2xl font-bold">{m.count}</div>
-                <p className="text-xs text-muted-foreground mt-1">مشروع قيد المعالجة</p>
+                <p className="text-xs text-muted-foreground mt-1">Projects In-Flight</p>
               </CardContent>
             </Card>
           );
@@ -45,14 +45,14 @@ export default function DeliveryPage() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <Card className="lg:col-span-2 executive-card">
           <CardHeader>
-            <CardTitle className="text-lg font-bold">مراحل التنفيذ الحالية</CardTitle>
+            <CardTitle className="text-lg font-bold">Current Delivery Milestones</CardTitle>
           </CardHeader>
           <CardContent className="space-y-8">
             {deliveryMilestones.map((m) => (
               <div key={m.stage} className="space-y-2">
                 <div className="flex justify-between text-sm">
                   <span className="font-medium">{m.stage}</span>
-                  <span className="text-muted-foreground">{m.count} طلب</span>
+                  <span className="text-muted-foreground">{m.count} Orders</span>
                 </div>
                 <Progress value={idxToProgress(m.status)} className="h-2" />
               </div>
@@ -62,17 +62,17 @@ export default function DeliveryPage() {
 
         <Card className="executive-card">
           <CardHeader>
-            <CardTitle className="text-lg font-bold">تنبيهات الميدان</CardTitle>
+            <CardTitle className="text-lg font-bold">Field Alerts</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="p-4 rounded-lg bg-destructive/5 border border-destructive/20 text-sm">
-                <p className="font-bold text-destructive">تأخير في جدة</p>
-                <p className="text-xs mt-1 text-muted-foreground">نقص في مخزون كوابل الألياف البصرية في مستودع الغربية.</p>
+                <p className="font-bold text-destructive">Jeddah Delay</p>
+                <p className="text-xs mt-1 text-muted-foreground">Fiber cable inventory shortage in Western warehouse.</p>
               </div>
               <div className="p-4 rounded-lg bg-green-500/5 border border-green-500/20 text-sm">
-                <p className="font-bold text-green-400">نيوم - تحديث</p>
-                <p className="text-xs mt-1 text-muted-foreground">اكتمال 95% من الأعمال المدنية للمسار الجنوبي.</p>
+                <p className="font-bold text-green-400">NEOM Update</p>
+                <p className="text-xs mt-1 text-muted-foreground">95% completion of civil works for South Route.</p>
               </div>
             </div>
           </CardContent>

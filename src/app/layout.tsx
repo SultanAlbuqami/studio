@@ -11,8 +11,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: 'سلام PMO | برج المراقبة',
-  description: 'منصة القيادة التنفيذية لمدير مكتب إدارة مشاريع العملاء في شركة سلام',
+  title: 'Salam PMO | Control Tower',
+  description: 'Executive Command Center for Director Customer PMO at Salam',
 };
 
 export default function RootLayout({
@@ -21,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ar" dir="rtl" className={`${inter.variable} dark`}>
+    <html lang="en" dir="ltr" className={`${inter.variable} dark`}>
       <body className="font-sans antialiased bg-background text-foreground">
         <SidebarProvider>
           <div className="flex min-h-screen w-full">

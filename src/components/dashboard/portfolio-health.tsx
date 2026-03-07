@@ -23,26 +23,26 @@ import {
 
 const executionConfig = {
   deliveries: {
-    label: "التنفيذ الفعلي",
+    label: "Actual Execution",
     color: "hsl(var(--chart-1))",
   },
   target: {
-    label: "المستهدف",
+    label: "Target",
     color: "hsl(var(--muted))",
   },
 } satisfies ChartConfig;
 
 const distributionConfig = {
   "On Track": {
-    label: "في المسار",
+    label: "On Track",
     color: "hsl(var(--chart-1))",
   },
   "At Risk": {
-    label: "تحت المخاطرة",
+    label: "At Risk",
     color: "hsl(var(--chart-2))",
   },
   "Delayed": {
-    label: "متأخر",
+    label: "Delayed",
     color: "hsl(var(--destructive))",
   },
 } satisfies ChartConfig;
@@ -52,7 +52,7 @@ export function PortfolioHealth() {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <Card className="lg:col-span-2 executive-card">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">اتجاه التنفيذ الأسبوعي</CardTitle>
+          <CardTitle className="text-base font-semibold">Weekly Execution Trend</CardTitle>
         </CardHeader>
         <CardContent>
           <ChartContainer config={executionConfig} className="h-[300px] w-full">
@@ -89,7 +89,7 @@ export function PortfolioHealth() {
 
       <Card className="executive-card">
         <CardHeader>
-          <CardTitle className="text-base font-semibold">توزيع حالة المحفظة</CardTitle>
+          <CardTitle className="text-base font-semibold">Portfolio Status Distribution</CardTitle>
         </CardHeader>
         <CardContent>
           <ChartContainer config={distributionConfig} className="h-[300px] w-full">
