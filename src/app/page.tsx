@@ -12,16 +12,19 @@ import {
   CreditCard, 
   Package, 
   TrendingUp,
-  ShieldAlert
+  ShieldAlert,
+  SidebarTrigger
 } from 'lucide-react';
 
-export default function Dashboard() {
+export default function ExecutiveOverview() {
   return (
     <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
-      <div className="max-w-[1440px] mx-auto p-6 md:p-10 space-y-10">
+      <div className="max-w-[1600px] mx-auto p-6 md:p-8 space-y-8">
         
         {/* Header Section */}
-        <DashboardHeader />
+        <div className="flex items-start justify-between">
+          <DashboardHeader />
+        </div>
 
         {/* Hero Section: AI Insights */}
         <section>
@@ -29,18 +32,18 @@ export default function Dashboard() {
         </section>
 
         {/* Primary KPIs */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-6">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           <KpiCard 
             label="Orders In Flight" 
             value={dashboardData.ordersInFlight.toLocaleString()} 
             icon={Package} 
-            trend={{ value: "+8%", positive: true }}
+            trend={{ value: "+5.2%", positive: true }}
           />
           <KpiCard 
             label="On-Time Delivery" 
             value={`${dashboardData.onTimeDeliveryPercentage}%`} 
             icon={CheckCircle2} 
-            trend={{ value: "+2.4%", positive: true }}
+            trend={{ value: "-0.8%", positive: false }}
           />
           <KpiCard 
             label="Accepted Value MTD" 
@@ -59,7 +62,7 @@ export default function Dashboard() {
             label="Acceptance Pending" 
             value={dashboardData.acceptancePending} 
             icon={CreditCard} 
-            trend={{ value: "-12", positive: true }}
+            trend={{ value: "+14", positive: false }}
           />
           <KpiCard 
             label="Past Due Backlog" 
@@ -70,47 +73,40 @@ export default function Dashboard() {
         </section>
 
         {/* Core Dashboard Sections */}
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
           
-          <div className="xl:col-span-3 space-y-10">
+          <div className="xl:col-span-3 space-y-8">
             {/* Portfolio Health Charts */}
             <section>
-              <h2 className="text-xl font-bold mb-6 flex items-center gap-2">
+              <h2 className="text-lg font-bold mb-4 flex items-center gap-2 tracking-tight">
                 <BarChart3 className="w-5 h-5 text-primary" />
-                Portfolio Operating Health
+                Strategic Execution Health
               </h2>
               <PortfolioHealth />
             </section>
 
             {/* Account Exposure Table */}
             <section>
-              <h2 className="text-xl font-bold mb-6">Commercial Exposure Analysis</h2>
+              <h2 className="text-lg font-bold mb-4 tracking-tight">Commercial Exposure Analysis</h2>
               <AccountExposure />
             </section>
           </div>
 
           <aside className="xl:col-span-1">
             {/* Situation Room / Intervention Queue */}
-            <div className="sticky top-10">
-               <h2 className="text-xl font-bold mb-6">Decision Center</h2>
+            <div className="sticky top-8">
+               <h2 className="text-lg font-bold mb-4 tracking-tight">Decision Center</h2>
                <InterventionQueue />
                
-               <div className="mt-8 p-6 rounded-xl border border-dashed border-border bg-muted/5">
-                 <h4 className="text-sm font-semibold mb-2">Director's Workspace</h4>
-                 <p className="text-xs text-muted-foreground mb-4">You have 3 draft board presentations for the upcoming NEOM steering committee.</p>
-                 <button className="text-xs font-medium text-primary hover:underline">Access workspace &rarr;</button>
+               <div className="mt-6 p-5 rounded-xl border border-dashed border-border bg-muted/5">
+                 <h4 className="text-sm font-semibold mb-2">Director's Sidebar</h4>
+                 <p className="text-xs text-muted-foreground mb-4">You have 2 pending approval requests for high-value Fiber expansions in NEOM Zone C.</p>
+                 <button className="text-xs font-medium text-primary hover:underline">Review Requests &rarr;</button>
                </div>
             </div>
           </aside>
 
         </div>
-
-        {/* Drill-down Area Footer */}
-        <footer className="pt-10 border-t border-border/50 text-center">
-          <p className="text-xs text-muted-foreground/60">
-            STRATAGEM INSIGHTS v4.2.0 • Real-time PMO Operational Hub • Kingdom of Saudi Arabia
-          </p>
-        </footer>
       </div>
     </div>
   );
