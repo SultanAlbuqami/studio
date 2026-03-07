@@ -12,8 +12,7 @@ import {
   CreditCard, 
   Package, 
   TrendingUp,
-  ShieldAlert,
-  SidebarTrigger
+  ShieldAlert
 } from 'lucide-react';
 
 export default function ExecutiveOverview() {
@@ -22,9 +21,7 @@ export default function ExecutiveOverview() {
       <div className="max-w-[1600px] mx-auto p-6 md:p-8 space-y-8">
         
         {/* Header Section */}
-        <div className="flex items-start justify-between">
-          <DashboardHeader />
-        </div>
+        <DashboardHeader />
 
         {/* Hero Section: AI Insights */}
         <section>
@@ -34,38 +31,38 @@ export default function ExecutiveOverview() {
         {/* Primary KPIs */}
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
           <KpiCard 
-            label="Orders In Flight" 
+            label="الطلبات النشطة" 
             value={dashboardData.ordersInFlight.toLocaleString()} 
             icon={Package} 
             trend={{ value: "+5.2%", positive: true }}
           />
           <KpiCard 
-            label="On-Time Delivery" 
+            label="التسليم في الوقت" 
             value={`${dashboardData.onTimeDeliveryPercentage}%`} 
             icon={CheckCircle2} 
             trend={{ value: "-0.8%", positive: false }}
           />
           <KpiCard 
-            label="Accepted Value MTD" 
+            label="القيمة المقبولة (MTD)" 
             value={`${(dashboardData.acceptedValueMTD / 1000000).toFixed(1)}M`} 
-            subValue="SAR"
+            subValue="ريال"
             icon={TrendingUp} 
           />
           <KpiCard 
-            label="Revenue At Risk" 
+            label="إيرادات تحت المخاطرة" 
             value={`${(dashboardData.revenueAtRisk / 1000000).toFixed(1)}M`} 
-            subValue="SAR"
+            subValue="ريال"
             icon={ShieldAlert}
             className="border-destructive/20 bg-destructive/5"
           />
           <KpiCard 
-            label="Acceptance Pending" 
+            label="بانتظار القبول" 
             value={dashboardData.acceptancePending} 
             icon={CreditCard} 
             trend={{ value: "+14", positive: false }}
           />
           <KpiCard 
-            label="Past Due Backlog" 
+            label="متراكم متأخر" 
             value={dashboardData.pastDueBacklog} 
             icon={Clock} 
             className="border-destructive/20"
@@ -80,14 +77,14 @@ export default function ExecutiveOverview() {
             <section>
               <h2 className="text-lg font-bold mb-4 flex items-center gap-2 tracking-tight">
                 <BarChart3 className="w-5 h-5 text-primary" />
-                Strategic Execution Health
+                صحة تنفيذ الاستراتيجية
               </h2>
               <PortfolioHealth />
             </section>
 
             {/* Account Exposure Table */}
             <section>
-              <h2 className="text-lg font-bold mb-4 tracking-tight">Commercial Exposure Analysis</h2>
+              <h2 className="text-lg font-bold mb-4 tracking-tight">تحليل المخاطر التجارية</h2>
               <AccountExposure />
             </section>
           </div>
@@ -95,13 +92,13 @@ export default function ExecutiveOverview() {
           <aside className="xl:col-span-1">
             {/* Situation Room / Intervention Queue */}
             <div className="sticky top-8">
-               <h2 className="text-lg font-bold mb-4 tracking-tight">Decision Center</h2>
+               <h2 className="text-lg font-bold mb-4 tracking-tight">مركز القرار</h2>
                <InterventionQueue />
                
                <div className="mt-6 p-5 rounded-xl border border-dashed border-border bg-muted/5">
-                 <h4 className="text-sm font-semibold mb-2">Director's Sidebar</h4>
-                 <p className="text-xs text-muted-foreground mb-4">You have 2 pending approval requests for high-value Fiber expansions in NEOM Zone C.</p>
-                 <button className="text-xs font-medium text-primary hover:underline">Review Requests &rarr;</button>
+                 <h4 className="text-sm font-semibold mb-2">ملاحظة المدير</h4>
+                 <p className="text-xs text-muted-foreground mb-4">لديك طلبا موافقة معلقين لتوسعات الألياف في منطقة نيوم C ذات القيمة العالية.</p>
+                 <button className="text-xs font-medium text-primary hover:underline">مراجعة الطلبات &larr;</button>
                </div>
             </div>
           </aside>
