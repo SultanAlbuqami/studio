@@ -12,7 +12,7 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: 'سلام PMO | برج المراقبة',
-  description: 'منصة القيادة التنفيذية لمدير مكتب إدارة مشاريع العملاء',
+  description: 'منصة القيادة التنفيذية لمدير مكتب إدارة مشاريع العملاء في شركة سلام',
 };
 
 export default function RootLayout({

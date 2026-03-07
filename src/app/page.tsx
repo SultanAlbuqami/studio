@@ -96,9 +96,9 @@ export default function ExecutiveOverview() {
                <InterventionQueue />
                
                <div className="mt-6 p-5 rounded-xl border border-dashed border-border bg-muted/5">
-                 <h4 className="text-sm font-semibold mb-2">ملاحظة المدير</h4>
-                 <p className="text-xs text-muted-foreground mb-4">لديك طلبا موافقة معلقين لتوسعات الألياف في منطقة نيوم C ذات القيمة العالية.</p>
-                 <button className="text-xs font-medium text-primary hover:underline">مراجعة الطلبات &larr;</button>
+                 <h4 className="text-sm font-semibold mb-2 text-right">ملاحظة المدير</h4>
+                 <p className="text-xs text-muted-foreground mb-4 text-right">لديك طلبات موافقة معلقة لتوسعات الألياف في منطقة نيوم C ذات القيمة العالية.</p>
+                 <button className="text-xs font-medium text-primary hover:underline block w-full text-right">مراجعة الطلبات &larr;</button>
                </div>
             </div>
           </aside>
