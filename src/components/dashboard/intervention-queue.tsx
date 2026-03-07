@@ -14,22 +14,30 @@ export function InterventionQueue() {
       </CardHeader>
       <CardContent className="p-0">
         <div className="divide-y divide-border/50">
-          {dashboardData.immediateInterventionQueue.map((item, index) => (
-            <div key={index} className="flex items-start gap-4 p-4 hover:bg-destructive/5 transition-colors group">
-              <div className="mt-1">
-                <AlertCircle className="w-4 h-4 text-destructive opacity-80" />
+          {dashboardData.immediateInterventionQueue.map((item, index) => {
+            const [title, description] = item.includes(':') 
+              ? item.split(':').map(s => s.trim()) 
+              : [item, ''];
+            
+            return (
+              <div key={index} className="flex items-start gap-4 p-4 hover:bg-destructive/5 transition-colors group">
+                <div className="mt-1">
+                  <AlertCircle className="w-4 h-4 text-destructive opacity-80" />
+                </div>
+                <div className="flex-1 space-y-1">
+                  <p className="text-sm font-medium leading-none">{title}</p>
+                  {description && (
+                    <p className="text-sm text-muted-foreground line-clamp-2">
+                      {description}
+                    </p>
+                  )}
+                </div>
+                <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <ChevronRight className="w-4 h-4" />
+                </Button>
               </div>
-              <div className="flex-1 space-y-1">
-                <p className="text-sm font-medium leading-none">{item.split(':')[0]}</p>
-                <p className="text-sm text-muted-foreground line-clamp-2">
-                  {item.split(':')[1]}
-                </p>
-              </div>
-              <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                <ChevronRight className="w-4 h-4" />
-              </Button>
-            </div>
-          ))}
+            );
+          })}
         </div>
         <div className="p-4 bg-muted/20">
           <Button variant="link" className="p-0 h-auto text-xs text-muted-foreground hover:text-primary">

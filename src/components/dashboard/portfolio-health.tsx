@@ -8,14 +8,45 @@ import {
   XAxis, 
   YAxis, 
   CartesianGrid, 
-  Tooltip, 
   ResponsiveContainer, 
   PieChart, 
   Pie, 
   Cell, 
-  Legend 
 } from 'recharts';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { 
+  ChartContainer, 
+  ChartTooltip, 
+  ChartTooltipContent, 
+  ChartLegend, 
+  ChartLegendContent,
+  type ChartConfig
+} from '@/components/ui/chart';
+
+const executionConfig = {
+  deliveries: {
+    label: "Actual Deliveries",
+    color: "hsl(var(--chart-1))",
+  },
+  target: {
+    label: "Target Deliveries",
+    color: "hsl(var(--muted))",
+  },
+} satisfies ChartConfig;
+
+const distributionConfig = {
+  "On Track": {
+    label: "On Track",
+    color: "hsl(var(--chart-1))",
+  },
+  "At Risk": {
+    label: "At Risk",
+    color: "hsl(var(--chart-2))",
+  },
+  "Delayed": {
+    label: "Delayed",
+    color: "hsl(var(--destructive))",
+  },
+} satisfies ChartConfig;
 
 export function PortfolioHealth() {
   return (
@@ -25,7 +56,7 @@ export function PortfolioHealth() {
           <CardTitle className="text-base font-semibold">Weekly Execution Trend</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="h-[280px] w-full">
+          <ChartContainer config={executionConfig} className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={executionTrendChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
@@ -40,27 +71,22 @@ export function PortfolioHealth() {
                   tickLine={false} 
                   tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} 
                 />
-                <Tooltip 
-                  content={<ChartTooltipContent hideLabel />}
-                  cursor={{ fill: 'rgba(255, 255, 255, 0.05)' }}
-                />
+                <ChartTooltip content={<ChartTooltipContent />} />
                 <Bar 
                   dataKey="deliveries" 
-                  name="Actual Deliveries" 
-                  fill="hsl(var(--primary))" 
+                  fill="var(--color-deliveries)" 
                   radius={[4, 4, 0, 0]} 
                   barSize={32}
                 />
                 <Bar 
                   dataKey="target" 
-                  name="Target" 
-                  fill="hsl(var(--muted))" 
+                  fill="var(--color-target)" 
                   radius={[4, 4, 0, 0]} 
                   barSize={32}
                 />
               </BarChart>
             </ResponsiveContainer>
-          </div>
+          </ChartContainer>
         </CardContent>
       </Card>
 
@@ -68,8 +94,8 @@ export function PortfolioHealth() {
         <CardHeader>
           <CardTitle className="text-base font-semibold">Portfolio Status Distribution</CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col items-center">
-          <div className="h-[280px] w-full">
+        <CardContent>
+          <ChartContainer config={distributionConfig} className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
@@ -80,21 +106,22 @@ export function PortfolioHealth() {
                   outerRadius={80}
                   paddingAngle={8}
                   dataKey="value"
+                  nameKey="name"
                 >
                   {portfolioDistributionData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.fill} stroke="transparent" />
                   ))}
                 </Pie>
-                <Tooltip />
-                <Legend 
+                <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+                <ChartLegend 
+                  content={<ChartLegendContent />} 
                   verticalAlign="bottom" 
                   align="center"
-                  iconType="circle"
-                  wrapperStyle={{ paddingTop: '20px', fontSize: '12px' }}
+                  wrapperStyle={{ paddingTop: '20px' }}
                 />
               </PieChart>
             </ResponsiveContainer>
-          </div>
+          </ChartContainer>
         </CardContent>
       </Card>
     </div>
