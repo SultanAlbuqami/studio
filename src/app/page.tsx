@@ -1,15 +1,16 @@
+import Link from 'next/link';
 import { DashboardHeader } from '@/components/dashboard/header';
 import { KpiCard } from '@/components/dashboard/kpi-card';
 import { ExecutiveBriefAI } from '@/components/dashboard/executive-brief-ai';
 import { PortfolioHealth } from '@/components/dashboard/portfolio-health';
 import { InterventionQueue } from '@/components/dashboard/intervention-queue';
 import { AccountExposure } from '@/components/dashboard/account-exposure';
-import { KpiGovernancePanel } from '@/components/dashboard/kpi-governance-panel';
 import { accountRiskProfiles, dashboardData } from '@/app/lib/dashboard-data';
-import { kpiMetadata, leadershipGovernanceKeys } from '@/app/lib/kpi-metadata';
+import { kpiMetadata } from '@/app/lib/kpi-metadata';
 import { getFirstSearchParamValue } from '@/app/lib/queue-filters';
 import { hasConfiguredAiKey } from '@/ai/config';
 import {
+  ArrowRight,
   CheckCircle2,
   Clock,
   CreditCard,
@@ -35,7 +36,7 @@ export default async function ExecutiveOverview({
   );
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="min-h-screen">
       <div className="max-w-[1600px] mx-auto px-5 py-6 md:px-8 md:py-8 space-y-6">
 
         {/* ── Command Bar ── */}
@@ -49,6 +50,7 @@ export default async function ExecutiveOverview({
             icon={CheckCircle2}
             trend={{ value: "-0.8%", positive: false }}
             variant="spotlight"
+            className="border-amber-500/20"
           />
           <KpiCard
             label={kpiMetadata.revenueAtRisk.label}
@@ -89,12 +91,19 @@ export default async function ExecutiveOverview({
           />
         </section>
 
-        <KpiGovernancePanel
-          title="Leadership Governance"
-          description="Revenue exposure, acceptance, and backlog thresholds are governed from the same source, owner, and review forum definitions used across the live cockpit."
-          keys={leadershipGovernanceKeys}
-          compact
-        />
+        {/* ── Governance footnote ── */}
+        <div className="flex items-center justify-between gap-4 rounded-lg border border-border/40 bg-card/40 px-4 py-2.5">
+          <p className="text-[11px] text-muted-foreground">
+            All metrics governed with named source, accountable owner, and review cadence.
+          </p>
+          <Link
+            href="/deployment"
+            className="inline-flex items-center gap-1 text-[11px] text-primary/70 transition-colors hover:text-primary shrink-0"
+          >
+            View KPI governance
+            <ArrowRight className="h-3 w-3" />
+          </Link>
+        </div>
 
         {/* ── Main Dashboard Body ── */}
         <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
@@ -131,10 +140,10 @@ export default async function ExecutiveOverview({
                 <ExecutiveBriefAI isAiConfigured={isAiConfigured} compact />
               </section>
 
-              {/* Intervention Queue — the action center */}
+              {/* Requires Action — the intervention center */}
               <section>
                 <div className="section-divider">
-                  <span className="section-label">Intervention Queue</span>
+                  <span className="section-label">Requires Action</span>
                 </div>
                 <InterventionQueue />
               </section>

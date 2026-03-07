@@ -27,6 +27,11 @@ import {
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from '@/components/ui/tooltip';
 
 type ExecutiveBriefAIProps = Readonly<{
   isAiConfigured: boolean;
@@ -284,36 +289,45 @@ export function ExecutiveBriefAI({
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <p className="text-sm font-semibold">AI Operating Brief</p>
-                <span className="text-[10px] font-medium text-muted-foreground/70 bg-muted/30 px-1.5 py-0.5 rounded">
+                <span className="text-[10px] font-medium text-primary/60 bg-primary/8 px-1.5 py-0.5 rounded">
                   Manual
                 </span>
                 {isStatic && !loading && (
                   <span className="text-[10px] font-medium text-muted-foreground/50 bg-muted/30 px-1.5 py-0.5 rounded">
-                    Fallback
+                    Static
                   </span>
                 )}
               </div>
               <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/60">
                 {compact
-                  ? 'User-triggered synthesis from approved KPIs.'
-                  : 'User-triggered synthesis grounded in the approved dashboard snapshot.'}
+                  ? 'On-demand synthesis from governed KPI snapshot.'
+                  : 'On-demand executive synthesis grounded in the governed dashboard snapshot.'}
               </p>
             </div>
           </div>
-          <Button
-            onClick={fetchBrief}
-            disabled={loading}
-            variant="ghost"
-            size="sm"
-            className="h-7 text-xs gap-1.5 text-muted-foreground hover:text-foreground"
-          >
-            {loading ? (
-              <Loader2 className="h-3 w-3 animate-spin" />
-            ) : (
-              <Zap className="h-3 w-3" />
-            )}
-            {loading ? 'Analyzing…' : 'Generate Brief'}
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                onClick={fetchBrief}
+                disabled={loading}
+                variant="ghost"
+                size="sm"
+                className="h-7 text-xs gap-1.5 text-muted-foreground hover:text-foreground"
+              >
+                {loading ? (
+                  <Loader2 className="h-3 w-3 animate-spin" />
+                ) : (
+                  <Zap className="h-3 w-3" />
+                )}
+                {loading ? 'Analyzing…' : 'Generate Brief'}
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="bottom" className="max-w-[240px] text-xs leading-relaxed">
+              {isAiConfigured
+                ? 'Generate a live AI brief from the current KPI snapshot using OpenAI.'
+                : 'Set OPENAI_API_KEY in your environment to enable live AI analysis. Static brief is shown by default.'}
+            </TooltipContent>
+          </Tooltip>
         </div>
 
         <CardContent className={compact ? 'p-2.5' : 'p-3'}>
@@ -356,12 +370,12 @@ export function ExecutiveBriefAI({
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <p className="text-sm font-semibold">Recommended Actions</p>
-                <span className="text-[10px] font-medium text-muted-foreground/70 bg-muted/30 px-1.5 py-0.5 rounded">
+                <span className="text-[10px] font-medium text-primary/60 bg-primary/8 px-1.5 py-0.5 rounded">
                   Advisory
                 </span>
                 {isStatic && !loading && (
                   <span className="text-[10px] font-medium text-muted-foreground/50 bg-muted/30 px-1.5 py-0.5 rounded">
-                    Fallback
+                    Static
                   </span>
                 )}
               </div>

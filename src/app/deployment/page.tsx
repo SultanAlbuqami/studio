@@ -298,9 +298,9 @@ const blocks = [
 export default function DeploymentRoadmapPage() {
   const [openBlocks, setOpenBlocks] = useState<Record<string, boolean>>({
     '01': true,
-    '02': true,
-    '03': true,
-    '04': true,
+    '02': false,
+    '03': false,
+    '04': false,
   });
 
   const toggle = (step: string) =>
@@ -319,7 +319,7 @@ export default function DeploymentRoadmapPage() {
           <div className="p-5 md:p-6 space-y-4">
             <p className="section-label">Operating Model Transition</p>
             <p className="max-w-4xl text-sm leading-relaxed text-muted-foreground">
-              This page translates the interview demo into a live operating
+              This page translates the demo into a live operating
               model for a telecom and business-services PMO. The production
               version is not just a prettier dashboard. It is a governed control
               tower with trusted KPI definitions, named owners, review cadence,
@@ -630,13 +630,25 @@ export default function DeploymentRoadmapPage() {
         </div>
       </section>
 
-      <div className="max-w-4xl pt-1">
+      <div className="max-w-4xl pt-1 space-y-6">
         <p className="text-[11px] leading-relaxed text-muted-foreground/55">
           This roadmap is directionally aligned with enterprise telecom delivery
           operating models. Source systems, KPI names, Power BI architecture,
           and AI controls are illustrative target-state patterns, not a claim
           about any specific internal Salam implementation.
         </p>
+
+        <div className="rounded-lg border border-border/30 bg-card/30 px-5 py-4">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground/50 mb-2">
+            About this dashboard
+          </p>
+          <p className="text-sm leading-relaxed text-muted-foreground/70">
+            Concept, information design, KPI architecture, dashboard UX, and full implementation by <span className="text-foreground/80 font-medium">Sultan Albuqami</span>. This executive dashboard demo was conceived, designed, and implemented to demonstrate leadership-level thinking in customer delivery governance, KPI architecture, and executive decision support.
+          </p>
+          <p className="mt-2 text-[11px] leading-relaxed text-muted-foreground/45">
+            Prepared as an executive interview demonstration using illustrative operating data, representative labels, and simulated delivery scenarios.
+          </p>
+        </div>
       </div>
     </div>
   );

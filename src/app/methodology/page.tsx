@@ -5,7 +5,7 @@ import { Database, ShieldCheck, Info, AlertTriangle } from 'lucide-react';
 export default function MethodologyPage() {
   return (
     <div className="max-w-[1600px] mx-auto px-5 py-6 md:px-8 md:py-8 space-y-6">
-      <DashboardHeader title="Methodology & Data Governance" subtitle="Reference" hideFilters />
+      <DashboardHeader title="Data Governance & Methodology" subtitle="Reference" hideFilters />
 
       <div className="max-w-3xl space-y-6">
         <p className="text-sm text-muted-foreground leading-relaxed">

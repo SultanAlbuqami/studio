@@ -108,10 +108,10 @@ export function AppSidebar() {
             </SidebarMenuButton>
           </SidebarMenuItem>
           <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={pathname === '/methodology'} tooltip="Methodology">
+            <SidebarMenuButton asChild isActive={pathname === '/methodology'} tooltip="Data Governance">
               <Link href="/methodology">
                 <BookOpen className="h-4 w-4" />
-                <span>Methodology</span>
+                <span>Data Governance</span>
               </Link>
             </SidebarMenuButton>
           </SidebarMenuItem>

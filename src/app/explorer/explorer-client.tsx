@@ -17,6 +17,7 @@ import {
   AlertTriangle,
   Briefcase,
   CheckCircle2,
+  DollarSign,
   FolderKanban,
   Search,
   ShieldAlert,
@@ -30,12 +31,29 @@ const statusStyles: Record<string, string> = {
   Completed: 'bg-primary/10 text-primary',
 };
 
+function parseValue(v: string): number {
+  return parseFloat(v.replace(/[^0-9.]/g, '')) || 0;
+}
+
 const statusCounts = {
   total: explorerData.length,
   active: explorerData.filter((p) => p.status === 'Active').length,
   delayed: explorerData.filter((p) => p.status === 'Delayed').length,
   completed: explorerData.filter((p) => p.status === 'Completed').length,
 };
+
+const valueSummary = (() => {
+  let delivered = 0;
+  let atRisk = 0;
+  let active = 0;
+  for (const p of explorerData) {
+    const v = parseValue(p.value);
+    if (p.status === 'Completed') delivered += v;
+    else if (p.status === 'Delayed') atRisk += v;
+    else active += v;
+  }
+  return { delivered, atRisk, active, total: delivered + atRisk + active };
+})();
 
 type ExplorerClientProps = Readonly<{
   initialFocusId: string;
@@ -115,6 +133,50 @@ export function ExplorerClient({
           <p className="text-xl font-bold text-primary">{statusCounts.completed}</p>
         </div>
       </section>
+
+      {/* ── Portfolio Value Summary ── */}
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div className="executive-card p-4">
+          <div className="flex items-center justify-center h-7 w-7 rounded-md bg-muted/50 mb-3">
+            <DollarSign className="w-3.5 h-3.5 text-muted-foreground" />
+          </div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-0.5">
+            Total Portfolio
+          </p>
+          <p className="text-xl font-bold">{valueSummary.total.toFixed(1)}M</p>
+          <p className="text-[10px] text-muted-foreground mt-0.5">SAR</p>
+        </div>
+        <div className="executive-card p-4">
+          <div className="flex items-center justify-center h-7 w-7 rounded-md bg-emerald-500/10 mb-3">
+            <Briefcase className="w-3.5 h-3.5 text-emerald-400" />
+          </div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-0.5">
+            Active Value
+          </p>
+          <p className="text-xl font-bold text-emerald-400">{valueSummary.active.toFixed(1)}M</p>
+          <p className="text-[10px] text-muted-foreground mt-0.5">SAR</p>
+        </div>
+        <div className="executive-card p-4">
+          <div className="flex items-center justify-center h-7 w-7 rounded-md bg-destructive/10 mb-3">
+            <AlertTriangle className="w-3.5 h-3.5 text-destructive" />
+          </div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-0.5">
+            At-Risk Value
+          </p>
+          <p className="text-xl font-bold text-destructive">{valueSummary.atRisk.toFixed(1)}M</p>
+          <p className="text-[10px] text-muted-foreground mt-0.5">SAR</p>
+        </div>
+        <div className="executive-card p-4">
+          <div className="flex items-center justify-center h-7 w-7 rounded-md bg-primary/10 mb-3">
+            <CheckCircle2 className="w-3.5 h-3.5 text-primary" />
+          </div>
+          <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-0.5">
+            Delivered Value
+          </p>
+          <p className="text-xl font-bold text-primary">{valueSummary.delivered.toFixed(1)}M</p>
+          <p className="text-[10px] text-muted-foreground mt-0.5">SAR</p>
+        </div>
+      </div>
 
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">

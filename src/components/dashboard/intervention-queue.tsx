@@ -1,8 +1,10 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, Clock3, ShieldAlert, User } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { executiveInterventions } from '@/app/lib/dashboard-data';
 
 const priorityStyles = {
@@ -14,6 +16,7 @@ const priorityStyles = {
 export function InterventionQueue() {
   const visibleInterventions = executiveInterventions.slice(0, 3);
   const hiddenCount = executiveInterventions.length - visibleInterventions.length;
+  const [navigatingHref, setNavigatingHref] = useState<string | null>(null);
 
   return (
     <Card className="executive-card overflow-hidden">
@@ -21,25 +24,41 @@ export function InterventionQueue() {
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
             <ShieldAlert className="h-3.5 w-3.5 text-primary" />
-            <p className="text-sm font-semibold">Executive Intervention Queue</p>
+            <p className="text-sm font-semibold">Critical Interventions</p>
           </div>
           <span className="flex h-5 min-w-5 items-center justify-center rounded bg-destructive/15 px-1.5 text-[11px] font-bold tabular-nums text-destructive">
             {executiveInterventions.length}
           </span>
         </div>
         <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/60">
-          Cross-functional decisions that need PMO or executive sponsorship in
-          the next 24-72 hours.
+          Decisions pending PMO or executive sponsorship within 24-72 hours.
         </p>
       </div>
 
       <CardContent className="space-y-2.5 p-3">
-        {visibleInterventions.map((item) => (
-          <Link
-            key={item.title}
-            href={item.href}
-            className="block rounded-lg border border-border/35 bg-background/25 p-2.5 transition-colors hover:bg-muted/10"
-          >
+        {visibleInterventions.map((item) => {
+          const isNavigating = navigatingHref === item.href;
+
+          if (isNavigating) {
+            return (
+              <div key={item.title} className="rounded-lg border border-border/35 bg-background/25 p-2.5 space-y-2">
+                <Skeleton className="h-4 w-3/5" />
+                <Skeleton className="h-3 w-full" />
+                <div className="flex gap-4 pt-1">
+                  <Skeleton className="h-3 w-24" />
+                  <Skeleton className="h-3 w-32" />
+                </div>
+              </div>
+            );
+          }
+
+          return (
+            <Link
+              key={item.title}
+              href={item.href}
+              onClick={() => setNavigatingHref(item.href)}
+              className="block rounded-lg border border-border/35 bg-background/25 p-2.5 transition-colors hover:bg-muted/10"
+            >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex flex-wrap items-center gap-2">
@@ -79,7 +98,8 @@ export function InterventionQueue() {
               {item.impact}
             </p>
           </Link>
-        ))}
+          );
+        })}
 
         <div className="border-t border-border/30 px-1 pt-2">
           {hiddenCount > 0 && (
@@ -90,9 +110,10 @@ export function InterventionQueue() {
           )}
           <Link
             href="/escalations"
-            className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
           >
-            Open recovery backlog and SLA risk view {'->'}
+            Open recovery backlog and SLA risk view
+            <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
       </CardContent>

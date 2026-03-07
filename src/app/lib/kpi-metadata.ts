@@ -125,6 +125,34 @@ export const kpiMetadata = {
     forum: 'Daily service risk escalation review',
     threshold: 'Target = 0 imminent breaches',
   },
+  homeFiberSubs: {
+    label: 'Home Fiber Subscribers',
+    source: 'CRM subscriber base + provisioning platform',
+    owner: 'B2C operations lead',
+    forum: 'Weekly B2C operations review',
+    threshold: 'Track against quarterly activation target',
+  },
+  pendingInstalls: {
+    label: 'Pending Installations',
+    source: 'Field dispatch + technician scheduling system',
+    owner: 'Installation operations manager',
+    forum: 'Daily dispatch review',
+    threshold: 'Hold <= 2,500 pending',
+  },
+  avgInstallTime: {
+    label: 'Avg Install Time',
+    source: 'Field completion timestamps + dispatch system',
+    owner: 'Installation operations manager',
+    forum: 'Weekly B2C operations review',
+    threshold: 'Target <= 3.5 days',
+  },
+  b2cCsat: {
+    label: 'CSAT Score',
+    source: 'Post-install survey + CRM feedback loop',
+    owner: 'Customer experience lead',
+    forum: 'Monthly CX review',
+    threshold: 'Target >= 4.5/5',
+  },
 } as const;
 
 export type KpiMetadataKey = keyof typeof kpiMetadata;
@@ -164,4 +192,11 @@ export const leadershipGovernanceKeys = [
   'revenueAtRisk',
   'acceptancePending',
   'pastDueBacklog',
+] as const satisfies readonly KpiMetadataKey[];
+
+export const b2cGovernanceKeys = [
+  'homeFiberSubs',
+  'pendingInstalls',
+  'avgInstallTime',
+  'b2cCsat',
 ] as const satisfies readonly KpiMetadataKey[];
