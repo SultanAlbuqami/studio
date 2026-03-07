@@ -1,4 +1,4 @@
 import { config } from 'dotenv';
 config();
 
-import '@/ai/flows/ai-powered-executive-briefing.ts';
+// OpenAI provider — flows are invoked via server actions, no dev server needed.

@@ -9,9 +9,9 @@ import {
   Users,
   AlertTriangle,
   Search,
+  TowerControl,
   BookOpen,
-  ChevronRight,
-  TowerControl
+  Rocket,
 } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
@@ -27,49 +27,20 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   SidebarRail,
+  SidebarFooter,
 } from "@/components/ui/sidebar"
 
-const navItems = [
-  {
-    title: "Executive Overview",
-    url: "/",
-    icon: LayoutDashboard,
-  },
-  {
-    title: "Booking & Fulfillment",
-    url: "/booking",
-    icon: ClipboardList,
-  },
-  {
-    title: "Delivery Control Tower",
-    url: "/delivery",
-    icon: Truck,
-  },
-  {
-    title: "Strategic Orders",
-    url: "/strategic",
-    icon: Star,
-  },
-  {
-    title: "B2C Snapshot",
-    url: "/b2c",
-    icon: Users,
-  },
-  {
-    title: "Escalations & Recovery",
-    url: "/escalations",
-    icon: AlertTriangle,
-  },
-  {
-    title: "Portfolio Explorer",
-    url: "/explorer",
-    icon: Search,
-  },
-  {
-    title: "Sources & Methodology",
-    url: "/methodology",
-    icon: BookOpen,
-  },
+const overviewItems = [
+  { title: "Executive Overview", url: "/", icon: LayoutDashboard },
+  { title: "Portfolio Explorer", url: "/explorer", icon: Search },
+]
+
+const operationsItems = [
+  { title: "Booking & Fulfillment", url: "/booking", icon: ClipboardList },
+  { title: "Delivery Control", url: "/delivery", icon: Truck },
+  { title: "Strategic Orders", url: "/strategic", icon: Star },
+  { title: "B2C Fulfillment", url: "/b2c", icon: Users },
+  { title: "Escalations", url: "/escalations", icon: AlertTriangle },
 ]
 
 export function AppSidebar() {
@@ -77,33 +48,46 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="border-b border-border/50 py-4">
+      <SidebarHeader className="border-b border-sidebar-border py-4">
         <div className="flex items-center gap-3 px-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-            <TowerControl className="h-5 w-5 text-primary-foreground" />
+          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary">
+            <TowerControl className="h-4 w-4 text-primary-foreground" />
           </div>
-          <div className="flex flex-col gap-0.5 group-data-[collapsible=icon]:hidden">
-            <span className="font-bold text-sm tracking-tight">SALAM PMO</span>
-            <span className="text-[10px] text-muted-foreground uppercase font-semibold">Control Tower</span>
+          <div className="flex flex-col group-data-[collapsible=icon]:hidden">
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-sidebar-foreground/40">Salam PMO</span>
+            <span className="text-sm font-semibold tracking-tight">Control Tower</span>
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent>
+
+      <SidebarContent className="py-2">
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {overviewItems.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild isActive={pathname === item.url} tooltip={item.title}>
+                    <Link href={item.url}>
+                      <item.icon className="h-4 w-4" />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
         <SidebarGroup>
           <SidebarGroupLabel>Operations</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navItems.map((item) => (
+              {operationsItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton
-                    asChild
-                    isActive={pathname === item.url}
-                    tooltip={item.title}
-                  >
+                  <SidebarMenuButton asChild isActive={pathname === item.url} tooltip={item.title}>
                     <Link href={item.url}>
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
-                      {pathname === item.url && <ChevronRight className="ml-auto h-3 w-3" />}
                     </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -112,6 +96,28 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter className="border-t border-sidebar-border py-2">
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild isActive={pathname === '/deployment'} tooltip="Deployment Roadmap">
+              <Link href="/deployment">
+                <Rocket className="h-4 w-4" />
+                <span>Deployment Roadmap</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild isActive={pathname === '/methodology'} tooltip="Methodology">
+              <Link href="/methodology">
+                <BookOpen className="h-4 w-4" />
+                <span>Methodology</span>
+              </Link>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
+
       <SidebarRail />
     </Sidebar>
   )

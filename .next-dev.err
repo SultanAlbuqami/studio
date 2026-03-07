@@ -1,0 +1,120 @@
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\server\app\strategic\page\build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\server\\app\\strategic\\page\\build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\server\app\page\app-build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\server\\app\\page\\app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\server\app\delivery\page\build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\server\\app\\delivery\\page\\build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\server\app\explorer\page\build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\server\\app\\explorer\\page\\build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.95zo0fk0gs'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.95zo0fk0gs'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.zz1ub25jvui'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.zz1ub25jvui'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.2stob3prcla'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.2stob3prcla'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.7tg8kr9skhc'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.7tg8kr9skhc'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\server\app\explorer\page\build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\server\\app\\explorer\\page\\build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\server\app\strategic\page\build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\server\\app\\strategic\\page\\build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\server\app\delivery\page\build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\server\\app\\delivery\\page\\build-manifest.json'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\server\app\page\app-build-manifest.json'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\server\\app\\page\\app-build-manifest.json'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.pf5xp442fun'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.pf5xp442fun'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.lggxfi44cd'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.lggxfi44cd'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.ewdbo13q2im'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.ewdbo13q2im'
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.fwm3u2qsb8v'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.fwm3u2qsb8v'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.gdobna9c7l'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.gdobna9c7l'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.u1i5zo2xbwk'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.u1i5zo2xbwk'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.z6fxsce2fbe'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.z6fxsce2fbe'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.d1plx111hhv'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.d1plx111hhv'
+}

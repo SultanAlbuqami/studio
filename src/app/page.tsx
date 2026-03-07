@@ -4,102 +4,141 @@ import { ExecutiveBriefAI } from '@/components/dashboard/executive-brief-ai';
 import { PortfolioHealth } from '@/components/dashboard/portfolio-health';
 import { InterventionQueue } from '@/components/dashboard/intervention-queue';
 import { AccountExposure } from '@/components/dashboard/account-exposure';
-import { dashboardData } from '@/app/lib/dashboard-data';
-import { 
-  BarChart3, 
-  CheckCircle2, 
-  Clock, 
-  CreditCard, 
-  Package, 
+import { KpiGovernancePanel } from '@/components/dashboard/kpi-governance-panel';
+import { accountRiskProfiles, dashboardData } from '@/app/lib/dashboard-data';
+import { kpiMetadata, leadershipGovernanceKeys } from '@/app/lib/kpi-metadata';
+import { getFirstSearchParamValue } from '@/app/lib/queue-filters';
+import { hasConfiguredAiKey } from '@/ai/config';
+import {
+  CheckCircle2,
+  Clock,
+  CreditCard,
+  Package,
   TrendingUp,
-  ShieldAlert
+  ShieldAlert,
 } from 'lucide-react';
 
-export default function ExecutiveOverview() {
+type ExecutiveOverviewProps = {
+  searchParams?: Promise<{
+    focus?: string | string[];
+  }>;
+};
+
+export default async function ExecutiveOverview({
+  searchParams,
+}: ExecutiveOverviewProps) {
+  const isAiConfigured = hasConfiguredAiKey();
+  const resolvedSearchParams = searchParams ? await searchParams : undefined;
+  const focusedAccountId = getFirstSearchParamValue(resolvedSearchParams?.focus);
+  const homeFocusedAccount = accountRiskProfiles.find(
+    (item) => item.focusId === focusedAccountId,
+  );
+
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/20">
-      <div className="max-w-[1600px] mx-auto p-6 md:p-8 space-y-8">
-        
-        {/* Header Section */}
+    <div className="min-h-screen bg-background text-foreground">
+      <div className="max-w-[1600px] mx-auto px-5 py-6 md:px-8 md:py-8 space-y-6">
+
+        {/* ── Command Bar ── */}
         <DashboardHeader />
 
-        {/* Hero Section: AI Insights */}
-        <section>
-          <ExecutiveBriefAI />
-        </section>
-
-        {/* Primary KPIs */}
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
-          <KpiCard 
-            label="Active Orders" 
-            value={dashboardData.ordersInFlight.toLocaleString()} 
-            icon={Package} 
-            trend={{ value: "+5.2%", positive: true }}
-          />
-          <KpiCard 
-            label="On-Time Delivery" 
-            value={`${dashboardData.onTimeDeliveryPercentage}%`} 
-            icon={CheckCircle2} 
+        {/* ── Spotlight KPIs — the 3 metrics that define "how are we doing right now" ── */}
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <KpiCard
+            label={kpiMetadata.onTimeDelivery.label}
+            value={`${dashboardData.onTimeDeliveryPercentage}%`}
+            icon={CheckCircle2}
             trend={{ value: "-0.8%", positive: false }}
+            variant="spotlight"
           />
-          <KpiCard 
-            label="Accepted Value (MTD)" 
-            value={`${(dashboardData.acceptedValueMTD / 1000000).toFixed(1)}M`} 
-            subValue="SAR"
-            icon={TrendingUp} 
-          />
-          <KpiCard 
-            label="Revenue at Risk" 
-            value={`${(dashboardData.revenueAtRisk / 1000000).toFixed(1)}M`} 
+          <KpiCard
+            label={kpiMetadata.revenueAtRisk.label}
+            value={`${(dashboardData.revenueAtRisk / 1000000).toFixed(1)}M`}
             subValue="SAR"
             icon={ShieldAlert}
-            className="border-destructive/20 bg-destructive/5"
+            variant="spotlight"
+            className="border-destructive/25"
           />
-          <KpiCard 
-            label="Pending Acceptance" 
-            value={dashboardData.acceptancePending} 
-            icon={CreditCard} 
-            trend={{ value: "+14", positive: false }}
-          />
-          <KpiCard 
-            label="Past Due Backlog" 
-            value={dashboardData.pastDueBacklog} 
-            icon={Clock} 
-            className="border-destructive/20"
+          <KpiCard
+            label={kpiMetadata.activeOrders.label}
+            value={dashboardData.ordersInFlight.toLocaleString()}
+            icon={Package}
+            trend={{ value: "+5.2%", positive: true }}
+            variant="spotlight"
           />
         </section>
 
-        {/* Core Dashboard Sections */}
-        <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
-          
-          <div className="xl:col-span-3 space-y-8">
-            {/* Portfolio Health Charts */}
+        {/* ── Secondary Metrics — context and pipeline depth ── */}
+        <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <KpiCard
+            label={kpiMetadata.acceptedValueMTD.label}
+            value={`${(dashboardData.acceptedValueMTD / 1000000).toFixed(1)}M`}
+            subValue="SAR"
+            icon={TrendingUp}
+          />
+          <KpiCard
+            label={kpiMetadata.acceptancePending.label}
+            value={dashboardData.acceptancePending}
+            icon={CreditCard}
+            trend={{ value: "+14", positive: false }}
+          />
+          <KpiCard
+            label={kpiMetadata.pastDueBacklog.label}
+            value={dashboardData.pastDueBacklog}
+            icon={Clock}
+            className="border-rose-500/15"
+          />
+        </section>
+
+        <KpiGovernancePanel
+          title="Leadership Governance"
+          description="Revenue exposure, acceptance, and backlog thresholds are governed from the same source, owner, and review forum definitions used across the live cockpit."
+          keys={leadershipGovernanceKeys}
+          compact
+        />
+
+        {/* ── Main Dashboard Body ── */}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
+
+          {/* Left: Analytics & Risk */}
+          <div className="xl:col-span-8 space-y-6">
+
+            {/* Execution Health */}
             <section>
-              <h2 className="text-lg font-bold mb-4 flex items-center gap-2 tracking-tight">
-                <BarChart3 className="w-5 h-5 text-primary" />
-                Strategy Execution Health
-              </h2>
+              <div className="section-divider">
+                <span className="section-label">Execution Health</span>
+              </div>
               <PortfolioHealth />
             </section>
 
-            {/* Account Exposure Table */}
-            <section>
-              <h2 className="text-lg font-bold mb-4 tracking-tight">Commercial Risk Analysis</h2>
-              <AccountExposure />
+            {/* Commercial Risk */}
+            <section id="commercial-risk">
+              <div className="section-divider">
+                <span className="section-label">Commercial Risk</span>
+              </div>
+              <AccountExposure focusedProfileId={homeFocusedAccount?.focusId} />
             </section>
           </div>
 
-          <aside className="xl:col-span-1">
-            {/* Situation Room / Intervention Queue */}
-            <div className="sticky top-8">
-               <h2 className="text-lg font-bold mb-4 tracking-tight">Decision Center</h2>
-               <InterventionQueue />
-               
-               <div className="mt-6 p-5 rounded-xl border border-dashed border-border bg-muted/5">
-                 <h4 className="text-sm font-semibold mb-2">Manager's Note</h4>
-                 <p className="text-xs text-muted-foreground mb-4">You have pending approval requests for high-value fiber expansions in NEOM Zone C.</p>
-                 <button className="text-xs font-medium text-primary hover:underline block w-full text-left">Review Requests &rarr;</button>
-               </div>
+          {/* Right Rail: Decisions & Intelligence */}
+          <aside className="xl:col-span-4">
+            <div className="sticky top-6 space-y-6">
+
+              {/* AI Intelligence — Executive Brief + Recommended Actions */}
+              <section>
+                <div className="section-divider">
+                  <span className="section-label">AI Intelligence</span>
+                </div>
+                <ExecutiveBriefAI isAiConfigured={isAiConfigured} compact />
+              </section>
+
+              {/* Intervention Queue — the action center */}
+              <section>
+                <div className="section-divider">
+                  <span className="section-label">Intervention Queue</span>
+                </div>
+                <InterventionQueue />
+              </section>
+
             </div>
           </aside>
 

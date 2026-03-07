@@ -1,5 +1,4 @@
 import { LucideIcon } from 'lucide-react';
-import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
 
 interface KpiCardProps {
@@ -12,33 +11,75 @@ interface KpiCardProps {
   };
   className?: string;
   subValue?: string;
+  /** "spotlight" = hero-weight metric, "compact" = secondary row */
+  variant?: 'spotlight' | 'compact';
 }
 
-export function KpiCard({ label, value, icon: Icon, trend, className, subValue }: KpiCardProps) {
+export function KpiCard({
+  label,
+  value,
+  icon: Icon,
+  trend,
+  className,
+  subValue,
+  variant = 'compact',
+}: KpiCardProps) {
+  const isSpotlight = variant === 'spotlight';
+
   return (
-    <Card className={cn("executive-card group overflow-hidden border-none bg-gradient-to-br from-card to-card/50", className)}>
-      <CardContent className="p-6">
-        <div className="flex items-center justify-between mb-4">
-          <div className="p-2 rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-            <Icon className="w-5 h-5 text-primary" />
-          </div>
-          {trend && (
-            <span className={cn(
-              "text-xs font-medium px-2 py-1 rounded-full",
-              trend.positive ? "bg-green-500/10 text-green-400" : "bg-red-500/10 text-red-400"
-            )}>
-              {trend.value}
-            </span>
-          )}
+    <div
+      className={cn(
+        'executive-card',
+        isSpotlight ? 'p-5 md:p-6' : 'p-4',
+        className,
+      )}
+    >
+      {/* Top row: icon + trend */}
+      <div className="flex items-center justify-between mb-3">
+        <div className={cn(
+          'flex items-center justify-center rounded-md bg-muted/50',
+          isSpotlight ? 'h-9 w-9' : 'h-7 w-7',
+        )}>
+          <Icon className={cn(
+            'text-muted-foreground',
+            isSpotlight ? 'w-4.5 h-4.5' : 'w-3.5 h-3.5',
+          )} />
         </div>
-        <div className="space-y-1">
-          <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider">{label}</p>
-          <div className="flex items-baseline gap-2">
-            <h3 className="text-3xl font-bold tracking-tight">{value}</h3>
-            {subValue && <span className="text-sm text-muted-foreground">{subValue}</span>}
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        {trend && (
+          <span
+            className={cn(
+              'font-semibold rounded px-1.5 py-0.5',
+              isSpotlight ? 'text-xs' : 'text-[11px]',
+              trend.positive
+                ? 'bg-emerald-500/10 text-emerald-400'
+                : 'bg-rose-500/10 text-rose-400',
+            )}
+          >
+            {trend.value}
+          </span>
+        )}
+      </div>
+
+      {/* Label */}
+      <p className={cn(
+        'font-semibold uppercase tracking-widest text-muted-foreground',
+        isSpotlight ? 'text-[11px] mb-1' : 'text-[10px] mb-0.5',
+      )}>
+        {label}
+      </p>
+
+      {/* Value */}
+      <div className="flex items-baseline gap-1.5">
+        <span className={cn(
+          'font-bold tracking-tight',
+          isSpotlight ? 'text-3xl' : 'text-xl',
+        )}>
+          {value}
+        </span>
+        {subValue && (
+          <span className="text-xs text-muted-foreground">{subValue}</span>
+        )}
+      </div>
+    </div>
   );
 }

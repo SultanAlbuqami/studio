@@ -1,0 +1,40 @@
+
+> nextn@0.1.0 dev
+> next dev --turbopack -p 9002
+
+   ▲ Next.js 15.5.9 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.3.69:9002
+
+ ✓ Starting...
+Creating turbopack project { dir: 'C:\\Users\\SuLtan\\studio', testMode: true }
+ ✓ Ready in 1460ms
+ ○ Compiling /delivery ...
+ ✓ Compiled /delivery in 5.8s
+ GET /booking 200 in 7346ms
+ GET /explorer?focus=PRJ-016 200 in 7310ms
+ GET /strategic?focus=SO-9904 200 in 8423ms
+ GET /delivery?focus=neom-backbone 200 in 8492ms
+ GET /escalations 200 in 8262ms
+ ○ Compiling / ...
+ GET /explorer?focus=PRJ-016 200 in 1237ms
+ ✓ Compiled / in 1628ms
+ GET /delivery 200 in 1903ms
+ GET / 200 in 2967ms
+ GET /strategic?focus=SO-9904 200 in 2440ms
+ ✓ Compiled in 210ms
+ ✓ Compiled in 151ms
+ ✓ Compiled in 162ms
+ ✓ Compiled in 116ms
+ ✓ Compiled in 120ms
+ ✓ Compiled in 306ms
+ ✓ Compiled in 148ms
+ ✓ Compiled in 172ms
+ ✓ Compiled in 123ms
+ ✓ Compiled in 138ms
+ ✓ Compiled /strategic in 38ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1752ms
+[?25h
+
+C:\Users\SuLtan\studio>

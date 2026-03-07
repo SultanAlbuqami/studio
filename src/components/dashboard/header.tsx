@@ -1,50 +1,48 @@
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Calendar as CalendarIcon, Filter, Layers } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { Calendar as CalendarIcon, Layers, Clock } from 'lucide-react';
+import { dataAsOf } from '@/app/lib/dashboard-meta';
 
-export function DashboardHeader() {
+interface DashboardHeaderProps {
+  /** Page title. Defaults to "Operations Control Tower" */
+  title?: string;
+  /** Eyebrow label above the title. Defaults to "Director Customer PMO" */
+  subtitle?: string;
+  /** Hide the filter controls (useful on informational pages) */
+  hideFilters?: boolean;
+  /** Snapshot freshness label shown on the right */
+  timestamp?: string;
+}
+
+export function DashboardHeader({
+  title = 'Operations Control Tower',
+  subtitle = 'Director Customer PMO',
+  hideFilters = false,
+  timestamp = dataAsOf,
+}: DashboardHeaderProps) {
   return (
-    <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-      <div className="text-left">
-        <h1 className="text-3xl font-bold tracking-tight mb-1 font-headline">Salam Operations Center (Stratagem)</h1>
-        <p className="text-muted-foreground italic">Director Customer PMO | Cockpit</p>
+    <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-border/50">
+      <div className="min-w-0">
+        <p className="section-label mb-1">{subtitle}</p>
+        <h1 className="text-2xl font-bold tracking-tight truncate">{title}</h1>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-card/50">
-          <Layers className="w-4 h-4 text-muted-foreground" />
-          <Select defaultValue="all">
-            <SelectTrigger className="border-none bg-transparent h-auto p-0 focus:ring-0 w-[140px] text-sm font-medium">
-              <SelectValue placeholder="Portfolio" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Portfolios</SelectItem>
-              <SelectItem value="telco">Enterprise Telco</SelectItem>
-              <SelectItem value="mega">Mega Projects</SelectItem>
-              <SelectItem value="gov">Government Sector</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+      {!hideFilters && (
+        <div className="flex items-center gap-3 shrink-0">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-border/60 bg-card/50 text-sm">
+            <Layers className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+            <span className="text-xs text-muted-foreground">All Portfolios</span>
+          </div>
 
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-border bg-card/50">
-          <CalendarIcon className="w-4 h-4 text-muted-foreground" />
-          <Select defaultValue="q4">
-            <SelectTrigger className="border-none bg-transparent h-auto p-0 focus:ring-0 w-[120px] text-sm font-medium">
-              <SelectValue placeholder="Quarter" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="q4">Q4 2024</SelectItem>
-              <SelectItem value="q3">Q3 2024</SelectItem>
-              <SelectItem value="ytd">Year-To-Date</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-border/60 bg-card/50 text-sm">
+            <CalendarIcon className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
+            <span className="text-xs text-muted-foreground">Q1 2026</span>
+          </div>
 
-        <Button variant="outline" size="sm" className="h-9 gap-2">
-          <Filter className="w-4 h-4" />
-          Advanced Options
-        </Button>
-      </div>
-    </div>
+          <div className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] text-muted-foreground/60">
+            <Clock className="w-3 h-3" />
+            <span className="tabular-nums">{timestamp}</span>
+          </div>
+        </div>
+      )}
+    </header>
   );
 }

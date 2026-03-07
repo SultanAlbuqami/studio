@@ -1,48 +1,99 @@
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { dashboardData } from '@/app/lib/dashboard-data';
-import { AlertCircle, ChevronRight, Gavel } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+'use client';
+
+import Link from 'next/link';
+import { ArrowRight, Clock3, ShieldAlert, User } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import { executiveInterventions } from '@/app/lib/dashboard-data';
+
+const priorityStyles = {
+  critical: 'bg-destructive/12 text-destructive border-destructive/20',
+  high: 'bg-amber-500/10 text-amber-400 border-amber-500/20',
+  medium: 'bg-primary/10 text-primary border-primary/20',
+} as const;
 
 export function InterventionQueue() {
+  const visibleInterventions = executiveInterventions.slice(0, 3);
+  const hiddenCount = executiveInterventions.length - visibleInterventions.length;
+
   return (
-    <Card className="executive-card border-none bg-gradient-to-b from-card to-destructive/5">
-      <CardHeader className="pb-3 border-b border-border/50">
-        <CardTitle className="text-base font-semibold flex items-center gap-2">
-          <Gavel className="w-4 h-4 text-destructive" />
-          Critical Intervention Queue
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="p-0">
-        <div className="divide-y divide-border/50">
-          {dashboardData.immediateInterventionQueue.map((item, index) => {
-            const [title, description] = item.includes(':') 
-              ? item.split(':').map(s => s.trim()) 
-              : [item, ''];
-            
-            return (
-              <div key={index} className="flex items-start gap-4 p-4 hover:bg-destructive/5 transition-colors group">
-                <div className="mt-1">
-                  <AlertCircle className="w-4 h-4 text-destructive opacity-80" />
-                </div>
-                <div className="flex-1 space-y-1">
-                  <p className="text-sm font-medium leading-none">{title}</p>
-                  {description && (
-                    <p className="text-sm text-muted-foreground line-clamp-2">
-                      {description}
-                    </p>
-                  )}
-                </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <ChevronRight className="w-4 h-4" />
-                </Button>
-              </div>
-            );
-          })}
+    <Card className="executive-card overflow-hidden">
+      <div className="border-b border-border/30 px-4 py-3">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2">
+            <ShieldAlert className="h-3.5 w-3.5 text-primary" />
+            <p className="text-sm font-semibold">Executive Intervention Queue</p>
+          </div>
+          <span className="flex h-5 min-w-5 items-center justify-center rounded bg-destructive/15 px-1.5 text-[11px] font-bold tabular-nums text-destructive">
+            {executiveInterventions.length}
+          </span>
         </div>
-        <div className="p-4 bg-muted/20">
-          <Button variant="link" className="p-0 h-auto text-xs text-muted-foreground hover:text-primary">
-            View full situation room backlog (12 items)
-          </Button>
+        <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/60">
+          Cross-functional decisions that need PMO or executive sponsorship in
+          the next 24-72 hours.
+        </p>
+      </div>
+
+      <CardContent className="space-y-2.5 p-3">
+        {visibleInterventions.map((item) => (
+          <Link
+            key={item.title}
+            href={item.href}
+            className="block rounded-lg border border-border/35 bg-background/25 p-2.5 transition-colors hover:bg-muted/10"
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="text-[13px] font-semibold leading-tight text-foreground">
+                    {item.title}
+                  </p>
+                  <span
+                    className={`rounded border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${
+                      priorityStyles[item.priority]
+                    }`}
+                  >
+                    {item.priority}
+                  </span>
+                </div>
+                <p className="mt-1 text-[12px] leading-relaxed text-muted-foreground">
+                  {item.summary}
+                </p>
+              </div>
+              <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground/40" />
+            </div>
+
+            <div className="mt-2.5 grid gap-1.5 sm:grid-cols-2">
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/70">
+                <User className="h-3 w-3 shrink-0" />
+                <span>{item.owner}</span>
+              </div>
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/70 sm:justify-end">
+                <Clock3 className="h-3 w-3 shrink-0" />
+                <span>Decision window: {item.timing}</span>
+              </div>
+            </div>
+
+            <p className="mt-2 text-[11px] leading-relaxed text-foreground/80">
+              <span className="font-semibold text-muted-foreground/70">
+                Impact:
+              </span>{' '}
+              {item.impact}
+            </p>
+          </Link>
+        ))}
+
+        <div className="border-t border-border/30 px-1 pt-2">
+          {hiddenCount > 0 && (
+            <p className="mb-1 text-[10px] text-muted-foreground/55">
+              Showing top {visibleInterventions.length} of{' '}
+              {executiveInterventions.length} active interventions.
+            </p>
+          )}
+          <Link
+            href="/escalations"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Open recovery backlog and SLA risk view {'->'}
+          </Link>
         </div>
       </CardContent>
     </Card>

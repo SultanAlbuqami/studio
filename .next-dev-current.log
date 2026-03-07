@@ -1,0 +1,55 @@
+   ▲ Next.js 15.5.9 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.3.69:9002
+
+ ✓ Starting...
+Creating turbopack project { dir: 'C:\\Users\\SuLtan\\studio', testMode: true }
+ ✓ Ready in 1593ms
+ ○ Compiling / ...
+ ✓ Compiled / in 6.6s
+ GET / 200 in 8003ms
+ GET /?focus=PRJ-016 200 in 402ms
+ ○ Compiling /delivery ...
+ ✓ Compiled /delivery in 1172ms
+ GET /delivery?region=Western 200 in 1968ms
+ ✓ Compiled /strategic in 477ms
+ GET /strategic?owner=Director%20Customer%20PMO 200 in 1366ms
+ ✓ Compiled /escalations in 490ms
+ GET /escalations?window=Today 200 in 1138ms
+ GET /?focus=PRJ-016 200 in 3845ms
+ GET /escalations?window=Today 200 in 3673ms
+ GET /delivery?region=Western 200 in 4286ms
+ ○ Compiling /favicon.ico ...
+ ✓ Compiled /favicon.ico in 1327ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 1328ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 1905ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 1860ms
+ GET /?focus=PRJ-016 200 in 777ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 353ms
+ GET /?focus=PRJ-016 200 in 4652ms
+ GET /escalations?window=Today 200 in 4875ms
+ GET /delivery?region=Western 200 in 5350ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 869ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 776ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 722ms
+ GET /escalations?window=Today 200 in 1299ms
+ GET /?focus=PRJ-016 200 in 3312ms
+ GET /delivery?region=Western 200 in 4098ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 3045ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 1006ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 986ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 1037ms
+ GET /strategic?owner=Director%20Customer%20PMO 200 in 775ms
+ GET /favicon.ico?favicon.7ed73651.ico 200 in 340ms
+ ✓ Compiled in 135ms
+ ✓ Compiled in 151ms
+ ✓ Compiled in 137ms
+ ✓ Compiled in 100ms
+ ✓ Compiled in 111ms
+ ✓ Compiled in 132ms
+ ✓ Compiled in 125ms
+ ✓ Compiled /explorer in 390ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1513ms
+ ✓ Compiled / in 28ms
+[?25h
