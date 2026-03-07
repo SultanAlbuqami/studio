@@ -8,7 +8,6 @@ import {
   XAxis, 
   YAxis, 
   CartesianGrid, 
-  ResponsiveContainer, 
   PieChart, 
   Pie, 
   Cell, 
@@ -57,35 +56,33 @@ export function PortfolioHealth() {
         </CardHeader>
         <CardContent>
           <ChartContainer config={executionConfig} className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={executionTrendChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
-                <XAxis 
-                  dataKey="week" 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} 
-                />
-                <YAxis 
-                  axisLine={false} 
-                  tickLine={false} 
-                  tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} 
-                />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar 
-                  dataKey="deliveries" 
-                  fill="var(--color-deliveries)" 
-                  radius={[4, 4, 0, 0]} 
-                  barSize={32}
-                />
-                <Bar 
-                  dataKey="target" 
-                  fill="var(--color-target)" 
-                  radius={[4, 4, 0, 0]} 
-                  barSize={32}
-                />
-              </BarChart>
-            </ResponsiveContainer>
+            <BarChart data={executionTrendChartData} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
+              <XAxis 
+                dataKey="week" 
+                axisLine={false} 
+                tickLine={false} 
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} 
+              />
+              <YAxis 
+                axisLine={false} 
+                tickLine={false} 
+                tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }} 
+              />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <Bar 
+                dataKey="deliveries" 
+                fill="var(--color-deliveries)" 
+                radius={[4, 4, 0, 0]} 
+                barSize={32}
+              />
+              <Bar 
+                dataKey="target" 
+                fill="var(--color-target)" 
+                radius={[4, 4, 0, 0]} 
+                barSize={32}
+              />
+            </BarChart>
           </ChartContainer>
         </CardContent>
       </Card>
@@ -96,31 +93,29 @@ export function PortfolioHealth() {
         </CardHeader>
         <CardContent>
           <ChartContainer config={distributionConfig} className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  data={portfolioDistributionData}
-                  cx="50%"
-                  cy="45%"
-                  innerRadius={60}
-                  outerRadius={80}
-                  paddingAngle={8}
-                  dataKey="value"
-                  nameKey="name"
-                >
-                  {portfolioDistributionData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} stroke="transparent" />
-                  ))}
-                </Pie>
-                <ChartTooltip content={<ChartTooltipContent hideLabel />} />
-                <ChartLegend 
-                  content={<ChartLegendContent />} 
-                  verticalAlign="bottom" 
-                  align="center"
-                  wrapperStyle={{ paddingTop: '20px' }}
-                />
-              </PieChart>
-            </ResponsiveContainer>
+            <PieChart>
+              <Pie
+                data={portfolioDistributionData}
+                cx="50%"
+                cy="45%"
+                innerRadius={60}
+                outerRadius={80}
+                paddingAngle={8}
+                dataKey="value"
+                nameKey="name"
+              >
+                {portfolioDistributionData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.fill} stroke="transparent" />
+                ))}
+              </Pie>
+              <ChartTooltip content={<ChartTooltipContent hideLabel />} />
+              <ChartLegend 
+                content={<ChartLegendContent />} 
+                verticalAlign="bottom" 
+                align="center"
+                wrapperStyle={{ paddingTop: '20px' }}
+              />
+            </PieChart>
           </ChartContainer>
         </CardContent>
       </Card>
