@@ -6,7 +6,15 @@ import { KpiCard } from '@/components/dashboard/kpi-card';
 import { KpiGovernancePanel } from '@/components/dashboard/kpi-governance-panel';
 import { b2cSnapshotData, b2cWeeklyTrend } from '@/app/lib/dashboard-data';
 import { kpiMetadata, b2cGovernanceKeys } from '@/app/lib/kpi-metadata';
-import { Home, Clock, Smile, AlertTriangle } from 'lucide-react';
+import {
+  ArrowRight,
+  AlertTriangle,
+  Clock,
+  Home,
+  ShieldAlert,
+  Smile,
+  Users,
+} from 'lucide-react';
 import {
   BarChart,
   Bar,
@@ -35,6 +43,24 @@ const statusIndicator: Record<string, string> = {
   'Technician Shortage': 'bg-amber-500/10 text-amber-400 border-amber-500/20',
 };
 
+const areaOperatingPlan: Record<string, { owner: string; action: string; window: string }> = {
+  'Al-Malqa (Riyadh)': {
+    owner: 'B2C Operations Lead',
+    action: 'Keep technician capacity aligned to demand while preserving appointment quality on the Riyadh west cluster.',
+    window: 'Weekly B2C operations review',
+  },
+  'Al-Rawdah (Jeddah)': {
+    owner: 'Regional Dispatch Supervisor',
+    action: 'Lock the improving dispatch posture for another week so the queue does not swing back into rework.',
+    window: 'Next 72h',
+  },
+  'Al-Faisaliyah (Dammam)': {
+    owner: 'Installation Operations Manager',
+    action: 'Deploy a temporary recovery crew and rebalance appointment slots before lead-time drift converts into cancellations.',
+    window: 'Daily dispatch review',
+  },
+};
+
 const installChartConfig = {
   installs: {
     label: "Installs",
@@ -50,14 +76,26 @@ const csatChartConfig = {
 } satisfies ChartConfig;
 
 export default function B2CPage() {
-  const latestWeek = b2cWeeklyTrend[b2cWeeklyTrend.length - 1];
-  const previousWeek = b2cWeeklyTrend[b2cWeeklyTrend.length - 2];
+  const latestWeek = b2cWeeklyTrend.at(-1);
+  const previousWeek = b2cWeeklyTrend.at(-2);
   const installDelta = latestWeek && previousWeek
     ? latestWeek.installs - previousWeek.installs
+    : 0;
+  const csatDelta = latestWeek && previousWeek
+    ? Number((latestWeek.csat - previousWeek.csat).toFixed(1))
     : 0;
   const troubleAreas = b2cSnapshotData.areaPerformance.filter(
     (a) => a.status !== 'Under Control' && a.status !== 'Improving',
   );
+  const latestInstallRunRate = latestWeek?.installs ?? 0;
+  const backlogCoverageWeeks = latestInstallRunRate > 0
+    ? (b2cSnapshotData.pendingInstallations / latestInstallRunRate).toFixed(1)
+    : '0.0';
+  const constrainedAreaShare = Math.round(
+    (troubleAreas.length / b2cSnapshotData.areaPerformance.length) * 100,
+  );
+  const priorityArea = troubleAreas[0] ?? b2cSnapshotData.areaPerformance[0];
+  const priorityPlan = areaOperatingPlan[priorityArea.area];
 
   return (
     <div className="max-w-[1600px] mx-auto px-5 py-6 md:px-8 md:py-8 space-y-6">
@@ -101,15 +139,15 @@ export default function B2CPage() {
               {troubleAreas.length} area{troubleAreas.length > 1 ? 's' : ''} flagged
             </p>
             <p className="mt-0.5 text-[12px] leading-relaxed text-muted-foreground">
-              {troubleAreas.map((a) => `${a.area} (${a.status})`).join(', ')} — review resource allocation in the next B2C operations call.
+              {troubleAreas.map((a) => `${a.area} (${a.status})`).join(', ')}. Rebalance dispatch capacity before backlog pressure spills into missed appointments and cancellation risk.
             </p>
           </div>
         </div>
       )}
 
-      {/* Weekly trends */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <Card className="executive-card">
+      <div className="grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
+        <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-2">
+          <Card className="executive-card">
           <div className="px-5 pt-5 pb-2">
             <div className="flex items-center justify-between">
               <div>
@@ -138,7 +176,7 @@ export default function B2CPage() {
           </CardContent>
         </Card>
 
-        <Card className="executive-card">
+          <Card className="executive-card">
           <div className="px-5 pt-5 pb-2">
             <p className="text-sm font-semibold">CSAT Trend</p>
             <p className="text-xs text-muted-foreground mt-0.5">Customer satisfaction score — last 6 weeks</p>
@@ -148,25 +186,152 @@ export default function B2CPage() {
               <LineChart data={b2cWeeklyTrend} margin={{ top: 8, right: 4, left: -24, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" strokeOpacity={0.5} />
                 <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
-                <YAxis domain={[4.0, 5.0]} axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
+                <YAxis domain={[4, 5]} axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
                 <ChartTooltip content={<ChartTooltipContent />} />
                 <Line type="monotone" dataKey="csat" stroke="var(--color-csat)" strokeWidth={2} dot={{ r: 3, fill: 'var(--color-csat)' }} />
               </LineChart>
             </ChartContainer>
           </CardContent>
         </Card>
+
+          <Card className="executive-card lg:col-span-2 xl:col-span-2">
+            <div className="px-5 pt-5 pb-3">
+              <p className="text-sm font-semibold">Consumer Fulfillment Decision Lens</p>
+              <p className="text-xs text-muted-foreground mt-0.5">
+                Director-level view of backlog pressure, dispatch ownership, and customer-promise risk.
+              </p>
+            </div>
+            <CardContent className="px-5 pb-5 pt-0 space-y-4">
+              <div className="grid gap-3 sm:grid-cols-3">
+                <div className="rounded-md border border-border/30 bg-muted/10 p-3">
+                  <p className="section-label">Backlog Cover</p>
+                  <p className="mt-2 text-2xl font-bold tabular-nums">{backlogCoverageWeeks} wks</p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    At the latest install run rate of {latestInstallRunRate} completions per week.
+                  </p>
+                </div>
+                <div className="rounded-md border border-amber-500/20 bg-amber-500/5 p-3">
+                  <p className="section-label">Dispatch Pressure</p>
+                  <p className="mt-2 text-2xl font-bold tabular-nums text-amber-400">{constrainedAreaShare}%</p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    Of tracked areas need intervention to protect the install promise.
+                  </p>
+                </div>
+                <div className="rounded-md border border-border/30 bg-muted/10 p-3">
+                  <p className="section-label">Customer Posture</p>
+                  <p className="mt-2 text-2xl font-bold tabular-nums">{latestWeek?.csat ?? 0}/5</p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    {csatDelta >= 0 ? 'Stable to improving' : 'Softening'} versus the previous week.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid gap-3 lg:grid-cols-[1.05fr_0.95fr]">
+                <div className="rounded-md border border-border/30 bg-background/30 p-4">
+                  <div className="flex items-center gap-2">
+                    <ShieldAlert className="h-3.5 w-3.5 text-primary" />
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      Immediate Intervention
+                    </p>
+                  </div>
+                  <p className="mt-3 text-sm font-semibold text-foreground/90">
+                    {priorityArea.area}
+                  </p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    {priorityPlan.action}
+                  </p>
+                </div>
+
+                <div className="rounded-md border border-border/30 bg-background/30 p-4 space-y-3">
+                  <div className="flex items-center gap-2">
+                    <Users className="h-3.5 w-3.5 text-primary" />
+                    <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      Operating Ownership
+                    </p>
+                  </div>
+                  <div className="grid gap-3 sm:grid-cols-2">
+                    <div>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70">
+                        Accountable Owner
+                      </p>
+                      <p className="mt-1 text-sm text-foreground/90">{priorityPlan.owner}</p>
+                    </div>
+                    <div>
+                      <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70">
+                        Next Review Window
+                      </p>
+                      <p className="mt-1 text-sm text-foreground/90">{priorityPlan.window}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-between gap-3 border-t border-border/30 pt-3">
+                    <p className="text-[11px] text-muted-foreground/72">
+                      Keep backlog recovery and customer messaging under one operating owner.
+                    </p>
+                    <span className="inline-flex items-center gap-1 text-[11px] font-medium text-primary">
+                      Dispatch review
+                      <ArrowRight className="h-3 w-3" />
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card className="executive-card h-fit">
+          <div className="px-5 pt-5 pb-3">
+            <p className="text-sm font-semibold">B2C Intervention Board</p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Decision support for dispatch, appointment assurance, and escalation ownership.
+            </p>
+          </div>
+          <CardContent className="px-5 pb-5 pt-0 space-y-3">
+            {[
+              {
+                title: 'Backlog clearance',
+                detail: `${b2cSnapshotData.pendingInstallations.toLocaleString()} installs remain open. Hold the recovery cell until the backlog cover is below 3.5 weeks.`,
+                owner: 'Installation Operations Manager',
+              },
+              {
+                title: 'Appointment assurance',
+                detail: `Keep post-install CSAT at ${b2cSnapshotData.customerSatisfactionScore}/5 or above while the queue is recovering, otherwise the speed gain will not be commercially credible.`,
+                owner: 'Customer Experience Lead',
+              },
+              {
+                title: 'Area prioritization',
+                detail: `${priorityArea.area} is the active recovery pocket. Protect same-week appointment slots for the highest-demand neighborhoods first.`,
+                owner: priorityPlan.owner,
+              },
+            ].map((item, index) => (
+              <div key={item.title} className="rounded-md border border-border/30 bg-muted/10 p-3">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="text-sm font-semibold text-foreground/90">{item.title}</p>
+                  <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-primary">
+                    P{index + 1}
+                  </span>
+                </div>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.detail}</p>
+                <p className="mt-3 text-[11px] text-muted-foreground/78">
+                  Accountable owner: <span className="text-foreground/88">{item.owner}</span>
+                </p>
+              </div>
+            ))}
+          </CardContent>
+        </Card>
       </div>
 
-      {/* Area performance */}
       <Card className="executive-card">
         <div className="px-5 pt-5 pb-3">
-          <p className="text-sm font-semibold">Installation by Area</p>
-          <p className="text-xs text-muted-foreground mt-0.5">Residential coverage and network readiness</p>
+          <p className="text-sm font-semibold">Area Dispatch Watchlist</p>
+          <p className="text-xs text-muted-foreground mt-0.5">Demand posture, operating ownership, and next intervention by area</p>
         </div>
         <CardContent className="px-5 pb-5 pt-0">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {b2cSnapshotData.areaPerformance.map((area) => (
-              <div key={area.area} className="p-4 rounded-md bg-muted/15 border border-border/30">
+            {b2cSnapshotData.areaPerformance.map((area) => {
+              const plan = areaOperatingPlan[area.area];
+
+              return (
+              <div key={area.area} className="rounded-md border border-border/30 bg-muted/15 p-4">
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-sm font-semibold">{area.area}</p>
                   <span className={`text-[10px] font-semibold uppercase tracking-widest px-1.5 py-0.5 rounded border ${
@@ -175,12 +340,29 @@ export default function B2CPage() {
                     {area.status}
                   </span>
                 </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">Demand</span>
-                  <span className={`font-medium ${demandStyles[area.demand] ?? 'text-foreground'}`}>{area.demand}</span>
+                <div className="space-y-3 text-sm">
+                  <div className="flex items-center justify-between gap-3">
+                    <span className="text-muted-foreground">Demand</span>
+                    <span className={`font-medium ${demandStyles[area.demand] ?? 'text-foreground'}`}>{area.demand}</span>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70">
+                      Accountable Owner
+                    </p>
+                    <p className="mt-1 text-sm text-foreground/90">{plan.owner}</p>
+                  </div>
+                  <div>
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70">
+                      Next Action
+                    </p>
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{plan.action}</p>
+                  </div>
+                  <div className="rounded-md border border-border/30 bg-background/35 px-3 py-2 text-[11px] text-muted-foreground/78">
+                    Review window: <span className="text-foreground/88">{plan.window}</span>
+                  </div>
                 </div>
               </div>
-            ))}
+            );})}
           </div>
         </CardContent>
       </Card>

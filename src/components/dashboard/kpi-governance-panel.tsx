@@ -75,7 +75,7 @@ export function KpiGovernancePanel({
                     <Users className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
                     <div>
                       <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70">
-                        Owner
+                        Accountable Owner
                       </p>
                       <p className="mt-1 text-foreground/90">{meta.owner}</p>
                     </div>

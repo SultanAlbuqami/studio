@@ -30,8 +30,8 @@ export function InterventionQueue() {
             {executiveInterventions.length}
           </span>
         </div>
-        <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/60">
-          Decisions pending PMO or executive sponsorship within 24-72 hours.
+        <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/74">
+          Top three interventions by urgency. Each item requires PMO or executive sponsorship inside the current decision window.
         </p>
       </div>
 
@@ -81,11 +81,11 @@ export function InterventionQueue() {
             </div>
 
             <div className="mt-2.5 grid gap-1.5 sm:grid-cols-2">
-              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/70">
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/78">
                 <User className="h-3 w-3 shrink-0" />
-                <span>{item.owner}</span>
+                <span>Accountable owner: {item.owner}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/70 sm:justify-end">
+              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/78 sm:justify-end">
                 <Clock3 className="h-3 w-3 shrink-0" />
                 <span>Decision window: {item.timing}</span>
               </div>
@@ -103,7 +103,7 @@ export function InterventionQueue() {
 
         <div className="border-t border-border/30 px-1 pt-2">
           {hiddenCount > 0 && (
-            <p className="mb-1 text-[10px] text-muted-foreground/55">
+            <p className="mb-1 text-[10px] text-muted-foreground/68">
               Showing top {visibleInterventions.length} of{' '}
               {executiveInterventions.length} active interventions.
             </p>
@@ -112,7 +112,7 @@ export function InterventionQueue() {
             href="/escalations"
             className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
           >
-            Open recovery backlog and SLA risk view
+            Open the full recovery backlog and SLA risk view
             <ArrowRight className="h-3 w-3" />
           </Link>
         </div>

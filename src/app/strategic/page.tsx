@@ -70,7 +70,7 @@ export default async function StrategicOrdersPage({
           <p className="text-2xl font-bold tabular-nums">{totalValue.toFixed(1)}M <span className="text-xs text-muted-foreground font-normal">SAR</span></p>
         </div>
         <div className="executive-card p-4">
-          <p className="section-label mb-1">At Risk Orders</p>
+          <p className="section-label mb-1">Orders at Risk</p>
           <p className="text-2xl font-bold text-rose-400 tabular-nums">{atRiskCount}</p>
           <p className="text-xs text-muted-foreground mt-0.5">of {strategicOrders.length} in flight</p>
         </div>
@@ -354,9 +354,14 @@ export default async function StrategicOrdersPage({
             {acceptanceLeadershipNote.summary}
           </p>
           <div className="mt-3 flex items-center justify-between gap-3 border-t border-border/30 pt-3 text-[11px]">
-            <span className="text-muted-foreground/70">
-              {acceptanceLeadershipNote.owner} | {acceptanceLeadershipNote.decisionWindow}
-            </span>
+            <div className="flex flex-wrap items-center gap-2 text-muted-foreground/78">
+              <span className="rounded-full border border-border/40 bg-background/35 px-2 py-0.5">
+                Accountable owner: {acceptanceLeadershipNote.owner}
+              </span>
+              <span className="rounded-full border border-border/40 bg-background/35 px-2 py-0.5">
+                Decision window: {acceptanceLeadershipNote.decisionWindow}
+              </span>
+            </div>
             <Link
               href={acceptanceLeadershipNote.href}
               className="inline-flex items-center gap-1.5 text-primary transition-colors hover:text-primary/80"

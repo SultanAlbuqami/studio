@@ -31,13 +31,18 @@ export default function RootLayout({
             <SidebarInset className="flex flex-col w-full overflow-hidden">
               <main className="flex-1 overflow-y-auto">
                 {children}
-                <footer className="border-t border-border/30 mt-8">
-                  <div className="max-w-[1600px] mx-auto px-5 py-4 md:px-8 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <p className="text-[11px] text-muted-foreground/50">
-                      Designed and built by Sultan Albuqami
-                    </p>
-                    <p className="text-[11px] text-muted-foreground/40">
-                      Demo environment · Illustrative operating data and representative labels for interview demonstration purposes
+                <footer className="mt-8 border-t border-border/30 bg-card/35">
+                  <div className="mx-auto flex max-w-[1600px] flex-col justify-between gap-3 px-5 py-4 md:px-8 lg:flex-row lg:items-center">
+                    <div className="min-w-0">
+                      <p className="text-[11px] font-medium tracking-wide text-foreground/96">
+                        Designed and built by Sultan Albuqami
+                      </p>
+                      <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/82">
+                        Product concept, executive KPI design, UX structure, and implementation for a telecom customer delivery control tower.
+                      </p>
+                    </div>
+                    <p className="max-w-xl text-[11px] leading-relaxed text-muted-foreground/88 lg:text-right">
+                      Prepared as an executive interview demonstration using illustrative operating data, representative labels, and simulated delivery scenarios.
                     </p>
                   </div>
                 </footer>

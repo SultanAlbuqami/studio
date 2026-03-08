@@ -19,27 +19,29 @@ export function DashboardHeader({
   timestamp = dataAsOf,
 }: DashboardHeaderProps) {
   return (
-    <header className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-5 border-b border-border/50">
+    <header className="flex flex-col justify-between gap-4 border-b border-border/50 pb-5 lg:flex-row lg:items-end">
       <div className="min-w-0">
         <p className="section-label mb-1">{subtitle}</p>
-        <h1 className="text-2xl font-bold tracking-tight truncate">{title}</h1>
+        <h1 className="max-w-4xl text-2xl font-bold tracking-tight text-balance">
+          {title}
+        </h1>
       </div>
 
       {!hideFilters && (
-        <div className="flex items-center gap-3 shrink-0">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-border/60 bg-card/50 text-sm">
+        <div className="flex flex-wrap items-center gap-2 shrink-0 lg:justify-end">
+          <div className="flex items-center gap-2 rounded-md border border-border/60 bg-card/50 px-3 py-1.5 text-sm">
             <Layers className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-            <span className="text-xs text-muted-foreground">All Portfolios</span>
+            <span className="text-xs text-muted-foreground">Portfolio scope: All portfolios</span>
           </div>
 
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-md border border-border/60 bg-card/50 text-sm">
+          <div className="flex items-center gap-2 rounded-md border border-border/60 bg-card/50 px-3 py-1.5 text-sm">
             <CalendarIcon className="w-3.5 h-3.5 text-muted-foreground shrink-0" />
-            <span className="text-xs text-muted-foreground">Q1 2026</span>
+            <span className="text-xs text-muted-foreground">Reporting window: Q1 2026</span>
           </div>
 
-          <div className="flex items-center gap-1.5 px-2.5 py-1.5 text-[11px] text-muted-foreground/60">
+          <div className="flex items-center gap-1.5 px-1 py-1 text-[11px] text-muted-foreground/78">
             <Clock className="w-3 h-3" />
-            <span className="tabular-nums">{timestamp}</span>
+            <span className="tabular-nums">Snapshot: {timestamp}</span>
           </div>
         </div>
       )}

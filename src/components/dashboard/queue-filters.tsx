@@ -67,12 +67,11 @@ export function QueueFilters({
   );
 
   return (
-    <div className="rounded-lg border border-border/30 bg-muted/10 p-3 space-y-3">
-      {/* ── Saved presets ── */}
+    <div className="space-y-4 rounded-lg border border-border/30 bg-muted/10 p-3.5">
       <div className="flex flex-wrap items-center gap-2">
-        <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/60">
+        <span className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/72">
           <Bookmark className="h-3 w-3" />
-          Presets
+          Saved views
         </span>
         {filterPresets.map((preset) => {
           const active = isPresetActive(preset, selected);
@@ -104,13 +103,12 @@ export function QueueFilters({
         })}
       </div>
 
-      {/* ── Filter dropdowns ── */}
       <div className="flex flex-col gap-3 xl:flex-row xl:items-end xl:justify-between">
         <div className="grid flex-1 gap-3 md:grid-cols-3">
           <div className="space-y-1.5">
             <p className="flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
               <User className="h-3 w-3" />
-              Owner
+              Accountable Owner
             </p>
             <Select
               value={selected.owner ?? ALL_VALUE}
@@ -178,7 +176,7 @@ export function QueueFilters({
         </div>
 
         <div className="flex items-center justify-between gap-3 xl:justify-end">
-          <p className="text-[11px] text-muted-foreground/70">
+          <p className="text-[11px] text-muted-foreground/76">
             Showing {filteredCount} of {totalCount} {itemLabel}
           </p>
           <Button

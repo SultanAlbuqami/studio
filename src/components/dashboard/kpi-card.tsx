@@ -23,7 +23,7 @@ export function KpiCard({
   className,
   subValue,
   variant = 'compact',
-}: KpiCardProps) {
+}: Readonly<KpiCardProps>) {
   const isSpotlight = variant === 'spotlight';
 
   return (
@@ -34,8 +34,7 @@ export function KpiCard({
         className,
       )}
     >
-      {/* Top row: icon + trend */}
-      <div className="flex items-center justify-between mb-3">
+      <div className="mb-3 flex items-start justify-between gap-3">
         <div className={cn(
           'flex items-center justify-center rounded-md bg-muted/50',
           isSpotlight ? 'h-9 w-9' : 'h-7 w-7',
@@ -48,7 +47,7 @@ export function KpiCard({
         {trend && (
           <span
             className={cn(
-              'font-semibold rounded px-1.5 py-0.5',
+              'inline-flex shrink-0 items-center rounded px-1.5 py-0.5 font-semibold tabular-nums',
               isSpotlight ? 'text-xs' : 'text-[11px]',
               trend.positive
                 ? 'bg-emerald-500/10 text-emerald-400'
@@ -60,24 +59,24 @@ export function KpiCard({
         )}
       </div>
 
-      {/* Label */}
       <p className={cn(
-        'font-semibold uppercase tracking-widest text-muted-foreground',
+        'font-semibold uppercase tracking-widest text-muted-foreground leading-4 text-balance',
         isSpotlight ? 'text-[11px] mb-1' : 'text-[10px] mb-0.5',
       )}>
         {label}
       </p>
 
-      {/* Value */}
-      <div className="flex items-baseline gap-1.5">
+      <div className="flex flex-wrap items-end gap-x-2 gap-y-1">
         <span className={cn(
-          'font-bold tracking-tight',
+          'font-bold tracking-tight tabular-nums leading-none',
           isSpotlight ? 'text-3xl' : 'text-xl',
         )}>
           {value}
         </span>
         {subValue && (
-          <span className="text-xs text-muted-foreground">{subValue}</span>
+          <span className="text-xs uppercase tracking-wide text-muted-foreground/80">
+            {subValue}
+          </span>
         )}
       </div>
     </div>

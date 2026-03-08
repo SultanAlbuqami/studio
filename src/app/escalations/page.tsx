@@ -47,7 +47,7 @@ type EscalationsPageProps = {
 
 export default async function EscalationsPage({
   searchParams,
-}: EscalationsPageProps) {
+}: Readonly<EscalationsPageProps>) {
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const activeFilters = resolveQueueFilters(resolvedSearchParams);
   const filteredEscalations = applyQueueFilters(escalationData, activeFilters);
@@ -160,7 +160,7 @@ export default async function EscalationsPage({
                     </div>
                     <div>
                       <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/70">
-                        Owner
+                        Accountable Owner
                       </p>
                       <p className="mt-1 text-foreground/90">{meta.owner}</p>
                     </div>

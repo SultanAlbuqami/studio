@@ -37,10 +37,10 @@ const overviewItems = [
 
 const operationsItems = [
   { title: "Booking & Fulfillment", url: "/booking", icon: ClipboardList },
-  { title: "Delivery Control", url: "/delivery", icon: Truck },
+  { title: "Delivery Control Tower", url: "/delivery", icon: Truck },
   { title: "Strategic Orders", url: "/strategic", icon: Star },
   { title: "B2C Fulfillment", url: "/b2c", icon: Users },
-  { title: "Escalations", url: "/escalations", icon: AlertTriangle },
+  { title: "Escalations & Recovery", url: "/escalations", icon: AlertTriangle },
 ]
 
 export function AppSidebar() {

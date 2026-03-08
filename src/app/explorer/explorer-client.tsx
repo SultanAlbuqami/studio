@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { DashboardHeader } from '@/components/dashboard/header';
 import { Card, CardContent } from '@/components/ui/card';
 import { explorerData, projectFocusDetails, accountRiskProfiles } from '@/app/lib/dashboard-data';
@@ -32,7 +33,13 @@ const statusStyles: Record<string, string> = {
 };
 
 function parseValue(v: string): number {
-  return parseFloat(v.replace(/[^0-9.]/g, '')) || 0;
+  return Number.parseFloat(v.replaceAll(/[^0-9.]/g, '')) || 0;
+}
+
+function getStatusPriority(status: string) {
+  if (status === 'Delayed') return 0;
+  if (status === 'Active') return 1;
+  return 2;
 }
 
 const statusCounts = {
@@ -65,6 +72,7 @@ export function ExplorerClient({
   initialQuery,
 }: ExplorerClientProps) {
   const [query, setQuery] = useState(initialQuery);
+  const router = useRouter();
   const focusedDetail = projectFocusDetails[initialFocusId] ?? null;
   const matchedRiskProfile = accountRiskProfiles.find(
     (profile) => profile.focusId === initialFocusId,
@@ -90,6 +98,44 @@ export function ExplorerClient({
         item.status.toLowerCase().includes(q),
     );
   }, [query]);
+
+  const filteredValue = filtered.reduce(
+    (sum, item) => sum + parseValue(item.value),
+    0,
+  );
+  const delayedProjects = filtered.filter((item) => item.status === 'Delayed');
+  const delayedValue = delayedProjects.reduce(
+    (sum, item) => sum + parseValue(item.value),
+    0,
+  );
+  const regionCoverage = new Set(filtered.map((item) => item.region)).size;
+  const segmentCoverage = new Set(filtered.map((item) => item.segment)).size;
+  const topPriorityProjects = [...filtered].sort((left, right) => {
+    const leftPriority = getStatusPriority(left.status);
+    const rightPriority = getStatusPriority(right.status);
+
+    if (leftPriority !== rightPriority) {
+      return leftPriority - rightPriority;
+    }
+
+    return parseValue(right.value) - parseValue(left.value);
+  }).slice(0, 3);
+  const leadingProject = topPriorityProjects[0] ?? null;
+  const delayedProjectsLabel = delayedProjects.length === 1 ? 'project is' : 'projects are';
+  const directorReading = delayedProjects.length > 0
+    ? `${delayedProjects.length} delayed ${delayedProjectsLabel} carrying ${delayedValue.toFixed(1)}M SAR of exposed value in the current view. The highest-value item to review next is ${leadingProject?.name ?? 'the leading delayed project'}.`
+    : 'No delayed projects are present in the current view. The immediate focus is keeping active value moving while protecting closeout quality on the largest live programs.';
+
+  const focusProject = (projectId: string) => {
+    const params = new URLSearchParams();
+
+    params.set('focus', projectId);
+    if (query.trim()) {
+      params.set('query', query.trim());
+    }
+
+    router.push(`/explorer?${params.toString()}`);
+  };
 
   return (
     <div className="max-w-[1600px] mx-auto px-5 py-6 md:px-8 md:py-8 space-y-6">
@@ -188,15 +234,103 @@ export function ExplorerClient({
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground tabular-nums px-2">
+        <div className="flex flex-wrap items-center gap-2 px-2 text-xs text-muted-foreground tabular-nums">
           {filtered.length} of {explorerData.length} projects
           {initialFocusId && (
             <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-primary">
-              Focus: {initialFocusId}
+              Focused project: {initialFocusId}
             </span>
           )}
         </div>
       </div>
+
+      <section className="grid gap-4 xl:grid-cols-[1.1fr_0.9fr]">
+        <Card className="executive-card">
+          <div className="px-5 pt-5 pb-3">
+            <p className="text-sm font-semibold">Portfolio Posture in Current View</p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Decision framing for the filtered portfolio, not just a project list.
+            </p>
+          </div>
+          <CardContent className="px-5 pb-5 pt-0 space-y-4">
+            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+              <div className="rounded-md border border-border/30 bg-muted/10 p-3">
+                <p className="section-label">Value in View</p>
+                <p className="mt-2 text-2xl font-bold tabular-nums">{filteredValue.toFixed(1)}M</p>
+                <p className="mt-1 text-xs text-muted-foreground">SAR across the filtered portfolio.</p>
+              </div>
+              <div className="rounded-md border border-rose-500/20 bg-rose-500/5 p-3">
+                <p className="section-label">Delayed Exposure</p>
+                <p className="mt-2 text-2xl font-bold tabular-nums text-rose-400">{delayedValue.toFixed(1)}M</p>
+                <p className="mt-1 text-xs text-muted-foreground">SAR currently sitting in delayed projects.</p>
+              </div>
+              <div className="rounded-md border border-border/30 bg-muted/10 p-3">
+                <p className="section-label">Region Coverage</p>
+                <p className="mt-2 text-2xl font-bold tabular-nums">{regionCoverage}</p>
+                <p className="mt-1 text-xs text-muted-foreground">Regions represented in this working set.</p>
+              </div>
+              <div className="rounded-md border border-border/30 bg-muted/10 p-3">
+                <p className="section-label">Segment Mix</p>
+                <p className="mt-2 text-2xl font-bold tabular-nums">{segmentCoverage}</p>
+                <p className="mt-1 text-xs text-muted-foreground">Customer segments currently in view.</p>
+              </div>
+            </div>
+
+            <div className="rounded-md border border-border/30 bg-background/30 p-4">
+              <p className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
+                Director Reading
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-foreground/90">
+                {directorReading}
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card className="executive-card">
+          <div className="px-5 pt-5 pb-3">
+            <p className="text-sm font-semibold">Priority Review Queue</p>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Fast access to the projects most likely to change the leadership conversation.
+            </p>
+          </div>
+          <CardContent className="px-5 pb-5 pt-0 space-y-3">
+            {topPriorityProjects.map((item, index) => (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => focusProject(item.id)}
+                className="w-full rounded-md border border-border/30 bg-muted/10 p-3 text-left transition-colors hover:bg-muted/15"
+              >
+                <div className="flex items-center justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-primary">
+                        P{index + 1}
+                      </span>
+                      <span className="text-[11px] font-mono text-muted-foreground">{item.id}</span>
+                    </div>
+                    <p className="mt-2 text-sm font-semibold text-foreground/92">{item.name}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      {item.region} · {item.segment}
+                    </p>
+                  </div>
+                  <span className={`rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${statusStyles[item.status] ?? ''}`}>
+                    {item.status}
+                  </span>
+                </div>
+                <div className="mt-3 flex items-center justify-between gap-3 border-t border-border/30 pt-3 text-[11px] text-muted-foreground/78">
+                  <span>Value: {item.value} SAR</span>
+                  <span className="inline-flex items-center gap-1 text-primary">
+                    Open detail
+                    <Search className="h-3 w-3" />
+                  </span>
+                </div>
+              </button>
+            ))}
+          </CardContent>
+        </Card>
+      </section>
 
       {/* ── Account Risk Profile (shared with home + AI) ── */}
       {matchedRiskProfile && (
@@ -224,7 +358,7 @@ export function ExplorerClient({
                 <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-muted-foreground/70">
                   <span className="flex items-center gap-1">
                     <User className="h-3 w-3" />
-                    {matchedRiskProfile.owner}
+                    Accountable owner: {matchedRiskProfile.owner}
                   </span>
                   <span>{matchedRiskProfile.region} region</span>
                 </div>
@@ -264,17 +398,23 @@ export function ExplorerClient({
                   return (
                     <TableRow
                       key={item.id}
-                      className={`border-border/20 transition-colors ${
+                      className={`cursor-pointer border-border/20 transition-colors ${
                         isFocused
                           ? 'bg-primary/5 hover:bg-primary/5'
                           : 'hover:bg-muted/10'
                       }`}
+                      onClick={() => focusProject(item.id)}
                     >
                       <TableCell className="font-mono text-xs pl-5">
                         {item.id}
                       </TableCell>
-                      <TableCell className="font-medium text-sm">
-                        {item.name}
+                      <TableCell className="text-sm">
+                        <div>
+                          <p className="font-medium text-foreground/92">{item.name}</p>
+                          <p className="mt-0.5 text-[11px] text-muted-foreground/72">
+                            {projectFocusDetails[item.id]?.subtitle ?? `${item.segment} portfolio`}
+                          </p>
+                        </div>
                       </TableCell>
                       <TableCell className="text-sm text-muted-foreground">
                         {item.region}

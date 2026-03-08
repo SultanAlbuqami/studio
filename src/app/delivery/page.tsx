@@ -46,6 +46,18 @@ const statusStyles: Record<string, string> = {
   'at-risk': 'bg-destructive/10 text-destructive',
 };
 
+const fieldAlertCardTone: Record<string, string> = {
+  critical: 'border-destructive/15 bg-destructive/5',
+  warning: 'border-amber-500/15 bg-amber-500/5',
+  positive: 'border-emerald-500/15 bg-emerald-500/5',
+};
+
+const fieldAlertTextTone: Record<string, string> = {
+  critical: 'text-destructive',
+  warning: 'text-amber-400',
+  positive: 'text-emerald-400',
+};
+
 function progressForStatus(status: string) {
   if (status === 'completed') return 100;
   if (status === 'in-progress') return 75;
@@ -64,7 +76,7 @@ type DeliveryPageProps = {
 
 export default async function DeliveryPage({
   searchParams,
-}: DeliveryPageProps) {
+}: Readonly<DeliveryPageProps>) {
   const resolvedSearchParams = searchParams ? await searchParams : undefined;
   const focusedException = getFirstSearchParamValue(resolvedSearchParams?.focus);
   const activeFilters = resolveQueueFilters(resolvedSearchParams);
@@ -99,10 +111,14 @@ export default async function DeliveryPage({
               </div>
               <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground mb-0.5">{m.stage}</p>
               <p className="text-xl font-bold">{m.count}</p>
-              <div className="flex items-center gap-3 mt-2 text-[11px]">
-                <span className="text-muted-foreground">Avg <span className="font-mono tabular-nums">{m.avgDays}d</span></span>
+              <div className="mt-2 flex flex-wrap gap-2 text-[11px]">
+                <span className="rounded-full bg-muted/35 px-2 py-0.5 text-muted-foreground">
+                  Avg <span className="font-mono tabular-nums">{m.avgDays}d</span>
+                </span>
                 {m.overdue > 0 && (
-                  <span className="text-rose-400 font-semibold">{m.overdue} overdue</span>
+                  <span className="rounded-full bg-rose-500/10 px-2 py-0.5 font-semibold text-rose-400">
+                    {m.overdue} overdue
+                  </span>
                 )}
               </div>
             </div>
@@ -171,25 +187,11 @@ export default async function DeliveryPage({
                 <Link
                   key={alert.id}
                   href={alert.href}
-                  className={`block rounded-md border p-3 transition-colors hover:bg-muted/10 ${
-                    alert.tone === 'critical'
-                      ? 'border-destructive/15 bg-destructive/5'
-                      : alert.tone === 'warning'
-                        ? 'border-amber-500/15 bg-amber-500/5'
-                        : 'border-emerald-500/15 bg-emerald-500/5'
-                  }`}
+                  className={`block rounded-md border p-3 transition-colors hover:bg-muted/10 ${fieldAlertCardTone[alert.tone]}`}
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p
-                        className={`text-sm font-medium ${
-                          alert.tone === 'critical'
-                            ? 'text-destructive'
-                            : alert.tone === 'warning'
-                              ? 'text-amber-400'
-                              : 'text-emerald-400'
-                        }`}
-                      >
+                      <p className={`text-sm font-medium ${fieldAlertTextTone[alert.tone]}`}>
                         {alert.title}
                       </p>
                       <p className="mt-0.5 text-xs text-muted-foreground">

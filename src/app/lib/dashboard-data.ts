@@ -1307,7 +1307,7 @@ export const escalationData = [
     age: "48 hours",
     status: "In Progress",
     subject: "NAT System failure in Central Node",
-    owner: "Network Ops",
+    owner: "Network Operations",
     decisionWindow: "Today",
     ...escalationFromDecision('stc-failover', {
       subject: "NAT System failure in Central Node",
@@ -1319,7 +1319,7 @@ export const escalationData = [
     age: "12 hours",
     status: "Assigned",
     subject: "Backbone Fiber cut near NEOM — Repair ongoing",
-    owner: "Field Eng.",
+    owner: "Field Engineering Director",
     decisionWindow: "Within 4h",
     ...escalationFromDecision('neom-backbone', {
       subject: "Backbone Fiber cut near NEOM — Repair ongoing",
@@ -1331,7 +1331,7 @@ export const escalationData = [
     age: "36 hours",
     status: "In Progress",
     subject: "PIF Data Center UPS capacity breach risk",
-    owner: "DC Ops",
+    owner: "Data Center Operations",
     decisionWindow: "Today",
     ...escalationFromDecision('pif-ups', {
       subject: "PIF Data Center UPS capacity breach risk",
@@ -1343,7 +1343,7 @@ export const escalationData = [
     age: "72 hours",
     status: "Awaiting Client",
     subject: "MPLS routing delay for Aramco",
-    owner: "IP Team",
+    owner: "IP Engineering",
     decisionWindow: "48h",
     ...escalationFromDecision('aramco-uat', {
       subject: "MPLS routing delay for Aramco",
@@ -1355,7 +1355,7 @@ export const escalationData = [
     age: "6 hours",
     status: "Assigned",
     subject: "SLA breach imminent — MoI VPN degradation",
-    owner: "Enterprise Svc",
+    owner: "Enterprise Service Operations",
     decisionWindow: "Within 2h",
     ...escalationFromDecision('moi-vpn-recovery', {
       subject: "SLA breach imminent — MoI VPN degradation",
@@ -1367,7 +1367,7 @@ export const escalationData = [
     age: "24 hours",
     status: "Assigned",
     subject: "Latency in B2B portal for Enterprise accounts",
-    owner: "Platform Eng.",
+    owner: "Platform Engineering",
     decisionWindow: "24h",
     ...escalationFromDecision('portal-performance', {
       subject: "Latency in B2B portal for Enterprise accounts",
@@ -1379,7 +1379,7 @@ export const escalationData = [
     age: "96 hours",
     status: "Awaiting Vendor",
     subject: "Cisco switch replacement pending for Jeddah POP",
-    owner: "Supply Chain",
+    owner: "Supply Chain Director",
     decisionWindow: "72h",
     ...escalationFromDecision('jeddah-diversion', {
       subject: "Cisco switch replacement pending for Jeddah POP",

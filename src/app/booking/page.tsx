@@ -89,9 +89,11 @@ export default function BookingPage() {
                 <div key={step.stage} className="space-y-1">
                   <div className="flex justify-between items-baseline">
                     <span className="text-sm font-medium">{step.stage}</span>
-                    <div className="flex items-center gap-2">
+                    <div className="flex flex-wrap items-center justify-end gap-2">
                       {idx > 0 && (
-                        <span className="text-[10px] text-muted-foreground/60 tabular-nums">{convRate}%</span>
+                        <span className="rounded-full border border-border/40 bg-background/40 px-2 py-0.5 text-[10px] text-muted-foreground/80 tabular-nums">
+                          Step yield {convRate}%
+                        </span>
                       )}
                       <span className="text-sm font-mono tabular-nums text-muted-foreground">{step.count}</span>
                     </div>
@@ -124,8 +126,8 @@ export default function BookingPage() {
             {bookingFulfillmentData.throughputByRegion.map((r) => (
               <div key={r.region} className="flex items-center justify-between px-3 py-2.5 rounded-md bg-muted/20 border border-border/30">
                 <span className="text-sm font-medium">{r.region}</span>
-                <div className="flex items-center gap-3">
-                  <span className="text-sm font-mono tabular-nums text-muted-foreground">{r.volume}</span>
+                <div className="flex flex-wrap items-center justify-end gap-2.5">
+                  <span className="text-sm font-mono tabular-nums text-muted-foreground">{r.volume} orders</span>
                   <span className={`text-[11px] font-semibold px-1.5 py-0.5 rounded ${
                     r.growth.startsWith('+') ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
                   }`}>
@@ -177,12 +179,13 @@ export default function BookingPage() {
             <div className="space-y-3">
               {bookingFulfillmentData.orderAgeDistribution.map((bucket, index) => {
                 const share = Math.round((bucket.orders / totalAgingOrders) * 100);
-                const tone =
-                  index >= bookingFulfillmentData.orderAgeDistribution.length - 1
-                    ? 'bg-destructive/70'
-                    : index >= bookingFulfillmentData.orderAgeDistribution.length - 2
-                      ? 'bg-amber-400/80'
-                      : 'bg-primary/70';
+                let tone = 'bg-primary/70';
+
+                if (index >= bookingFulfillmentData.orderAgeDistribution.length - 1) {
+                  tone = 'bg-destructive/70';
+                } else if (index >= bookingFulfillmentData.orderAgeDistribution.length - 2) {
+                  tone = 'bg-amber-400/80';
+                }
 
                 return (
                   <div key={bucket.bucket} className="space-y-1.5">
