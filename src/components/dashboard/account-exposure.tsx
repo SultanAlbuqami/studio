@@ -1,5 +1,6 @@
 "use client";
 
+import { useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { Card, CardContent } from '@/components/ui/card';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -17,6 +18,15 @@ export function AccountExposure({ focusedProfileId }: AccountExposureProps) {
   const focusedProfile =
     accountRiskProfiles.find((profile) => profile.focusId === focusedProfileId) ??
     null;
+
+  const handleRowKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLTableRowElement>, focusId: string) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return;
+      event.preventDefault();
+      router.push(`/?focus=${focusId}#commercial-risk`, { scroll: false });
+    },
+    [router],
+  );
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
@@ -43,6 +53,8 @@ export function AccountExposure({ focusedProfileId }: AccountExposureProps) {
                 return (
                 <TableRow
                   key={account.focusId}
+                  tabIndex={0}
+                  onKeyDown={(event) => handleRowKeyDown(event, account.focusId)}
                   className={`border-border/20 cursor-pointer transition-colors group ${
                     isFocused
                       ? 'bg-primary/5 hover:bg-primary/5'

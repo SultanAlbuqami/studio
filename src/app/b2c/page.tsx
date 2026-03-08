@@ -148,51 +148,51 @@ export default function B2CPage() {
       <div className="grid gap-4 xl:grid-cols-[1.15fr_0.85fr]">
         <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 xl:grid-cols-2">
           <Card className="executive-card">
-          <div className="px-5 pt-5 pb-2">
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-sm font-semibold">Install Velocity</p>
-                <p className="text-xs text-muted-foreground mt-0.5">Weekly completed installations — last 6 weeks</p>
+            <div className="px-5 pt-5 pb-2">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-semibold">Install Velocity</p>
+                  <p className="text-xs text-muted-foreground mt-0.5">Weekly completed installations — last 6 weeks</p>
+                </div>
+                {installDelta !== 0 && (
+                  <span className={`text-[11px] font-semibold px-1.5 py-0.5 rounded ${
+                    installDelta > 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
+                  }`}>
+                    {installDelta > 0 ? '+' : ''}{installDelta} WoW
+                  </span>
+                )}
               </div>
-              {installDelta !== 0 && (
-                <span className={`text-[11px] font-semibold px-1.5 py-0.5 rounded ${
-                  installDelta > 0 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-rose-500/10 text-rose-400'
-                }`}>
-                  {installDelta > 0 ? '+' : ''}{installDelta} WoW
-                </span>
-              )}
             </div>
-          </div>
-          <CardContent className="px-5 pb-5 pt-0">
-            <ChartContainer config={installChartConfig} className="h-[200px] w-full">
-              <BarChart data={b2cWeeklyTrend} margin={{ top: 8, right: 4, left: -24, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" strokeOpacity={0.5} />
-                <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
-                <YAxis axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Bar dataKey="installs" fill="var(--color-installs)" radius={[3, 3, 0, 0]} barSize={28} />
-              </BarChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
+            <CardContent className="px-5 pb-5 pt-0">
+              <ChartContainer config={installChartConfig} className="h-[200px] w-full">
+                <BarChart data={b2cWeeklyTrend} margin={{ top: 8, right: 4, left: -24, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" strokeOpacity={0.5} />
+                  <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
+                  <YAxis axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Bar dataKey="installs" fill="var(--color-installs)" radius={[3, 3, 0, 0]} barSize={28} />
+                </BarChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
 
           <Card className="executive-card">
-          <div className="px-5 pt-5 pb-2">
-            <p className="text-sm font-semibold">CSAT Trend</p>
-            <p className="text-xs text-muted-foreground mt-0.5">Customer satisfaction score — last 6 weeks</p>
-          </div>
-          <CardContent className="px-5 pb-5 pt-0">
-            <ChartContainer config={csatChartConfig} className="h-[200px] w-full">
-              <LineChart data={b2cWeeklyTrend} margin={{ top: 8, right: 4, left: -24, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" strokeOpacity={0.5} />
-                <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
-                <YAxis domain={[4, 5]} axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
-                <ChartTooltip content={<ChartTooltipContent />} />
-                <Line type="monotone" dataKey="csat" stroke="var(--color-csat)" strokeWidth={2} dot={{ r: 3, fill: 'var(--color-csat)' }} />
-              </LineChart>
-            </ChartContainer>
-          </CardContent>
-        </Card>
+            <div className="px-5 pt-5 pb-2">
+              <p className="text-sm font-semibold">CSAT Trend</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Customer satisfaction score — last 6 weeks</p>
+            </div>
+            <CardContent className="px-5 pb-5 pt-0">
+              <ChartContainer config={csatChartConfig} className="h-[200px] w-full">
+                <LineChart data={b2cWeeklyTrend} margin={{ top: 8, right: 4, left: -24, bottom: 0 }}>
+                  <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" strokeOpacity={0.5} />
+                  <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
+                  <YAxis domain={[4, 5]} axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
+                  <ChartTooltip content={<ChartTooltipContent />} />
+                  <Line type="monotone" dataKey="csat" stroke="var(--color-csat)" strokeWidth={2} dot={{ r: 3, fill: 'var(--color-csat)' }} />
+                </LineChart>
+              </ChartContainer>
+            </CardContent>
+          </Card>
 
           <Card className="executive-card lg:col-span-2 xl:col-span-2">
             <div className="px-5 pt-5 pb-3">

@@ -1,22 +1,27 @@
 import { DashboardHeader } from '@/components/dashboard/header';
 import { Card } from '@/components/ui/card';
-import { Database, ShieldCheck, Info, AlertTriangle } from 'lucide-react';
+import { kpiMetadata, type KpiMetadataKey } from '@/app/lib/kpi-metadata';
+import { Database, ShieldCheck, Info, AlertTriangle, Target } from 'lucide-react';
+
+const allKpiKeys = Object.keys(kpiMetadata) as KpiMetadataKey[];
 
 export default function MethodologyPage() {
   return (
     <div className="max-w-[1600px] mx-auto px-5 py-6 md:px-8 md:py-8 space-y-6">
       <DashboardHeader title="Data Governance & Methodology" subtitle="Reference" hideFilters />
 
-      <div className="max-w-3xl space-y-6">
-        <p className="text-sm text-muted-foreground leading-relaxed">
-          This Control Tower is a directionally aligned demo of how a telecom
-          delivery cockpit can consolidate order, activation, acceptance,
-          escalation, and revenue signals into one executive view. Taxonomy is
-          grounded in public Salam references; operational metrics remain
-          synthetic for demonstration.
-        </p>
+      <div className="space-y-6">
+        <div className="max-w-3xl">
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            This Control Tower is a directionally aligned demo of how a telecom
+            delivery cockpit can consolidate order, activation, acceptance,
+            escalation, and revenue signals into one executive view. Taxonomy is
+            grounded in public Salam references; operational metrics remain
+            synthetic for demonstration.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl">
           <Card className="executive-card">
             <div className="p-5">
               <div className="flex items-center gap-2 mb-3">
@@ -49,7 +54,7 @@ export default function MethodologyPage() {
           </Card>
         </div>
 
-        <Card className="executive-card">
+        <Card className="executive-card max-w-3xl">
           <div className="p-5">
             <div className="flex items-center gap-2 mb-3">
               <AlertTriangle className="w-4 h-4 text-primary" />
@@ -75,7 +80,93 @@ export default function MethodologyPage() {
           </div>
         </Card>
 
-        <Card className="executive-card border-primary/15">
+        {/* ── KPI Dictionary ── */}
+        <div className="section-divider">
+          <span className="section-label">KPI Dictionary</span>
+        </div>
+
+        <p className="max-w-3xl text-sm text-muted-foreground leading-relaxed">
+          Every metric in the cockpit is governed with a named source system,
+          accountable owner, review forum, and operating threshold. Only metrics
+          that pass this standard appear in executive views.
+        </p>
+
+        <div className="space-y-3">
+          <div className="hidden rounded-lg border border-border/40 bg-background/40 px-4 py-3 lg:grid lg:grid-cols-[1fr_1.2fr_1fr_0.9fr_0.8fr] lg:gap-4">
+            {['KPI', 'Source', 'Accountable Owner', 'Review Forum', 'Threshold'].map(
+              (label) => (
+                <p
+                  key={label}
+                  className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground"
+                >
+                  {label}
+                </p>
+              )
+            )}
+          </div>
+
+          {allKpiKeys.map((key) => {
+            const meta = kpiMetadata[key];
+
+            return (
+              <div
+                key={key}
+                className="rounded-lg border border-border/40 bg-background/30 p-4 lg:grid lg:grid-cols-[1fr_1.2fr_1fr_0.9fr_0.8fr] lg:gap-4"
+              >
+                <div className="space-y-1">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground lg:hidden">
+                    KPI
+                  </p>
+                  <p className="text-sm font-semibold text-foreground/90">
+                    {meta.label}
+                  </p>
+                </div>
+                <div className="mt-3 space-y-1 lg:mt-0">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground lg:hidden">
+                    Source
+                  </p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {meta.source}
+                  </p>
+                </div>
+                <div className="mt-3 space-y-1 lg:mt-0">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground lg:hidden">
+                    Accountable Owner
+                  </p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {meta.owner}
+                  </p>
+                </div>
+                <div className="mt-3 space-y-1 lg:mt-0">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground lg:hidden">
+                    Review Forum
+                  </p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {meta.forum}
+                  </p>
+                </div>
+                <div className="mt-3 space-y-1 lg:mt-0">
+                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground lg:hidden">
+                    Threshold
+                  </p>
+                  <p className="text-sm leading-relaxed text-muted-foreground">
+                    {meta.threshold}
+                  </p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="flex items-center gap-3 rounded-lg border border-border/40 bg-card/40 px-4 py-2.5 max-w-3xl">
+          <Target className="h-3.5 w-3.5 shrink-0 text-primary" />
+          <p className="text-[11px] text-muted-foreground">
+            {allKpiKeys.length} governed KPIs across delivery, acceptance,
+            escalation, booking, and consumer fulfillment domains.
+          </p>
+        </div>
+
+        <Card className="executive-card border-primary/15 max-w-3xl">
           <div className="p-5">
             <div className="flex items-center gap-2 mb-2">
               <Info className="w-4 h-4 text-primary" />
