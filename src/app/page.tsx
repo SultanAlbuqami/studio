@@ -130,7 +130,7 @@ export default async function ExecutiveOverview({
 
           {/* Right Rail: Decisions & Intelligence */}
           <aside className="xl:col-span-4">
-            <div className="sticky top-6 space-y-6">
+            <div className="sticky top-6 space-y-6 xl:max-h-[calc(100svh-3rem)] xl:overflow-y-auto xl:pr-1">
 
               {/* AI Intelligence — Executive Brief + Recommended Actions */}
               <section>

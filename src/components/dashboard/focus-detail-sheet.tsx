@@ -35,7 +35,7 @@ export function FocusDetailSheet({
 
   useEffect(() => {
     setOpen(Boolean(detail));
-  }, [detail?.id]);
+  }, [detail]);
 
   if (!detail) return null;
 

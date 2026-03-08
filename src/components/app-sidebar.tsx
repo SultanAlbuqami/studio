@@ -1,20 +1,14 @@
 "use client"
 
 import * as React from "react"
-import {
-  LayoutDashboard,
-  ClipboardList,
-  Truck,
-  Star,
-  Users,
-  AlertTriangle,
-  Search,
-  TowerControl,
-  BookOpen,
-  Rocket,
-} from "lucide-react"
+import { TowerControl } from "lucide-react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import {
+  operationsNavigationItems,
+  overviewNavigationItems,
+  referenceNavigationItems,
+} from "@/app/lib/navigation"
 
 import {
   Sidebar,
@@ -29,19 +23,6 @@ import {
   SidebarRail,
   SidebarFooter,
 } from "@/components/ui/sidebar"
-
-const overviewItems = [
-  { title: "Executive Overview", url: "/", icon: LayoutDashboard },
-  { title: "Portfolio Explorer", url: "/explorer", icon: Search },
-]
-
-const operationsItems = [
-  { title: "Booking & Fulfillment", url: "/booking", icon: ClipboardList },
-  { title: "Delivery Control Tower", url: "/delivery", icon: Truck },
-  { title: "Strategic Orders", url: "/strategic", icon: Star },
-  { title: "B2C Fulfillment", url: "/b2c", icon: Users },
-  { title: "Escalations & Recovery", url: "/escalations", icon: AlertTriangle },
-]
 
 export function AppSidebar() {
   const pathname = usePathname()
@@ -64,7 +45,7 @@ export function AppSidebar() {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {overviewItems.map((item) => (
+              {overviewNavigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={pathname === item.url} tooltip={item.title}>
                     <Link href={item.url}>
@@ -82,7 +63,7 @@ export function AppSidebar() {
           <SidebarGroupLabel>Operations</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {operationsItems.map((item) => (
+              {operationsNavigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={pathname === item.url} tooltip={item.title}>
                     <Link href={item.url}>
@@ -99,22 +80,16 @@ export function AppSidebar() {
 
       <SidebarFooter className="border-t border-sidebar-border py-2">
         <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={pathname === '/deployment'} tooltip="Deployment Roadmap">
-              <Link href="/deployment">
-                <Rocket className="h-4 w-4" />
-                <span>Deployment Roadmap</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-          <SidebarMenuItem>
-            <SidebarMenuButton asChild isActive={pathname === '/methodology'} tooltip="Data Governance">
-              <Link href="/methodology">
-                <BookOpen className="h-4 w-4" />
-                <span>Data Governance</span>
-              </Link>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
+          {referenceNavigationItems.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              <SidebarMenuButton asChild isActive={pathname === item.url} tooltip={item.title}>
+                <Link href={item.url}>
+                  <item.icon className="h-4 w-4" />
+                  <span>{item.title}</span>
+                </Link>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          ))}
         </SidebarMenu>
       </SidebarFooter>
 

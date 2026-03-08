@@ -24,7 +24,7 @@ export default function MethodologyPage() {
                 <p className="text-sm font-semibold">Service Taxonomy</p>
               </div>
               <div className="text-sm text-muted-foreground space-y-2">
-                <p>Data is structured around Salam's core service families:</p>
+                <p>Data is structured around Salam&apos;s core service families:</p>
                 <ul className="list-disc list-inside space-y-1 text-xs">
                   <li>B2B Fiber & Connectivity</li>
                   <li>Managed VPN & SD-WAN</li>
@@ -79,7 +79,7 @@ export default function MethodologyPage() {
           <div className="p-5">
             <div className="flex items-center gap-2 mb-2">
               <Info className="w-4 h-4 text-primary" />
-              <p className="text-sm font-semibold">Director's Note</p>
+              <p className="text-sm font-semibold">Director&apos;s Note</p>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               This Control Tower is designed for high-velocity PMO decisions

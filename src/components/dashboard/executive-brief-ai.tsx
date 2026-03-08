@@ -270,9 +270,9 @@ export function ExecutiveBriefAI({
 
   const briefBullets = result?.briefBullets ?? staticBriefBullets;
   const recommendations = result?.recommendations ?? staticRecommendations;
-  const visibleBriefBullets = compact ? briefBullets.slice(0, 4) : briefBullets;
+  const visibleBriefBullets = compact ? briefBullets.slice(0, 3) : briefBullets;
   const visibleRecommendations = compact
-    ? recommendations.slice(0, 3)
+    ? recommendations.slice(0, 2)
     : recommendations;
   const hiddenBriefCount = briefBullets.length - visibleBriefBullets.length;
   const hiddenRecommendationCount =

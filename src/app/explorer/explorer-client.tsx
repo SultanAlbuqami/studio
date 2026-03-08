@@ -137,6 +137,16 @@ export function ExplorerClient({
     router.push(`/explorer?${params.toString()}`);
   };
 
+  const handleProjectKeyDown = (
+    event: React.KeyboardEvent<HTMLTableRowElement>,
+    projectId: string,
+  ) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+
+    event.preventDefault();
+    focusProject(projectId);
+  };
+
   return (
     <div className="max-w-[1600px] mx-auto px-5 py-6 md:px-8 md:py-8 space-y-6">
       <DashboardHeader title="Portfolio Explorer" subtitle="Search & Analysis" />
@@ -368,7 +378,90 @@ export function ExplorerClient({
         </Card>
       )}
 
-      <Card className="executive-card overflow-hidden">
+      <div className="space-y-3 lg:hidden">
+        {filtered.length === 0 ? (
+          <div className="rounded-xl border border-dashed border-border/40 bg-muted/5 p-6 text-center">
+            <p className="text-sm font-medium">No projects match your search.</p>
+            <p className="mt-1 text-xs text-muted-foreground">
+              Try a project ID, customer name, segment, or region keyword.
+            </p>
+          </div>
+        ) : (
+          filtered.map((item) => {
+            const isFocused = item.id === initialFocusId;
+            const subtitle =
+              projectFocusDetails[item.id]?.subtitle ?? `${item.segment} portfolio`;
+
+            return (
+              <button
+                key={item.id}
+                type="button"
+                onClick={() => focusProject(item.id)}
+                className={`w-full rounded-xl border p-4 text-left transition-colors ${
+                  isFocused
+                    ? 'border-primary/40 bg-primary/5 shadow-[0_0_0_1px_rgba(59,130,246,0.15)]'
+                    : 'border-border/30 bg-card/55 hover:bg-muted/10'
+                }`}
+                aria-label={`Open ${item.name} details`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="text-[11px] font-mono text-muted-foreground">
+                        {item.id}
+                      </span>
+                      <span
+                        className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${
+                          statusStyles[item.status] ?? ''
+                        }`}
+                      >
+                        {item.status}
+                      </span>
+                      {isFocused && (
+                        <span className="rounded-full bg-emerald-500/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-emerald-400">
+                          Focused
+                        </span>
+                      )}
+                    </div>
+                    <p className="mt-2 text-sm font-semibold text-foreground/92">
+                      {item.name}
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground/76">
+                      {subtitle}
+                    </p>
+                  </div>
+
+                  <div className="shrink-0 text-right">
+                    <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
+                      Value
+                    </p>
+                    <p className="mt-1 text-sm font-semibold font-mono text-foreground/92">
+                      {item.value}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="mt-3 flex items-center justify-between gap-3 border-t border-border/30 pt-3">
+                  <div className="flex flex-wrap gap-2">
+                    <span className="rounded-full border border-border/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/78">
+                      {item.region}
+                    </span>
+                    <span className="rounded-full border border-border/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground/78">
+                      {item.segment}
+                    </span>
+                  </div>
+                  <span className="inline-flex items-center gap-1 text-xs font-medium text-primary">
+                    Open detail
+                    <Search className="h-3.5 w-3.5" />
+                  </span>
+                </div>
+              </button>
+            );
+          })
+        )}
+      </div>
+
+      <Card className="hidden executive-card overflow-hidden lg:block">
         <CardContent className="p-0">
           <Table>
             <TableHeader>
@@ -398,6 +491,8 @@ export function ExplorerClient({
                   return (
                     <TableRow
                       key={item.id}
+                      tabIndex={0}
+                      onKeyDown={(event) => handleProjectKeyDown(event, item.id)}
                       className={`cursor-pointer border-border/20 transition-colors ${
                         isFocused
                           ? 'bg-primary/5 hover:bg-primary/5'
