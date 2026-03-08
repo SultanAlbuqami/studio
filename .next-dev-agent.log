@@ -1,0 +1,51 @@
+
+> nextn@0.1.0 dev
+> next dev --turbopack -p 9002
+
+   ▲ Next.js 15.5.9 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.3.69:9002
+
+ ✓ Starting...
+Creating turbopack project { dir: 'C:\\Users\\SuLtan\\studio', testMode: true }
+ ✓ Ready in 1556ms
+ ○ Compiling / ...
+ ✓ Compiled / in 5s
+ GET / 200 in 6041ms
+ GET / 200 in 477ms
+ GET / 200 in 529ms
+ ○ Compiling /delivery ...
+ ✓ Compiled /delivery in 976ms
+ GET /delivery?region=Western 200 in 2096ms
+ ✓ Compiled /strategic in 438ms
+ GET /strategic?owner=Director%20Customer%20PMO 200 in 1378ms
+ ✓ Compiled /escalations in 438ms
+ GET /escalations?window=Today 200 in 1128ms
+ ✓ Compiled /explorer in 417ms
+ GET /explorer 200 in 677ms
+ ✓ Compiled /booking in 410ms
+ GET /booking 200 in 687ms
+ ✓ Compiled /deployment in 467ms
+ GET /deployment 200 in 846ms
+ ○ Compiling /b2c ...
+ ✓ Compiled /b2c in 638ms
+ GET /b2c 200 in 1018ms
+ ✓ Compiled /methodology in 343ms
+ GET /methodology 200 in 669ms
+ GET / 200 in 499ms
+ GET /explorer 200 in 353ms
+ ✓ Compiled in 1886ms
+ ✓ Compiled in 310ms
+ ✓ Compiled in 17.4s
+ ✓ Compiled / in 5ms
+ ○ Compiling /_error ...
+ ✓ Compiled /_error in 1493ms
+ ✓ Compiled /delivery in 7ms
+ ✓ Compiled /strategic in 4ms
+ ✓ Compiled /escalations in 3ms
+ ✓ Compiled /explorer in 3ms
+ ✓ Compiled /booking in 3ms
+ ✓ Compiled /deployment in 3ms
+ ✓ Compiled /b2c in 4ms
+ ✓ Compiled /methodology in 2ms
+[?25h

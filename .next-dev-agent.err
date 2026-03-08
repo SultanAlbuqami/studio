@@ -1,0 +1,821 @@
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20%5Bproject%5D%2Fsrc%2Fapp%2Fglobals.css%20%5Bapp-client%5D%20%28css%29&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20%5Bproject%5D%2Fsrc%2Fapp%2Fglobals.css%20%5Bapp-client%5D%20%28css%29%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.1w9vh4g2akq'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.1w9vh4g2akq'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484639 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.jdiw7ixyuq'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.jdiw7ixyuq'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.dt46wq02wee'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.dt46wq02wee'
+}
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fdelivery%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fdelivery%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.x9li2vwamde'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.x9li2vwamde'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /delivery/page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484670 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /delivery/page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /delivery/page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.i78lgcyt84'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.i78lgcyt84'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.iyvmnohnszg'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.iyvmnohnszg'
+}
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fstrategic%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fstrategic%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.wya44af723'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.wya44af723'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /strategic/page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484698 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /strategic/page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /strategic/page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.f9l886pyibc'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.f9l886pyibc'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.uxa53s8yep'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.uxa53s8yep'
+}
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fescalations%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fescalations%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.81oq0fxh116'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.81oq0fxh116'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /escalations/page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484726 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /escalations/page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /escalations/page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.zn0jz6muyd'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.zn0jz6muyd'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.3n0n95rrwba'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.3n0n95rrwba'
+}
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fexplorer%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fexplorer%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.j4d1u95d4ms'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.j4d1u95d4ms'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /explorer/page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484754 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /explorer/page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /explorer/page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.2ynz7h1n7ll'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.2ynz7h1n7ll'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.6pszdaq7a9u'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.6pszdaq7a9u'
+}
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fbooking%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fbooking%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.zlki92ze9x'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.zlki92ze9x'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /booking/page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484782 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /booking/page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /booking/page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.4dv65vzsu57'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.4dv65vzsu57'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.amqks15va1w'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.amqks15va1w'
+}
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fdeployment%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fdeployment%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.s0vqfj3h7ti'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.s0vqfj3h7ti'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /deployment/page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484810 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /deployment/page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /deployment/page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.nxftsifwdrn'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.nxftsifwdrn'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.be2ngw3z3rc'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.be2ngw3z3rc'
+}
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fb2c%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fb2c%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.hk6h4521ja6'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.hk6h4521ja6'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /b2c/page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484838 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /b2c/page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /b2c/page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.gdr1sc3vkb'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.gdr1sc3vkb'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.n8nhmy7158n'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.n8nhmy7158n'
+}
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fmethodology%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fmethodology%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.wmpno1bpzk'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.wmpno1bpzk'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /methodology/page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484866 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /methodology/page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /methodology/page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.kl2p4ni6j3'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.kl2p4ni6j3'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.6q9amt6clc4'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.6q9amt6clc4'
+}
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.9z7r29862qc'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.9z7r29862qc'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484894 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.iw4ev8uoud'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.iw4ev8uoud'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.02c27k64mt0q'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.02c27k64mt0q'
+}
+
+-----
+[1m[31mFATAL[39m[0m: An unexpected Turbopack error occurred. A panic log has been written to C:\Users\SuLtan\AppData\Local\Temp\next-panic-e20e88f5c46e8b186eb612a3310c1a2a.log.
+
+To help make Turbopack better, report this error by clicking here: https://github.com/vercel/next.js/discussions/new?category=turbopack-error-report&title=Turbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fpage&body=Turbopack%20version%3A%20%6096f69990%60%0ANext.js%20version%3A%20%600.0.0%60%0A%0AError%20message%3A%0A%60%60%60%0ATurbopack%20Error%3A%20Failed%20to%20write%20app%20endpoint%20%2Fpage%0A%60%60%60&labels=Turbopack,Turbopack%20Panic%20Backtrace
+-----
+
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.co9dht8sc3t'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.co9dht8sc3t'
+}
+Error [TurbopackInternalError]: Failed to write app endpoint /page
+
+Caused by:
+- [project]/src/app/globals.css [app-client] (css)
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+
+Debug info:
+- Execution of TaskId { id: 2147484922 } transient failed
+- Execution of get_written_endpoint_with_issues_operation failed
+- Execution of endpoint_write_to_disk failed
+- Execution of <AppEndpoint as Endpoint>::output failed
+- Failed to write app endpoint /page
+- Execution of AppEndpoint::output failed
+- Execution of AppProject::app_module_graphs failed
+- Execution of *<AppEndpoint as Endpoint>::additional_entries failed
+- Execution of *ModuleGraph::from_graphs failed
+- Execution of SingleModuleGraph::new_with_entries_visited_intern failed
+- [project]/src/app/globals.css [app-client] (css)
+- Execution of primary_chunkable_referenced_modules failed
+- Execution of <CssModuleAsset as Module>::references failed
+- Execution of parse_css failed
+- Execution of <PostCssTransformedAsset as Asset>::content failed
+- Execution of PostCssTransformedAsset::process failed
+- creating new process
+- node process exited before we could connect to it with exit code: 1
+  Process output:
+  
+  Process error output:
+  node:internal/modules/cjs/loader:1368
+    throw err;
+    ^
+  
+  Error: Cannot find module 'C:\Users\SuLtan\studio\.next\postcss.js'
+      at Function._resolveFilename (node:internal/modules/cjs/loader:1365:15)
+      at defaultResolveImpl (node:internal/modules/cjs/loader:1021:19)
+      at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1026:22)
+      at Function._load (node:internal/modules/cjs/loader:1175:37)
+      at TracingChannel.traceSync (node:diagnostics_channel:322:14)
+      at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
+      at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+      at node:internal/main/run_main_module:36:49 {
+    code: 'MODULE_NOT_FOUND',
+  }
+  
+  Node.js v22.18.0
+    at <unknown> (TurbopackInternalError: Failed to write app endpoint /page) {
+  location: undefined
+}
+ ⨯ [Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.tl3cerxsix'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.tl3cerxsix'
+}
+[Error: ENOENT: no such file or directory, open 'C:\Users\SuLtan\studio\.next\static\development\_buildManifest.js.tmp.ghrq6sv59zj'] {
+  errno: -4058,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: 'C:\\Users\\SuLtan\\studio\\.next\\static\\development\\_buildManifest.js.tmp.ghrq6sv59zj'
+}

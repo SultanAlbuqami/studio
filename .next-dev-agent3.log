@@ -1,0 +1,40 @@
+
+> nextn@0.1.0 dev
+> next dev --turbopack -p 9002
+
+   ▲ Next.js 15.5.9 (Turbopack)
+   - Local:        http://localhost:9002
+   - Network:      http://192.168.3.69:9002
+
+ ✓ Starting...
+Creating turbopack project { dir: 'C:\\Users\\SuLtan\\studio', testMode: true }
+ ✓ Ready in 1508ms
+ ○ Compiling / ...
+ ✓ Compiled / in 5.8s
+ GET / 200 in 6954ms
+ GET / 200 in 569ms
+ ○ Compiling /delivery ...
+ ✓ Compiled /delivery in 909ms
+ GET /delivery?region=Western 200 in 1915ms
+ ○ Compiling /strategic ...
+ ✓ Compiled /strategic in 509ms
+ GET /strategic?owner=Director%20Customer%20PMO 200 in 1431ms
+ ✓ Compiled /escalations in 490ms
+ GET /escalations?window=Today 200 in 1213ms
+ ✓ Compiled /explorer in 427ms
+ GET /explorer 200 in 746ms
+ ✓ Compiled /booking in 462ms
+ GET /booking 200 in 813ms
+ ✓ Compiled /deployment in 496ms
+ GET /deployment 200 in 887ms
+ ○ Compiling /b2c ...
+ ✓ Compiled /b2c in 762ms
+ GET /b2c 200 in 1091ms
+ ✓ Compiled /methodology in 373ms
+ GET /methodology 200 in 737ms
+ GET / 200 in 529ms
+ GET /explorer 200 in 384ms
+ GET /explorer?focus=PRJ-001 200 in 121ms
+ GET / 200 in 507ms
+ GET /explorer 200 in 402ms
+ GET /explorer?focus=PRJ-016&query=PRJ-016 200 in 120ms
