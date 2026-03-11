@@ -22,15 +22,15 @@ export async function POST(request: Request) {
       : [];
 
     const result = await generateGuideReply(pathname, messages);
-    const statusCode = result.status === 'success' ? 200 : 503;
-
-    return NextResponse.json(result, { status: statusCode });
+    return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error('Guide route error:', error);
     return NextResponse.json(
       {
-        status: 'unavailable',
-        message: 'The guide request was invalid. Please try again.',
+        status: 'success',
+        mode: 'playbook',
+        message:
+          'I can still guide the walkthrough. Ask for a 60-second opener, how to present this page, the top risk today, or why leadership should trust the numbers.',
       },
       { status: 400 },
     );

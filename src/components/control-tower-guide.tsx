@@ -16,10 +16,13 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
 import {
+  buildGuideNavigationConfirmation,
+  buildGuidePlaybookReply,
   buildGuideWelcomeMessages,
   controlTowerGuideName,
   getGuideNextRoute,
   getGuideRouteSummary,
+  shouldPreferPlaybookReply,
 } from '@/lib/control-tower-guide-content';
 
 type ControlTowerGuideProps = Readonly<{
@@ -34,8 +37,8 @@ type ChatMessage = Readonly<{
 
 const sessionStorageKey = 'control-tower-guide-opened';
 
-function createInitialMessages(pathname: string): ChatMessage[] {
-  return buildGuideWelcomeMessages(pathname).map((message, index) => ({
+function createInitialMessages(): ChatMessage[] {
+  return buildGuideWelcomeMessages().map((message, index) => ({
     id: `assistant-welcome-${index}`,
     role: 'assistant',
     content: message,
@@ -56,6 +59,7 @@ export function ControlTowerGuide({
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [preferPlaybook, setPreferPlaybook] = useState(!isAiConfigured);
 
   useEffect(() => {
     if (initializedRef.current) {
@@ -63,7 +67,7 @@ export function ControlTowerGuide({
     }
 
     initializedRef.current = true;
-    setMessages(createInitialMessages(pathname));
+    setMessages(createInitialMessages());
 
     if (typeof window === 'undefined') {
       return;
@@ -111,14 +115,17 @@ export function ControlTowerGuide({
     setInput('');
     setIsOpen(true);
 
-    if (!isAiConfigured) {
+    const playbookReply = buildGuidePlaybookReply(pathname, userMessage);
+    const preferPreparedReply =
+      preferPlaybook || shouldPreferPlaybookReply(userMessage);
+
+    if (!isAiConfigured || preferPreparedReply) {
       setMessages((currentMessages) => [
         ...currentMessages,
         {
-          id: `assistant-offline-${Date.now()}`,
+          id: `assistant-playbook-${Date.now()}`,
           role: 'assistant',
-          content:
-            'Live AI replies are currently disabled because OPENAI_API_KEY is not configured on the server. You can still use the route shortcuts below to guide the visitor through the project.',
+          content: playbookReply,
         },
       ]);
       return;
@@ -142,9 +149,14 @@ export function ControlTowerGuide({
       });
 
       const result = (await response.json()) as {
-        status?: 'success' | 'unavailable';
+        status?: 'success';
+        mode?: 'ai' | 'playbook';
         message?: string;
       };
+
+      if (result.mode === 'playbook') {
+        setPreferPlaybook(true);
+      }
 
       setMessages((currentMessages) => [
         ...currentMessages,
@@ -153,17 +165,17 @@ export function ControlTowerGuide({
           role: 'assistant',
           content:
             result.message?.trim() ||
-            'The guide could not generate a reply right now. Please try again.',
+            playbookReply,
         },
       ]);
     } catch {
+      setPreferPlaybook(true);
       setMessages((currentMessages) => [
         ...currentMessages,
         {
           id: `assistant-error-${Date.now()}`,
           role: 'assistant',
-          content:
-            'The guide could not generate a reply right now. Please try again.',
+          content: playbookReply,
         },
       ]);
     } finally {
@@ -172,15 +184,13 @@ export function ControlTowerGuide({
   }
 
   function navigateWithGuideFeedback(targetPath: string) {
-    const targetRoute = getGuideRouteSummary(targetPath);
-
     setIsOpen(true);
     setMessages((currentMessages) => [
       ...currentMessages,
       {
         id: `assistant-nav-${Date.now()}`,
         role: 'assistant',
-        content: `Opening ${targetRoute.title}. ${targetRoute.proof}`,
+        content: buildGuideNavigationConfirmation(targetPath),
       },
     ]);
 
@@ -191,26 +201,22 @@ export function ControlTowerGuide({
 
   const quickActions = [
     {
-      label: 'Explain this page',
+      label: '60-sec opener',
+      onClick: () => void sendMessage('Give me a 60-second executive opener.'),
+    },
+    {
+      label: 'Present this view',
       onClick: () =>
-        void sendMessage(
-          `Explain what ${currentRoute.title} is for and how I should present it during the demo.`,
-        ),
+        void sendMessage(`Explain this page and how I should present it.`),
     },
     {
-      label: '3-minute story',
+      label: 'Top risk today',
+      onClick: () => void sendMessage('What is the top risk today?'),
+    },
+    {
+      label: 'Why trust this',
       onClick: () =>
-        void sendMessage(
-          'Give me a 3-minute interview walkthrough for this product.',
-        ),
-    },
-    {
-      label: `Open ${nextRoute.title}`,
-      onClick: () => navigateWithGuideFeedback(nextRoute.url),
-    },
-    {
-      label: 'Open governance',
-      onClick: () => navigateWithGuideFeedback('/methodology'),
+        void sendMessage('Why should leadership trust this dashboard?'),
     },
   ];
 
@@ -245,7 +251,7 @@ export function ControlTowerGuide({
                     </div>
                     <div className="min-w-0">
                       <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-sky-200/90">
-                        Guided Walkthrough
+                        Boardroom Narrative
                       </p>
                       <h2
                         id="control-tower-guide-title"
@@ -256,8 +262,8 @@ export function ControlTowerGuide({
                     </div>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-slate-300">
-                    Opens with a welcome sequence, explains the current page,
-                    and guides the viewer to the next best route.
+                    Lead the room with a prepared executive narrative, then move
+                    directly into the next decision-worthy view.
                   </p>
                 </div>
                 <Button
@@ -276,15 +282,8 @@ export function ControlTowerGuide({
                 <span className="rounded-full border border-white/10 bg-slate-900/82 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-200">
                   Current view: {currentRoute.title}
                 </span>
-                <span
-                  className={cn(
-                    'rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em]',
-                    isAiConfigured
-                      ? 'border-emerald-400/28 bg-emerald-400/14 text-emerald-200'
-                      : 'border-amber-400/28 bg-amber-400/14 text-amber-200',
-                  )}
-                >
-                  {isAiConfigured ? 'AI enabled' : 'Static guidance'}
+                <span className="rounded-full border border-sky-400/20 bg-sky-500/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-sky-100">
+                  Executive playbook
                 </span>
               </div>
             </div>
@@ -329,7 +328,7 @@ export function ControlTowerGuide({
                   <div className="max-w-[88%] rounded-2xl border border-white/10 bg-slate-900/96 px-3.5 py-3 text-sm text-slate-200">
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      Thinking through the best walkthrough...
+                      Building the strongest executive answer...
                     </div>
                   </div>
                 )}
@@ -353,8 +352,8 @@ export function ControlTowerGuide({
                 />
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-[11px] leading-relaxed text-slate-300">
-                    Ask in English or Arabic. The guide stays grounded in the
-                    actual project structure.
+                    Ask in English or Arabic. Replies stay grounded in the
+                    actual product story, routes, and operating model.
                   </p>
                   <Button
                     type="submit"

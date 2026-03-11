@@ -1,14 +1,16 @@
 import 'server-only';
 
-import { accountRiskProfiles, dashboardData, dataAsOf, escalationSummary } from '@/app/lib/dashboard-data';
 import { hasConfiguredAiKey } from '@/ai/config';
 import { getOpenAIClient } from '@/ai/openai';
 import {
+  buildGuidePlaybookReply,
   controlTowerGuideName,
+  guideRouteSummaries,
   getGuideNextRoute,
   getGuideRouteSummary,
-  guideRouteSummaries,
+  shouldPreferPlaybookReply,
 } from '@/lib/control-tower-guide-content';
+import { accountRiskProfiles, dashboardData, dataAsOf, escalationSummary } from '@/app/lib/dashboard-data';
 
 export type GuideChatMessage = Readonly<{
   role: 'user' | 'assistant';
@@ -16,20 +18,14 @@ export type GuideChatMessage = Readonly<{
 }>;
 
 type GuideReplyResult =
-  | {
-      status: 'success';
-      message: string;
-    }
-  | {
-      status: 'unavailable';
-      message: string;
-    };
+  {
+    status: 'success';
+    message: string;
+    mode: 'ai' | 'playbook';
+  };
 
 const GUIDE_MODEL = 'gpt-4o-mini';
-const MISSING_KEY_MESSAGE =
-  'Live AI chat is unavailable because OPENAI_API_KEY is not configured on the server.';
-const FAILURE_MESSAGE =
-  'The guide could not generate a live reply just now. Please try again.';
+let guideLiveReplyHealth: 'unknown' | 'healthy' | 'invalid' = 'unknown';
 
 function sanitizeMessages(messages: GuideChatMessage[]): GuideChatMessage[] {
   return messages
@@ -104,10 +100,23 @@ export async function generateGuideReply(
   pathname: string,
   messages: GuideChatMessage[],
 ): Promise<GuideReplyResult> {
-  if (!hasConfiguredAiKey()) {
+  const sanitizedMessages = sanitizeMessages(messages);
+  const latestUserPrompt =
+    [...sanitizedMessages]
+      .reverse()
+      .find((message) => message.role === 'user')
+      ?.content ?? '';
+  const playbookReply = buildGuidePlaybookReply(pathname, latestUserPrompt);
+
+  if (
+    !hasConfiguredAiKey() ||
+    guideLiveReplyHealth === 'invalid' ||
+    shouldPreferPlaybookReply(latestUserPrompt)
+  ) {
     return {
-      status: 'unavailable',
-      message: MISSING_KEY_MESSAGE,
+      status: 'success',
+      mode: 'playbook',
+      message: playbookReply,
     };
   }
 
@@ -122,7 +131,7 @@ export async function generateGuideReply(
           role: 'system',
           content: buildGuideSystemPrompt(pathname),
         },
-        ...sanitizeMessages(messages).map((message) => ({
+        ...sanitizedMessages.map((message) => ({
           role: message.role,
           content: message.content,
         })),
@@ -132,20 +141,34 @@ export async function generateGuideReply(
     const content = response.choices[0]?.message?.content?.trim();
     if (!content) {
       return {
-        status: 'unavailable',
-        message: FAILURE_MESSAGE,
+        status: 'success',
+        mode: 'playbook',
+        message: playbookReply,
       };
     }
 
+    guideLiveReplyHealth = 'healthy';
+
     return {
       status: 'success',
+      mode: 'ai',
       message: content,
     };
   } catch (error) {
     console.error('Control tower guide failed:', error);
+    if (
+      typeof error === 'object' &&
+      error !== null &&
+      'status' in error &&
+      Number(error.status) === 401
+    ) {
+      guideLiveReplyHealth = 'invalid';
+    }
+
     return {
-      status: 'unavailable',
-      message: FAILURE_MESSAGE,
+      status: 'success',
+      mode: 'playbook',
+      message: playbookReply,
     };
   }
 }

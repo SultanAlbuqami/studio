@@ -15,12 +15,12 @@ test.describe('experience verification', () => {
       timeout: 60000,
     });
 
-    const guideDialog = page.getByRole('complementary', { name: 'Control Tower Guide' });
+    const guideDialog = page.getByRole('complementary', { name: 'Executive Briefing Guide' });
 
     await expect(guideDialog).toBeVisible();
-    await expect(guideDialog.getByText('Welcome. I’m the Control Tower Guide.')).toBeVisible();
-    await expect(guideDialog.getByRole('button', { name: 'Explain this page' })).toBeVisible();
-    await expect(guideDialog.getByRole('button', { name: /Open Delivery Control Tower|Open Delivery/i })).toBeVisible();
+    await expect(guideDialog.getByText('Executive opening')).toBeVisible();
+    await expect(guideDialog.getByRole('button', { name: '60-sec opener' })).toBeVisible();
+    await expect(guideDialog.getByRole('button', { name: 'Present this view' })).toBeVisible();
   });
 
   test('home exposes visible mobile navigation without relying on a hidden drawer trigger', async ({ page }) => {
