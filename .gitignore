@@ -37,6 +37,10 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# local verification artifacts
+.codex-artifacts/after/
+.codex-artifacts/logs/
+
 .genkit/*
 .env*
 !.env.example
