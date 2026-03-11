@@ -5,6 +5,8 @@ import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
 import { AppMobileHeader } from '@/components/app-mobile-header';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { ControlTowerGuide } from '@/components/control-tower-guide';
+import { hasConfiguredAiKey } from '@/ai/config';
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -33,6 +35,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const isAiConfigured = hasConfiguredAiKey();
+
   return (
     <html lang="en" dir="ltr" className={`${inter.variable} dark`}>
       <body className="font-sans antialiased bg-background text-foreground">
@@ -77,6 +81,7 @@ export default function RootLayout({
                 </div>
               </SidebarInset>
             </div>
+            <ControlTowerGuide isAiConfigured={isAiConfigured} />
           </SidebarProvider>
         </TooltipProvider>
       </body>

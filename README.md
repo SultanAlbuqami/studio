@@ -27,6 +27,13 @@ npm install
 npm run dev
 ```
 
+To enable the global AI guide and the executive brief panel, create `.env.local`
+and set:
+
+```bash
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
 Production build:
 
 ```bash

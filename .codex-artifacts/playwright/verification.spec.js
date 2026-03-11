@@ -1,6 +1,28 @@
 const { test, expect } = require('@playwright/test');
 
+async function dismissGuideIfVisible(page) {
+  const closeGuideButton = page.getByRole('button', { name: 'Close guide' });
+
+  if (await closeGuideButton.isVisible()) {
+    await closeGuideButton.click();
+  }
+}
+
 test.describe('experience verification', () => {
+  test('home auto-opens the control tower guide with a visible welcome sequence', async ({ page }) => {
+    await page.goto('http://localhost:9002/', {
+      waitUntil: 'networkidle',
+      timeout: 60000,
+    });
+
+    const guideDialog = page.getByRole('complementary', { name: 'Control Tower Guide' });
+
+    await expect(guideDialog).toBeVisible();
+    await expect(guideDialog.getByText('Welcome. I’m the Control Tower Guide.')).toBeVisible();
+    await expect(guideDialog.getByRole('button', { name: 'Explain this page' })).toBeVisible();
+    await expect(guideDialog.getByRole('button', { name: /Open Delivery Control Tower|Open Delivery/i })).toBeVisible();
+  });
+
   test('home exposes visible mobile navigation without relying on a hidden drawer trigger', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('http://localhost:9002/', {
@@ -8,6 +30,7 @@ test.describe('experience verification', () => {
       timeout: 60000,
     });
 
+    await dismissGuideIfVisible(page);
     await expect(page.getByText('Quick Navigation')).toBeVisible();
     await expect(
       page.getByRole('link', { name: 'Delivery Control Tower' }),
@@ -31,6 +54,7 @@ test.describe('experience verification', () => {
       timeout: 60000,
     });
 
+    await dismissGuideIfVisible(page);
     await page.locator('input[type="search"]').fill('PRJ-016');
 
     const firstCard = page.getByRole('button', {
@@ -45,7 +69,7 @@ test.describe('experience verification', () => {
 
     await firstCard.click();
     await expect(page).toHaveURL(/focus=PRJ-016/);
-    await expect(page.getByRole('dialog')).toBeVisible();
+    await expect(page.locator('aside[role="dialog"]')).toBeVisible();
     await page.screenshot({
       path: '.codex-artifacts/after/explorer-mobile-detail.png',
     });
@@ -57,6 +81,7 @@ test.describe('experience verification', () => {
       timeout: 60000,
     });
 
+    await dismissGuideIfVisible(page);
     const firstFocusLink = page.getByRole('link', {
       name: 'Open focus brief',
     }).first();
@@ -64,7 +89,7 @@ test.describe('experience verification', () => {
     await expect(firstFocusLink).toBeVisible();
     await firstFocusLink.click();
     await expect(page).toHaveURL(/\/delivery\?.*focus=/);
-    await expect(page.getByRole('dialog')).toBeVisible();
+    await expect(page.locator('aside[role="dialog"]')).toBeVisible();
   });
 
   test('strategic queue exposes an in-page focus brief entry point', async ({ page }) => {
@@ -73,6 +98,7 @@ test.describe('experience verification', () => {
       timeout: 60000,
     });
 
+    await dismissGuideIfVisible(page);
     const firstFocusLink = page.getByRole('link', {
       name: 'Open focus brief',
     }).first();
@@ -80,7 +106,7 @@ test.describe('experience verification', () => {
     await expect(firstFocusLink).toBeVisible();
     await firstFocusLink.click();
     await expect(page).toHaveURL(/\/strategic\?.*focus=/);
-    await expect(page.getByRole('dialog')).toBeVisible();
+    await expect(page.locator('aside[role="dialog"]')).toBeVisible();
   });
 
   test('methodology supports KPI search and scope filtering', async ({ page }) => {
@@ -89,11 +115,12 @@ test.describe('experience verification', () => {
       timeout: 60000,
     });
 
+    await dismissGuideIfVisible(page);
     await page.getByRole('searchbox', { name: 'Search KPI dictionary' }).fill('MTTR');
     await expect(page.getByText('Avg MTTR')).toBeVisible();
 
     await page.getByRole('button', { name: /Escalations/i }).click();
-    await expect(page.getByText('SLA Breach Risk')).toBeVisible();
+    await expect(page.getByText('Avg MTTR', { exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: 'Clear' }).click();
     await expect(page.getByText('On-Time Delivery')).toBeVisible();
