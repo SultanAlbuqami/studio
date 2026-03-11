@@ -13,8 +13,19 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://pmo-sultan.vercel.app'),
   title: 'Salam PMO | Control Tower',
   description: 'Executive Command Center for Director Customer PMO at Salam',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    title: 'Salam PMO | Control Tower',
+    description: 'Executive Command Center for Director Customer PMO at Salam',
+    url: 'https://pmo-sultan.vercel.app',
+    siteName: 'Salam PMO Control Tower',
+    type: 'website',
+  },
 };
 
 export default function RootLayout({
