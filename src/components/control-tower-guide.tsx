@@ -221,7 +221,7 @@ export function ControlTowerGuide({
           <Button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="pointer-events-auto h-auto rounded-full border border-primary/30 bg-background/92 px-4 py-3 text-sm text-foreground shadow-[0_24px_80px_rgba(2,16,42,0.45)] backdrop-blur-xl hover:bg-background"
+            className="pointer-events-auto h-auto rounded-full border border-white/12 bg-slate-950/96 px-4 py-3 text-sm font-medium text-slate-50 shadow-[0_24px_80px_rgba(2,16,42,0.45)] backdrop-blur-xl hover:bg-slate-900"
           >
             <MessageSquare className="mr-2 h-4 w-4" />
             Open guide
@@ -234,28 +234,28 @@ export function ControlTowerGuide({
           <div
             role="complementary"
             aria-labelledby="control-tower-guide-title"
-            className="pointer-events-auto flex h-[min(72svh,42rem)] w-full flex-col overflow-hidden rounded-[28px] border border-border/55 bg-background/95 shadow-[0_32px_120px_rgba(2,12,34,0.58)] backdrop-blur-2xl sm:h-full"
+            className="pointer-events-auto flex h-[min(72svh,42rem)] w-full flex-col overflow-hidden rounded-[28px] border border-white/12 bg-slate-950/98 shadow-[0_32px_120px_rgba(2,12,34,0.58)] ring-1 ring-white/6 backdrop-blur-2xl sm:h-full"
           >
-            <div className="border-b border-border/35 bg-[radial-gradient(circle_at_top_left,rgba(59,130,246,0.18),transparent_54%),linear-gradient(180deg,rgba(7,15,31,0.92),rgba(7,15,31,0.72))] px-4 py-4">
+            <div className="border-b border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.22),transparent_48%),linear-gradient(180deg,rgba(15,23,42,0.98),rgba(10,15,29,0.96))] px-4 py-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-primary/25 bg-primary/10 text-primary">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-sky-400/25 bg-sky-500/12 text-sky-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
                       <Bot className="h-4.5 w-4.5" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/72">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-sky-200/90">
                         Guided Walkthrough
                       </p>
                       <h2
                         id="control-tower-guide-title"
-                        className="truncate text-base font-semibold tracking-tight text-foreground"
+                        className="truncate text-base font-semibold tracking-tight text-slate-50"
                       >
                         {controlTowerGuideName}
                       </h2>
                     </div>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-3 text-sm leading-relaxed text-slate-300">
                     Opens with a welcome sequence, explains the current page,
                     and guides the viewer to the next best route.
                   </p>
@@ -265,7 +265,7 @@ export function ControlTowerGuide({
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsOpen(false)}
-                  className="h-9 w-9 shrink-0 rounded-full border border-border/35 bg-background/35 text-muted-foreground hover:bg-background/60 hover:text-foreground"
+                  className="h-9 w-9 shrink-0 rounded-full border border-white/10 bg-slate-900/80 text-slate-300 hover:bg-slate-800 hover:text-slate-50"
                 >
                   <X className="h-4 w-4" />
                   <span className="sr-only">Close guide</span>
@@ -273,15 +273,15 @@ export function ControlTowerGuide({
               </div>
 
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <span className="rounded-full border border-border/35 bg-background/35 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-muted-foreground/85">
+                <span className="rounded-full border border-white/10 bg-slate-900/82 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-200">
                   Current view: {currentRoute.title}
                 </span>
                 <span
                   className={cn(
                     'rounded-full border px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em]',
                     isAiConfigured
-                      ? 'border-emerald-500/25 bg-emerald-500/10 text-emerald-300'
-                      : 'border-amber-500/25 bg-amber-500/10 text-amber-300',
+                      ? 'border-emerald-400/28 bg-emerald-400/14 text-emerald-200'
+                      : 'border-amber-400/28 bg-amber-400/14 text-amber-200',
                   )}
                 >
                   {isAiConfigured ? 'AI enabled' : 'Static guidance'}
@@ -289,7 +289,7 @@ export function ControlTowerGuide({
               </div>
             </div>
 
-            <div className="border-b border-border/25 px-4 py-3">
+            <div className="border-b border-white/10 bg-slate-950/96 px-4 py-3">
               <div className="flex flex-wrap gap-2">
                 {quickActions.map((action) => (
                   <Button
@@ -298,7 +298,7 @@ export function ControlTowerGuide({
                     variant="outline"
                     size="sm"
                     onClick={action.onClick}
-                    className="h-8 rounded-full border-border/35 bg-background/45 px-3 text-xs text-foreground hover:bg-background"
+                    className="h-8 rounded-full border-white/10 bg-slate-900/88 px-3 text-xs font-medium text-slate-100 hover:bg-slate-800 hover:text-white"
                   >
                     {action.label}
                   </Button>
@@ -306,7 +306,7 @@ export function ControlTowerGuide({
               </div>
             </div>
 
-            <ScrollArea className="flex-1 px-4 py-4">
+            <ScrollArea className="flex-1 bg-[linear-gradient(180deg,rgba(15,23,42,0.32),rgba(2,6,23,0.08))] px-4 py-4">
               <div
                 ref={scrollViewportRef}
                 className="space-y-3 pr-3"
@@ -315,18 +315,18 @@ export function ControlTowerGuide({
                   <div
                     key={message.id}
                     className={cn(
-                      'max-w-[92%] rounded-2xl px-3.5 py-3 text-sm leading-relaxed shadow-sm',
+                      'max-w-[92%] rounded-2xl px-3.5 py-3 text-sm leading-7 shadow-sm',
                       message.role === 'assistant'
-                        ? 'border border-border/30 bg-card/65 text-foreground'
-                        : 'ml-auto bg-primary text-primary-foreground',
+                        ? 'border border-white/10 bg-slate-900/96 text-slate-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
+                        : 'ml-auto border border-sky-400/15 bg-sky-500 text-white shadow-[0_12px_28px_rgba(14,116,219,0.28)]',
                     )}
                   >
-                    <p className="whitespace-pre-wrap">{message.content}</p>
+                    <p className="whitespace-pre-wrap font-medium">{message.content}</p>
                   </div>
                 ))}
 
                 {isLoading && (
-                  <div className="max-w-[88%] rounded-2xl border border-border/30 bg-card/65 px-3.5 py-3 text-sm text-muted-foreground">
+                  <div className="max-w-[88%] rounded-2xl border border-white/10 bg-slate-900/96 px-3.5 py-3 text-sm text-slate-200">
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin" />
                       Thinking through the best walkthrough...
@@ -336,7 +336,7 @@ export function ControlTowerGuide({
               </div>
             </ScrollArea>
 
-            <div className="border-t border-border/25 bg-background/92 px-4 py-3">
+            <div className="border-t border-white/10 bg-slate-950/98 px-4 py-3">
               <form
                 onSubmit={(event) => {
                   event.preventDefault();
@@ -348,18 +348,18 @@ export function ControlTowerGuide({
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   placeholder="Ask what this project does, what to open next, or how to present it in the interview..."
-                  className="min-h-[88px] resize-none rounded-2xl border-border/35 bg-card/55 text-sm leading-relaxed"
+                  className="min-h-[88px] resize-none rounded-2xl border-white/10 bg-slate-900/94 text-sm leading-relaxed text-slate-50 placeholder:text-slate-400 focus-visible:ring-sky-400/50"
                   maxLength={1600}
                 />
                 <div className="flex items-center justify-between gap-3">
-                  <p className="text-[11px] leading-relaxed text-muted-foreground/78">
+                  <p className="text-[11px] leading-relaxed text-slate-300">
                     Ask in English or Arabic. The guide stays grounded in the
                     actual project structure.
                   </p>
                   <Button
                     type="submit"
                     disabled={isLoading || input.trim().length === 0}
-                    className="h-10 rounded-full px-4"
+                    className="h-10 rounded-full bg-sky-600 px-4 text-white hover:bg-sky-500 disabled:bg-sky-900/55 disabled:text-slate-300"
                   >
                     {isLoading ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -377,17 +377,17 @@ export function ControlTowerGuide({
               <button
                 type="button"
                 onClick={() => navigateWithGuideFeedback(nextRoute.url)}
-                className="mt-3 flex w-full items-center justify-between rounded-2xl border border-border/30 bg-card/45 px-3.5 py-3 text-left transition-colors hover:bg-card/70"
+                className="mt-3 flex w-full items-center justify-between rounded-2xl border border-white/10 bg-slate-900/94 px-3.5 py-3 text-left transition-colors hover:bg-slate-800"
               >
                 <div>
-                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/72">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-slate-300">
                     Next best view
                   </p>
-                  <p className="mt-1 text-sm font-medium text-foreground">
+                  <p className="mt-1 text-sm font-semibold text-slate-50">
                     {nextRoute.title}
                   </p>
                 </div>
-                <ArrowRight className="h-4 w-4 text-primary" />
+                <ArrowRight className="h-4 w-4 text-sky-300" />
               </button>
             </div>
           </div>
