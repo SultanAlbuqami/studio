@@ -236,7 +236,6 @@ export function ExecutiveBriefAI({
   const [result, setResult] = useState<ExecutiveBriefResult | null>(null);
   const [fallbackMessage, setFallbackMessage] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [isStatic, setIsStatic] = useState(true);
 
   const fetchBrief = useCallback(async () => {
     if (!isAiConfigured) {
@@ -255,7 +254,6 @@ export function ExecutiveBriefAI({
 
       if (res.status === 'success') {
         setResult(res);
-        setIsStatic(false);
       } else {
         setFallbackMessage(res.message);
       }
@@ -287,47 +285,37 @@ export function ExecutiveBriefAI({
           <div className="flex items-start gap-2.5">
             <Sparkles className="mt-0.5 h-3.5 w-3.5 text-primary" />
             <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <p className="text-sm font-semibold">AI Operating Brief</p>
-                <span className="text-[10px] font-medium text-primary/60 bg-primary/8 px-1.5 py-0.5 rounded">
-                  Manual
-                </span>
-                {isStatic && !loading && (
-                  <span className="text-[10px] font-medium text-muted-foreground/50 bg-muted/30 px-1.5 py-0.5 rounded">
-                    Static
-                  </span>
-                )}
-              </div>
+              <p className="text-sm font-semibold">Executive Brief</p>
               <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/60">
                 {compact
-                  ? 'On-demand synthesis from governed KPI snapshot.'
-                  : 'On-demand executive synthesis grounded in the governed dashboard snapshot.'}
+                  ? 'Key signals from current operating snapshot.'
+                  : 'Synthesized signals from the current portfolio and delivery snapshot.'}
               </p>
             </div>
           </div>
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Button
-                onClick={fetchBrief}
-                disabled={loading}
-                variant="ghost"
-                size="sm"
-                className="h-7 text-xs gap-1.5 text-muted-foreground hover:text-foreground"
-              >
-                {loading ? (
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                ) : (
-                  <Zap className="h-3 w-3" />
-                )}
-                {loading ? 'Analyzing…' : 'Generate Brief'}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent side="bottom" className="max-w-[240px] text-xs leading-relaxed">
-              {isAiConfigured
-                ? 'Generate a live AI brief from the current KPI snapshot using OpenAI.'
-                : 'Set OPENAI_API_KEY in your environment to enable live AI analysis. Static brief is shown by default.'}
-            </TooltipContent>
-          </Tooltip>
+          {isAiConfigured && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  onClick={fetchBrief}
+                  disabled={loading}
+                  variant="ghost"
+                  size="sm"
+                  className="h-7 text-xs gap-1.5 text-muted-foreground/50 hover:text-foreground"
+                >
+                  {loading ? (
+                    <Loader2 className="h-3 w-3 animate-spin" />
+                  ) : (
+                    <Zap className="h-3 w-3" />
+                  )}
+                  {loading ? 'Updating…' : 'Refresh'}
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="max-w-[240px] text-xs leading-relaxed">
+                Refresh the executive brief with the latest operating data.
+              </TooltipContent>
+            </Tooltip>
+          )}
         </div>
 
         <CardContent className={compact ? 'p-2.5' : 'p-3'}>
@@ -355,7 +343,7 @@ export function ExecutiveBriefAI({
             <div className="flex items-start gap-2 mt-3 pt-3 border-t border-border/20">
               <TriangleAlert className="mt-0.5 h-3 w-3 text-muted-foreground/40 shrink-0" />
               <p className="text-[11px] text-muted-foreground/50">
-                {fallbackMessage}
+                Brief refresh unavailable. Showing latest cached signals.
               </p>
             </div>
           )}
@@ -368,21 +356,11 @@ export function ExecutiveBriefAI({
           <div className="flex items-start gap-2.5">
             <Target className="mt-0.5 h-3.5 w-3.5 text-primary" />
             <div className="min-w-0">
-              <div className="flex flex-wrap items-center gap-2">
-                <p className="text-sm font-semibold">Recommended Actions</p>
-                <span className="text-[10px] font-medium text-primary/60 bg-primary/8 px-1.5 py-0.5 rounded">
-                  Advisory
-                </span>
-                {isStatic && !loading && (
-                  <span className="text-[10px] font-medium text-muted-foreground/50 bg-muted/30 px-1.5 py-0.5 rounded">
-                    Static
-                  </span>
-                )}
-              </div>
+              <p className="text-sm font-semibold">Recommended Actions</p>
               <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/60">
                 {compact
-                  ? 'Human owner required before execution.'
-                  : 'Actions stay human-assigned; nothing is auto-executed from this panel.'}
+                  ? 'Requires owner assignment before execution.'
+                  : 'Prioritized actions requiring owner decision and assignment.'}
               </p>
             </div>
           </div>

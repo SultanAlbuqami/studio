@@ -23,15 +23,15 @@ export function InterventionQueue() {
       <div className="border-b border-border/30 px-4 py-3">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <ShieldAlert className="h-3.5 w-3.5 text-primary" />
+            <ShieldAlert className="h-3.5 w-3.5 text-destructive/80" />
             <p className="text-sm font-semibold">Critical Interventions</p>
           </div>
-          <span className="flex h-5 min-w-5 items-center justify-center rounded bg-destructive/15 px-1.5 text-[11px] font-bold tabular-nums text-destructive">
+          <span className="flex h-5 min-w-5 items-center justify-center rounded-md bg-destructive/12 px-1.5 text-[11px] font-bold tabular-nums text-destructive">
             {executiveInterventions.length}
           </span>
         </div>
         <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/74">
-          Top three interventions by urgency. Each item requires PMO or executive sponsorship inside the current decision window.
+          Highest urgency items requiring PMO or sponsor decision inside the current window.
         </p>
       </div>
 

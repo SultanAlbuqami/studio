@@ -201,22 +201,22 @@ export function ControlTowerGuide({
 
   const quickActions = [
     {
-      label: '60-sec opener',
-      onClick: () => void sendMessage('Give me a 60-second executive opener.'),
+      label: 'Current posture',
+      onClick: () => void sendMessage('Summarize the current operating posture.'),
     },
     {
-      label: 'Present this view',
+      label: 'About this view',
       onClick: () =>
-        void sendMessage(`Explain this page and how I should present it.`),
+        void sendMessage(`What does this view show and what decisions does it support?`),
     },
     {
-      label: 'Top risk today',
-      onClick: () => void sendMessage('What is the top risk today?'),
+      label: 'Key risks',
+      onClick: () => void sendMessage('What are the most critical risks right now?'),
     },
     {
-      label: 'Why trust this',
+      label: 'Data governance',
       onClick: () =>
-        void sendMessage('Why should leadership trust this dashboard?'),
+        void sendMessage('How are the KPIs in this dashboard governed?'),
     },
   ];
 
@@ -242,7 +242,7 @@ export function ControlTowerGuide({
             aria-labelledby="control-tower-guide-title"
             className="pointer-events-auto flex h-[min(72svh,42rem)] w-full flex-col overflow-hidden rounded-[28px] border border-white/12 bg-slate-950/98 shadow-[0_32px_120px_rgba(2,12,34,0.58)] ring-1 ring-white/6 backdrop-blur-2xl sm:h-full"
           >
-            <div className="border-b border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.22),transparent_48%),linear-gradient(180deg,rgba(15,23,42,0.98),rgba(10,15,29,0.96))] px-4 py-4">
+            <div className="border-b border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.16),transparent_48%),linear-gradient(180deg,rgba(15,23,42,0.98),rgba(10,15,29,0.96))] px-4 py-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
@@ -250,8 +250,8 @@ export function ControlTowerGuide({
                       <Bot className="h-4.5 w-4.5" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-sky-200/90">
-                        Boardroom Narrative
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-sky-200/80">
+                        Operations Guide
                       </p>
                       <h2
                         id="control-tower-guide-title"
@@ -262,8 +262,7 @@ export function ControlTowerGuide({
                     </div>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-slate-300">
-                    Lead the room with a prepared executive narrative, then move
-                    directly into the next decision-worthy view.
+                    Navigate the control tower, understand current operating posture, and identify the next decision-worthy view.
                   </p>
                 </div>
                 <Button
@@ -280,10 +279,10 @@ export function ControlTowerGuide({
 
               <div className="mt-4 flex flex-wrap items-center gap-2">
                 <span className="rounded-full border border-white/10 bg-slate-900/82 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-200">
-                  Current view: {currentRoute.title}
+                  {currentRoute.title}
                 </span>
                 <span className="rounded-full border border-sky-400/20 bg-sky-500/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-sky-100">
-                  Executive playbook
+                  Operations context
                 </span>
               </div>
             </div>
@@ -328,7 +327,7 @@ export function ControlTowerGuide({
                   <div className="max-w-[88%] rounded-2xl border border-white/10 bg-slate-900/96 px-3.5 py-3 text-sm text-slate-200">
                     <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      Building the strongest executive answer...
+                      Preparing response...
                     </div>
                   </div>
                 )}
@@ -346,14 +345,14 @@ export function ControlTowerGuide({
                 <Textarea
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
-                  placeholder="Ask what this project does, what to open next, or how to present it in the interview..."
+                  placeholder="Ask about this view, operating risks, delivery posture, or what to review next..."
                   className="min-h-[88px] resize-none rounded-2xl border-white/10 bg-slate-900/94 text-sm leading-relaxed text-slate-50 placeholder:text-slate-400 focus-visible:ring-sky-400/50"
                   maxLength={1600}
                 />
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-[11px] leading-relaxed text-slate-300">
-                    Ask in English or Arabic. Replies stay grounded in the
-                    actual product story, routes, and operating model.
+                    Ask in English or Arabic. Responses are grounded in
+                    the operating model and current portfolio data.
                   </p>
                   <Button
                     type="submit"

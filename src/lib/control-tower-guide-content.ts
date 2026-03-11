@@ -15,7 +15,7 @@ export type GuideRouteSummary = Readonly<{
   }>;
 }>;
 
-export const controlTowerGuideName = 'Executive Briefing Guide';
+export const controlTowerGuideName = 'Control Tower Guide';
 
 const executiveSignals = {
   ordersInFlight: '1,485',

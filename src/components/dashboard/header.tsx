@@ -16,98 +16,83 @@ type HeaderContext = {
 const headerContextByTitle: Record<string, HeaderContext> = {
   'Operations Control Tower': {
     description:
-      'Director-level view of delivery health, revenue exposure, and interventions that can change this week’s operating outcome.',
+      'Delivery health, revenue exposure, and intervention priorities across all active customer programs.',
     highlights: [
-      { label: 'Leadership lens', value: 'Revenue at risk + milestone drift' },
-      { label: 'Primary rhythm', value: 'Daily intervention and weekly PMO review' },
-      { label: 'Portfolio scope', value: 'All active customer programs' },
+      { label: 'Focus', value: 'Revenue at risk + milestone drift' },
+      { label: 'Cadence', value: 'Daily intervention, weekly PMO review' },
+      { label: 'Scope', value: 'All active customer programs' },
     ],
-    noteLabel: 'How To Use This View',
-    note:
-      'Start with the spotlight KPIs, then move to the right-rail intervention queue to identify the few actions that need sponsor attention now.',
   },
   'Portfolio Explorer': {
     description:
-      'Search the live portfolio by project, customer, region, or segment and reframe the filtered view as a leadership conversation, not just a table.',
+      'Search the live portfolio by project, customer, region, or segment to isolate exposure and coverage gaps.',
     highlights: [
-      { label: 'Working mode', value: 'Search, filter, then open a focused brief' },
-      { label: 'Decision lens', value: 'Delayed exposure and coverage gaps' },
-      { label: 'Best use', value: 'Portfolio triage before leadership reviews' },
+      { label: 'Mode', value: 'Search, filter, open focused brief' },
+      { label: 'Focus', value: 'Delayed exposure and coverage gaps' },
+      { label: 'Best use', value: 'Pre-review portfolio triage' },
     ],
-    noteLabel: 'Product Intent',
-    note:
-      'The explorer is the fastest route from a broad operating question to one accountable project or account conversation.',
   },
   'Booking & Fulfillment': {
     description:
-      'Order-pipeline control view for throughput, fallout, and aging so the PMO can intervene before billing delay or avoidable cancellations compound.',
+      'Order pipeline throughput, fallout rates, and aging to prevent billing delay and avoidable cancellations.',
     highlights: [
-      { label: 'Primary watch', value: '15d+ backlog and fallout pressure' },
-      { label: 'Operating owner', value: 'Order pipeline and fulfillment leads' },
-      { label: 'Review rhythm', value: 'Weekly booking control review' },
+      { label: 'Watch', value: '15d+ backlog and fallout pressure' },
+      { label: 'Owner', value: 'Order pipeline and fulfillment leads' },
+      { label: 'Cadence', value: 'Weekly booking control review' },
     ],
   },
   'Delivery Control Tower': {
     description:
-      'Field-operations cockpit for milestone aging, exception recovery, and delivery decisions that can stop slippage from cascading into acceptance and billing.',
+      'Milestone aging, exception recovery, and field-level delivery decisions to stop slippage from reaching acceptance and billing.',
     highlights: [
-      { label: 'Primary watch', value: 'Civil works, installs, and overdue stages' },
-      { label: 'Decision lens', value: 'Which exceptions need sponsor action now' },
-      { label: 'Review rhythm', value: 'Daily recovery bridge and weekly delivery review' },
+      { label: 'Watch', value: 'Civil works, installs, overdue stages' },
+      { label: 'Focus', value: 'Exceptions needing sponsor action' },
+      { label: 'Cadence', value: 'Daily recovery bridge, weekly review' },
     ],
-    noteLabel: 'Decision Standard',
-    note:
-      'Each queue item should lead to one accountable owner, one decision window, and one expected impact before it reaches the leadership forum.',
   },
   'Strategic Orders': {
     description:
-      'High-value account view for orders whose delivery or acceptance posture is material enough to affect revenue timing or customer confidence.',
+      'High-value orders whose delivery or acceptance posture is material to revenue timing or customer confidence.',
     highlights: [
-      { label: 'Primary watch', value: 'Quarter-end revenue and customer confidence' },
-      { label: 'Decision lens', value: 'Director calls on strategic blockers' },
-      { label: 'Review rhythm', value: 'Revenue protection and account steering' },
+      { label: 'Watch', value: 'Quarter-end revenue risk' },
+      { label: 'Focus', value: 'Director calls on strategic blockers' },
+      { label: 'Cadence', value: 'Revenue protection and account steering' },
     ],
-    noteLabel: 'What Good Looks Like',
-    note:
-      'The queue should tell leadership exactly which high-value account needs a call, why it matters now, and what outcome that call should unlock.',
   },
   'B2C Fulfillment': {
     description:
-      'Consumer-operations view for backlog pressure, dispatch ownership, and appointment quality so recovery actions stay commercially credible.',
+      'Consumer backlog pressure, dispatch ownership, and appointment quality for commercially credible recovery actions.',
     highlights: [
-      { label: 'Primary watch', value: 'Install backlog, dispatch pressure, CSAT' },
-      { label: 'Decision lens', value: 'Recovery crews versus customer promise risk' },
-      { label: 'Review rhythm', value: 'Daily dispatch review and weekly B2C ops' },
+      { label: 'Watch', value: 'Install backlog, dispatch, CSAT' },
+      { label: 'Focus', value: 'Recovery crews vs. customer promise' },
+      { label: 'Cadence', value: 'Daily dispatch, weekly B2C ops' },
     ],
   },
   'Escalations & Recovery': {
     description:
-      'Service and delivery risk queue for escalations that need coordinated ownership before SLA exposure, customer noise, or recovery cost rises further.',
+      'Escalations requiring coordinated ownership before SLA exposure, customer impact, or recovery cost compounds.',
     highlights: [
-      { label: 'Primary watch', value: 'Critical age, MTTR, and breach risk' },
-      { label: 'Decision lens', value: 'Recovery ownership and decision windows' },
-      { label: 'Review rhythm', value: 'Daily risk bridge and escalation review' },
+      { label: 'Watch', value: 'Critical age, MTTR, breach risk' },
+      { label: 'Focus', value: 'Recovery ownership and decision windows' },
+      { label: 'Cadence', value: 'Daily risk bridge, escalation review' },
     ],
-    noteLabel: 'Recovery Standard',
-    note:
-      'A credible recovery item names the owner, the required decision, and the commercial or service impact of moving too slowly.',
   },
   'From Demo to Live Deployment': {
     description:
-      'Transition plan from interview demo to governed production control tower, covering source systems, semantic modeling, ownership, and rollout discipline.',
+      'Transition path from demonstration to governed production: source systems, semantic modeling, ownership, and rollout discipline.',
     highlights: [
-      { label: 'Operating goal', value: 'Trusted KPI model for live leadership use' },
-      { label: 'Critical control', value: 'Source, owner, and review forum per KPI' },
-      { label: 'Rollout posture', value: 'Phased adoption tied to real operating pain' },
+      { label: 'Goal', value: 'Trusted KPI model for live leadership use' },
+      { label: 'Control', value: 'Source, owner, and forum per KPI' },
+      { label: 'Approach', value: 'Phased adoption tied to operating pain' },
     ],
   },
   'Data Governance & Methodology': {
     description:
-      'Reference layer for the demo’s taxonomy, KPI dictionary, escalation logic, and governance rules before any metric reaches the executive cockpit.',
+      'KPI dictionary, escalation logic, and governance rules ensuring every metric reaching the executive view is auditable and decision-ready.',
     highlights: [
-      { label: 'Governance rule', value: 'No KPI without source, owner, and threshold' },
+      { label: 'Rule', value: 'No KPI without source, owner, threshold' },
       { label: 'Scope', value: 'Delivery, acceptance, backlog, escalation, B2C' },
-      { label: 'Purpose', value: 'Keep executive views decision-ready and auditable' },
+      { label: 'Purpose', value: 'Decision-ready and auditable views' },
     ],
   },
 };

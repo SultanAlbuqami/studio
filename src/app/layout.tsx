@@ -17,13 +17,13 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://pmo-sultan.vercel.app'),
   title: 'Salam PMO | Control Tower',
-  description: 'Executive Command Center for Director Customer PMO at Salam',
+  description: 'Customer delivery operations control tower for portfolio health, service activation, and revenue protection.',
   alternates: {
     canonical: '/',
   },
   openGraph: {
     title: 'Salam PMO | Control Tower',
-    description: 'Executive Command Center for Director Customer PMO at Salam',
+    description: 'Customer delivery operations control tower for portfolio health, service activation, and revenue protection.',
     url: 'https://pmo-sultan.vercel.app',
     siteName: 'Salam PMO Control Tower',
     type: 'website',
@@ -56,25 +56,15 @@ export default function RootLayout({
                   <div className="flex-1">
                     {children}
                   </div>
-                  <footer className="mt-8 border-t border-border/30 bg-card/35">
-                    <div className="mx-auto max-w-[1600px] px-5 py-4 md:px-8">
-                      <div className="grid gap-3 xl:grid-cols-[minmax(0,1.1fr)_minmax(360px,0.92fr)] xl:gap-5">
-                        <div className="min-w-0 rounded-2xl border border-border/20 bg-background/25 px-4 py-3">
-                          <p className="text-[11px] font-medium tracking-wide text-foreground/96">
-                            Designed and built by Sultan Albuqami
-                          </p>
-                          <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/82">
-                            Product concept, executive KPI design, UX structure, and implementation for a telecom customer delivery control tower.
-                          </p>
-                        </div>
-                        <div className="rounded-2xl border border-border/20 bg-background/25 px-4 py-3 xl:text-right">
-                          <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-foreground/72">
-                            Interview context
-                          </p>
-                          <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/88">
-                            Prepared as an executive interview demonstration using illustrative operating data, representative labels, and simulated delivery scenarios.
-                          </p>
-                        </div>
+                  <footer className="mt-8 border-t border-border/20">
+                    <div className="mx-auto max-w-[1600px] px-5 py-3.5 md:px-8">
+                      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+                        <p className="text-[11px] text-muted-foreground/60">
+                          Salam PMO Control Tower &middot; Customer Delivery Operations
+                        </p>
+                        <p className="text-[11px] text-muted-foreground/44">
+                          Operating data is illustrative. Directionally aligned with enterprise PMO workflows.
+                        </p>
                       </div>
                     </div>
                   </footer>
