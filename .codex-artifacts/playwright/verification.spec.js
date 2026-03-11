@@ -1,24 +1,24 @@
 const { test, expect } = require('@playwright/test');
 
 test.describe('experience verification', () => {
-  test('home exposes a working mobile navigation shell', async ({ page }) => {
+  test('home exposes visible mobile navigation without relying on a hidden drawer trigger', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('http://localhost:9002/', {
       waitUntil: 'networkidle',
       timeout: 60000,
     });
 
-    const trigger = page.getByRole('button', { name: 'Toggle Sidebar' });
-    await expect(trigger).toBeVisible();
+    await expect(page.getByText('Quick Navigation')).toBeVisible();
+    await expect(
+      page.getByRole('link', { name: 'Delivery Control Tower' }),
+    ).toBeVisible();
     await page.screenshot({
       path: '.codex-artifacts/after/home-mobile.png',
       fullPage: true,
     });
 
-    await trigger.click();
-    await expect(
-      page.getByRole('dialog').getByRole('link', { name: 'Executive Overview' }),
-    ).toBeVisible();
+    await page.getByRole('link', { name: 'Delivery Control Tower' }).click();
+    await expect(page).toHaveURL(/\/delivery$/);
     await page.screenshot({
       path: '.codex-artifacts/after/home-mobile-menu.png',
     });
