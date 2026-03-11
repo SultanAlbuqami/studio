@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test.describe('mobile verification', () => {
+test.describe('experience verification', () => {
   test('home exposes a working mobile navigation shell', async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto('http://localhost:9002/', {
@@ -81,5 +81,21 @@ test.describe('mobile verification', () => {
     await firstFocusLink.click();
     await expect(page).toHaveURL(/\/strategic\?.*focus=/);
     await expect(page.getByRole('dialog')).toBeVisible();
+  });
+
+  test('methodology supports KPI search and scope filtering', async ({ page }) => {
+    await page.goto('http://localhost:9002/methodology', {
+      waitUntil: 'networkidle',
+      timeout: 60000,
+    });
+
+    await page.getByRole('searchbox', { name: 'Search KPI dictionary' }).fill('MTTR');
+    await expect(page.getByText('Avg MTTR')).toBeVisible();
+
+    await page.getByRole('button', { name: /Escalations/i }).click();
+    await expect(page.getByText('SLA Breach Risk')).toBeVisible();
+
+    await page.getByRole('button', { name: 'Clear' }).click();
+    await expect(page.getByText('On-Time Delivery')).toBeVisible();
   });
 });

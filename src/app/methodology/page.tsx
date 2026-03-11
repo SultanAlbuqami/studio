@@ -1,7 +1,8 @@
 import { DashboardHeader } from '@/components/dashboard/header';
 import { Card } from '@/components/ui/card';
 import { kpiMetadata, type KpiMetadataKey } from '@/app/lib/kpi-metadata';
-import { Database, ShieldCheck, Info, AlertTriangle, Target } from 'lucide-react';
+import { Database, ShieldCheck, Info, AlertTriangle, Target, CheckCircle2, Users } from 'lucide-react';
+import { MethodologyClient } from './methodology-client';
 
 const allKpiKeys = Object.keys(kpiMetadata) as KpiMetadataKey[];
 
@@ -80,6 +81,47 @@ export default function MethodologyPage() {
           </div>
         </Card>
 
+        <div className="grid gap-4 xl:grid-cols-3">
+          <Card className="executive-card">
+            <div className="p-5">
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="h-4 w-4 text-primary" />
+                <p className="text-sm font-semibold">Governed Before Displayed</p>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Metrics only appear in executive views after definition,
+                ownership, source logic, and review cadence are named.
+              </p>
+            </div>
+          </Card>
+
+          <Card className="executive-card">
+            <div className="p-5">
+              <div className="flex items-center gap-2">
+                <Users className="h-4 w-4 text-primary" />
+                <p className="text-sm font-semibold">Named Decision Rights</p>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                Every KPI is tied to a business owner and forum so a threshold
+                breach can trigger action instead of debate.
+              </p>
+            </div>
+          </Card>
+
+          <Card className="executive-card">
+            <div className="p-5">
+              <div className="flex items-center gap-2">
+                <Target className="h-4 w-4 text-primary" />
+                <p className="text-sm font-semibold">Threshold-Led Intervention</p>
+              </div>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                The cockpit is built to expose material shifts quickly, with
+                target bands and escalation points visible to leadership.
+              </p>
+            </div>
+          </Card>
+        </div>
+
         {/* ── KPI Dictionary ── */}
         <div className="section-divider">
           <span className="section-label">KPI Dictionary</span>
@@ -91,72 +133,7 @@ export default function MethodologyPage() {
           that pass this standard appear in executive views.
         </p>
 
-        <div className="space-y-3">
-          <div className="hidden rounded-lg border border-border/40 bg-background/40 px-4 py-3 lg:grid lg:grid-cols-[1fr_1.2fr_1fr_0.9fr_0.8fr] lg:gap-4">
-            {['KPI', 'Source', 'Accountable Owner', 'Review Forum', 'Threshold'].map(
-              (label) => (
-                <p
-                  key={label}
-                  className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground"
-                >
-                  {label}
-                </p>
-              )
-            )}
-          </div>
-
-          {allKpiKeys.map((key) => {
-            const meta = kpiMetadata[key];
-
-            return (
-              <div
-                key={key}
-                className="rounded-lg border border-border/40 bg-background/30 p-4 lg:grid lg:grid-cols-[1fr_1.2fr_1fr_0.9fr_0.8fr] lg:gap-4"
-              >
-                <div className="space-y-1">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground lg:hidden">
-                    KPI
-                  </p>
-                  <p className="text-sm font-semibold text-foreground/90">
-                    {meta.label}
-                  </p>
-                </div>
-                <div className="mt-3 space-y-1 lg:mt-0">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground lg:hidden">
-                    Source
-                  </p>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {meta.source}
-                  </p>
-                </div>
-                <div className="mt-3 space-y-1 lg:mt-0">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground lg:hidden">
-                    Accountable Owner
-                  </p>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {meta.owner}
-                  </p>
-                </div>
-                <div className="mt-3 space-y-1 lg:mt-0">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground lg:hidden">
-                    Review Forum
-                  </p>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {meta.forum}
-                  </p>
-                </div>
-                <div className="mt-3 space-y-1 lg:mt-0">
-                  <p className="text-[10px] font-semibold uppercase tracking-widest text-muted-foreground lg:hidden">
-                    Threshold
-                  </p>
-                  <p className="text-sm leading-relaxed text-muted-foreground">
-                    {meta.threshold}
-                  </p>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <MethodologyClient />
 
         <div className="flex items-center gap-3 rounded-lg border border-border/40 bg-card/40 px-4 py-2.5 max-w-3xl">
           <Target className="h-3.5 w-3.5 shrink-0 text-primary" />
