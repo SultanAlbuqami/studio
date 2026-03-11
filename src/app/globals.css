@@ -61,27 +61,34 @@
   }
   body {
     @apply bg-background text-foreground font-body antialiased selection:bg-primary/20;
+    background-image:
+      radial-gradient(circle at top left, hsl(var(--primary) / 0.18), transparent 24rem),
+      radial-gradient(circle at bottom right, hsl(var(--chart-3) / 0.12), transparent 22rem),
+      linear-gradient(180deg, hsl(var(--background)), hsl(224 48% 5%));
+    background-attachment: fixed;
   }
 }
 
 /* ─── Card System ─── */
 .executive-card {
-  @apply rounded-lg border border-border/70 bg-card transition-colors duration-150;
+  @apply rounded-xl border border-border/70 bg-card/90 backdrop-blur-sm transition-all duration-200;
+  box-shadow: 0 18px 48px rgba(2, 6, 23, 0.28);
 }
 .executive-card:hover {
-  @apply border-border;
+  @apply border-border/95 bg-card/95;
 }
 
 /* ─── Section Headings ─── */
 .section-label {
   @apply text-[11px] font-semibold uppercase tracking-widest text-muted-foreground;
+  color: hsl(var(--muted-foreground) / 0.88);
 }
 .section-divider {
   @apply flex items-center gap-3 mb-5;
 }
 .section-divider::after {
   content: '';
-  @apply flex-1 h-px bg-border/40;
+  @apply flex-1 h-px bg-gradient-to-r from-border/60 to-transparent;
 }
 
 /* ─── Scrollbar ─── */

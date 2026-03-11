@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { startTransition, useDeferredValue, useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { DashboardHeader } from '@/components/dashboard/header';
 import { Card, CardContent } from '@/components/ui/card';
 import { explorerData, projectFocusDetails, accountRiskProfiles } from '@/app/lib/dashboard-data';
@@ -14,9 +14,11 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Input } from '@/components/ui/input';
+import { Button } from '@/components/ui/button';
 import {
   AlertTriangle,
   Briefcase,
+  FilterX,
   CheckCircle2,
   DollarSign,
   FolderKanban,
@@ -72,7 +74,10 @@ export function ExplorerClient({
   initialQuery,
 }: ExplorerClientProps) {
   const [query, setQuery] = useState(initialQuery);
+  const [lastCommittedQuery, setLastCommittedQuery] = useState(initialQuery);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const deferredQuery = useDeferredValue(query);
   const focusedDetail = projectFocusDetails[initialFocusId] ?? null;
   const matchedRiskProfile = accountRiskProfiles.find(
     (profile) => profile.focusId === initialFocusId,
@@ -84,7 +89,36 @@ export function ExplorerClient({
 
   useEffect(() => {
     setQuery(initialQuery);
+    setLastCommittedQuery(initialQuery);
   }, [initialQuery]);
+
+  useEffect(() => {
+    const nextQuery = deferredQuery.trim();
+    const committedQuery = lastCommittedQuery.trim();
+
+    if (nextQuery === committedQuery) {
+      return;
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      const params = new URLSearchParams(searchParams.toString());
+
+      if (nextQuery) {
+        params.set('query', nextQuery);
+      } else {
+        params.delete('query');
+      }
+
+      const href = params.toString() ? `/explorer?${params.toString()}` : '/explorer';
+
+      startTransition(() => {
+        router.replace(href, { scroll: false });
+      });
+      setLastCommittedQuery(nextQuery);
+    }, 250);
+
+    return () => window.clearTimeout(timeoutId);
+  }, [deferredQuery, lastCommittedQuery, router, searchParams]);
 
   const filtered = useMemo(() => {
     if (!query.trim()) return explorerData;
@@ -239,17 +273,33 @@ export function ExplorerClient({
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
             placeholder="Search by Project ID, Customer, or Region…"
+            aria-label="Search portfolio projects"
+            type="search"
             className="pl-10 h-10"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
         </div>
         <div className="flex flex-wrap items-center gap-2 px-2 text-xs text-muted-foreground tabular-nums">
-          {filtered.length} of {explorerData.length} projects
+          <span>
+            {filtered.length} of {explorerData.length} projects
+          </span>
           {initialFocusId && (
             <span className="rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-primary">
               Focused project: {initialFocusId}
             </span>
+          )}
+          {(query.trim() || initialFocusId) && (
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              className="h-8 gap-1.5 px-2 text-xs text-muted-foreground"
+              onClick={() => router.push('/explorer')}
+            >
+              <FilterX className="h-3.5 w-3.5" />
+              Clear view
+            </Button>
           )}
         </div>
       </div>

@@ -96,12 +96,14 @@ export function buildQueueViewHref(
   basePath: string,
   filters: QueueFilterState,
   anchor?: string,
+  focus?: string,
 ) {
   const params = new URLSearchParams();
 
   if (filters.owner) params.set('owner', filters.owner);
   if (filters.region) params.set('region', filters.region);
   if (filters.window) params.set('window', filters.window);
+  if (focus) params.set('focus', focus);
 
   const query = params.toString();
   const hash = anchor ? `#${anchor}` : '';

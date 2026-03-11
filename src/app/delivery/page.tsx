@@ -240,6 +240,12 @@ export default async function DeliveryPage({
 
             {filteredExceptions.map((item) => {
               const isFocused = item.id === focusedException;
+              const focusHref = buildQueueViewHref(
+                '/delivery',
+                activeFilters,
+                'delivery-decisions',
+                item.id,
+              );
 
               return (
                 <div
@@ -247,7 +253,7 @@ export default async function DeliveryPage({
                   className={`rounded-lg border p-4 ${
                     isFocused
                       ? 'border-primary/40 bg-primary/5'
-                      : 'border-border/30 bg-muted/10'
+                      : 'border-border/30 bg-muted/10 transition-colors hover:border-border/50 hover:bg-muted/15'
                   }`}
                 >
                   <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
@@ -337,9 +343,18 @@ export default async function DeliveryPage({
                   </div>
 
                   <div className="mt-3 flex items-center justify-between gap-3 border-t border-border/30 pt-3">
-                    <p className="text-[11px] text-muted-foreground/65">
-                      Related account / order view
-                    </p>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <Link
+                        href={focusHref}
+                        className="inline-flex items-center gap-1.5 text-xs font-medium text-primary transition-colors hover:text-primary/80"
+                      >
+                        {isFocused ? 'Focused brief open' : 'Open focus brief'}
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </Link>
+                      <p className="text-[11px] text-muted-foreground/65">
+                        Related account / order view
+                      </p>
+                    </div>
                     <Link
                       href={item.drillHref}
                       className="inline-flex items-center gap-1.5 text-xs text-primary transition-colors hover:text-primary/80"

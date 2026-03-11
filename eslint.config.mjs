@@ -9,6 +9,12 @@ const eslintConfig = [
     extends: ['next/core-web-vitals', 'next/typescript'],
   }),
   {
+    files: ['.codex-artifacts/playwright/**/*.js'],
+    rules: {
+      '@typescript-eslint/no-require-imports': 'off',
+    },
+  },
+  {
     ignores: [
       'node_modules/**',
       '.next/**',

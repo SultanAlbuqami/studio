@@ -31,14 +31,13 @@ test.describe('mobile verification', () => {
       timeout: 60000,
     });
 
-    await page.getByRole('textbox', {
-      name: 'Search by Project ID, Customer, or Region…',
-    }).fill('PRJ-016');
+    await page.locator('input[type="search"]').fill('PRJ-016');
 
     const firstCard = page.getByRole('button', {
       name: /Open MoI Regional Secure VPN details/,
     });
     await expect(firstCard).toBeVisible();
+    await expect(page).toHaveURL(/query=PRJ-016/);
     await page.screenshot({
       path: '.codex-artifacts/after/explorer-mobile.png',
       fullPage: true,
@@ -50,5 +49,37 @@ test.describe('mobile verification', () => {
     await page.screenshot({
       path: '.codex-artifacts/after/explorer-mobile-detail.png',
     });
+  });
+
+  test('delivery queue exposes an in-page focus brief entry point', async ({ page }) => {
+    await page.goto('http://localhost:9002/delivery', {
+      waitUntil: 'networkidle',
+      timeout: 60000,
+    });
+
+    const firstFocusLink = page.getByRole('link', {
+      name: 'Open focus brief',
+    }).first();
+
+    await expect(firstFocusLink).toBeVisible();
+    await firstFocusLink.click();
+    await expect(page).toHaveURL(/\/delivery\?.*focus=/);
+    await expect(page.getByRole('dialog')).toBeVisible();
+  });
+
+  test('strategic queue exposes an in-page focus brief entry point', async ({ page }) => {
+    await page.goto('http://localhost:9002/strategic', {
+      waitUntil: 'networkidle',
+      timeout: 60000,
+    });
+
+    const firstFocusLink = page.getByRole('link', {
+      name: 'Open focus brief',
+    }).first();
+
+    await expect(firstFocusLink).toBeVisible();
+    await firstFocusLink.click();
+    await expect(page).toHaveURL(/\/strategic\?.*focus=/);
+    await expect(page.getByRole('dialog')).toBeVisible();
   });
 });
