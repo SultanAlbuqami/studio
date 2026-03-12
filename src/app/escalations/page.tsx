@@ -69,6 +69,7 @@ export default async function EscalationsPage({
           icon={AlertTriangle}
           trend={{ value: escalationSummary.weekOverWeekTrend, positive: false }}
           variant="compact"
+          tone="critical"
           className="border-destructive/15"
         />
         <KpiCard
@@ -76,6 +77,7 @@ export default async function EscalationsPage({
           value={escalationSummary.criticalCount}
           icon={AlertTriangle}
           variant="compact"
+          tone="critical"
           className="border-destructive/25"
         />
         <KpiCard
@@ -83,12 +85,14 @@ export default async function EscalationsPage({
           value={escalationSummary.avgMttr}
           icon={Timer}
           variant="compact"
+          tone="warning"
         />
         <KpiCard
           label={kpiMetadata.slaBreachRisk.label}
           value={escalationSummary.slaBreachRisk}
           icon={ShieldAlert}
           variant="compact"
+          tone="critical"
           className="border-rose-500/15"
         />
       </section>

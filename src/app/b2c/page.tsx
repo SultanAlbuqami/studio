@@ -107,12 +107,14 @@ export default function B2CPage() {
           value={b2cSnapshotData.activeHomeFiberSubs.toLocaleString()}
           icon={Home}
           variant="spotlight"
+          tone="success"
         />
         <KpiCard
           label={kpiMetadata.pendingInstalls.label}
           value={b2cSnapshotData.pendingInstallations.toLocaleString()}
           icon={Clock}
           variant="spotlight"
+          tone="warning"
           className="border-amber-500/15"
         />
         <KpiCard
@@ -121,12 +123,14 @@ export default function B2CPage() {
           icon={Clock}
           trend={{ value: "-0.5d", positive: true }}
           variant="spotlight"
+          tone="primary"
         />
         <KpiCard
           label={kpiMetadata.b2cCsat.label}
           value={`${b2cSnapshotData.customerSatisfactionScore}/5`}
           icon={Smile}
           variant="spotlight"
+          tone="success"
         />
       </section>
 

@@ -227,7 +227,7 @@ export function ControlTowerGuide({
           <Button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="pointer-events-auto h-auto rounded-full border border-white/12 bg-slate-950/96 px-4 py-3 text-sm font-medium text-slate-50 shadow-[0_24px_80px_rgba(2,16,42,0.45)] backdrop-blur-xl hover:bg-slate-900"
+            className="pointer-events-auto h-auto px-4 py-3 text-sm shadow-[0_24px_80px_rgba(2,16,42,0.45)]"
           >
             <MessageSquare className="mr-2 h-4 w-4" />
             Open guide
@@ -240,22 +240,22 @@ export function ControlTowerGuide({
           <div
             role="complementary"
             aria-labelledby="control-tower-guide-title"
-            className="pointer-events-auto flex h-[min(72svh,42rem)] w-full flex-col overflow-hidden rounded-[28px] border border-white/12 bg-slate-950/98 shadow-[0_32px_120px_rgba(2,12,34,0.58)] ring-1 ring-white/6 backdrop-blur-2xl sm:h-full"
+            className="pointer-events-auto flex h-[min(72svh,42rem)] w-full flex-col overflow-hidden rounded-[28px] border border-primary/15 bg-[linear-gradient(180deg,rgba(9,14,34,0.98),rgba(5,9,24,0.98))] shadow-[0_32px_120px_rgba(2,12,34,0.58)] ring-1 ring-white/6 backdrop-blur-2xl sm:h-full"
           >
-            <div className="border-b border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(56,189,248,0.16),transparent_48%),linear-gradient(180deg,rgba(15,23,42,0.98),rgba(10,15,29,0.96))] px-4 py-4">
+            <div className="border-b border-white/10 bg-[radial-gradient(circle_at_top_left,rgba(73,177,255,0.2),transparent_48%),linear-gradient(180deg,rgba(13,20,47,0.98),rgba(8,13,31,0.96))] px-4 py-4">
               <div className="flex items-start justify-between gap-3">
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-sky-400/25 bg-sky-500/12 text-sky-300 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
-                      <Bot className="h-4.5 w-4.5" />
+                    <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-primary/25 bg-primary/12 text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+                      <Bot className="h-[18px] w-[18px]" />
                     </div>
                     <div className="min-w-0">
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-sky-200/80">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/76">
                         Operations Guide
                       </p>
                       <h2
                         id="control-tower-guide-title"
-                        className="truncate text-base font-semibold tracking-tight text-slate-50"
+                        className="truncate font-headline text-base font-semibold tracking-[-0.04em] text-slate-50"
                       >
                         {controlTowerGuideName}
                       </h2>
@@ -270,7 +270,7 @@ export function ControlTowerGuide({
                   variant="ghost"
                   size="icon"
                   onClick={() => setIsOpen(false)}
-                  className="h-9 w-9 shrink-0 rounded-full border border-white/10 bg-slate-900/80 text-slate-300 hover:bg-slate-800 hover:text-slate-50"
+                  className="h-9 w-9 shrink-0 border border-white/10 bg-slate-900/80 text-slate-300 hover:bg-slate-800 hover:text-slate-50"
                 >
                   <X className="h-4 w-4" />
                   <span className="sr-only">Close guide</span>
@@ -281,7 +281,7 @@ export function ControlTowerGuide({
                 <span className="rounded-full border border-white/10 bg-slate-900/82 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-slate-200">
                   {currentRoute.title}
                 </span>
-                <span className="rounded-full border border-sky-400/20 bg-sky-500/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-sky-100">
+                <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-primary-foreground">
                   Operations context
                 </span>
               </div>
@@ -296,7 +296,7 @@ export function ControlTowerGuide({
                     variant="outline"
                     size="sm"
                     onClick={action.onClick}
-                    className="h-8 rounded-full border-white/10 bg-slate-900/88 px-3 text-xs font-medium text-slate-100 hover:bg-slate-800 hover:text-white"
+                    className="h-8 border-white/10 bg-slate-900/88 px-3 text-xs font-medium text-slate-100 hover:bg-slate-800 hover:text-white"
                   >
                     {action.label}
                   </Button>
@@ -346,7 +346,7 @@ export function ControlTowerGuide({
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
                   placeholder="Ask about this view, operating risks, delivery posture, or what to review next..."
-                  className="min-h-[88px] resize-none rounded-2xl border-white/10 bg-slate-900/94 text-sm leading-relaxed text-slate-50 placeholder:text-slate-400 focus-visible:ring-sky-400/50"
+                  className="min-h-[88px] resize-none border-white/10 !bg-slate-900/94 text-sm leading-relaxed text-slate-50 placeholder:text-slate-400 focus-visible:ring-primary/50"
                   maxLength={1600}
                 />
                 <div className="flex items-center justify-between gap-3">
@@ -357,7 +357,7 @@ export function ControlTowerGuide({
                   <Button
                     type="submit"
                     disabled={isLoading || input.trim().length === 0}
-                    className="h-10 rounded-full bg-sky-600 px-4 text-white hover:bg-sky-500 disabled:bg-sky-900/55 disabled:text-slate-300"
+                    className="h-10 px-4 text-white disabled:bg-sky-900/55 disabled:text-slate-300"
                   >
                     {isLoading ? (
                       <Loader2 className="h-4 w-4 animate-spin" />

@@ -42,6 +42,7 @@ export default function BookingPage() {
           icon={ClipboardList}
           trend={{ value: "+12%", positive: true }}
           variant="spotlight"
+          tone="success"
         />
         <KpiCard
           label={kpiMetadata.avgBookingToBilling.label}
@@ -49,18 +50,21 @@ export default function BookingPage() {
           icon={Clock}
           trend={{ value: "-2.5d", positive: true }}
           variant="spotlight"
+          tone="primary"
         />
         <KpiCard
           label={kpiMetadata.onTimeFulfillment.label}
           value={`${bookingFulfillmentData.onTimeFulfillmentRate}%`}
           icon={CheckCircle2}
           variant="spotlight"
+          tone="success"
         />
         <KpiCard
           label={kpiMetadata.orderFallout.label}
           value={`${bookingFulfillmentData.orderFalloutRate}%`}
           icon={XCircle}
           variant="spotlight"
+          tone="critical"
           className="border-rose-500/15"
         />
         <KpiCard
@@ -68,6 +72,7 @@ export default function BookingPage() {
           value={bookingFulfillmentData.cancelledOrdersMTD}
           icon={AlertCircle}
           variant="spotlight"
+          tone="warning"
           className="border-destructive/20"
         />
       </section>

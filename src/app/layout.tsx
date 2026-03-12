@@ -1,5 +1,5 @@
 import type {Metadata} from 'next';
-import { Inter } from 'next/font/google';
+import { Manrope, Sora } from 'next/font/google';
 import './globals.css';
 import { SidebarProvider, SidebarInset } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
@@ -8,9 +8,15 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { ControlTowerGuide } from '@/components/control-tower-guide';
 import { hasConfiguredAiKey } from '@/ai/config';
 
-const inter = Inter({ 
+const manrope = Manrope({
   subsets: ['latin'],
-  variable: '--font-inter',
+  variable: '--font-ui',
+  display: 'swap',
+});
+
+const sora = Sora({
+  subsets: ['latin'],
+  variable: '--font-display',
   display: 'swap',
 });
 
@@ -38,7 +44,11 @@ export default function RootLayout({
   const isAiConfigured = hasConfiguredAiKey();
 
   return (
-    <html lang="en" dir="ltr" className={`${inter.variable} dark`}>
+    <html
+      lang="en"
+      dir="ltr"
+      className={`${manrope.variable} ${sora.variable} dark`}
+    >
       <body className="font-sans antialiased bg-background text-foreground">
         <a
           href="#app-content"

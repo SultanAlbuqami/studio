@@ -133,6 +133,7 @@ export default async function DeliveryPage({
           value={`${deliveryKpis.firstTimeRight}%`}
           icon={Target}
           variant="compact"
+          tone="success"
         />
         <KpiCard
           label={kpiMetadata.avgDeliveryCycleTime.label}
@@ -140,6 +141,7 @@ export default async function DeliveryPage({
           icon={Timer}
           trend={{ value: deliveryKpis.cycleTimeTrend, positive: true }}
           variant="compact"
+          tone="primary"
         />
       </section>
 

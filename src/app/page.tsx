@@ -35,7 +35,7 @@ export default async function ExecutiveOverview({
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-[1600px] mx-auto px-5 py-6 md:px-8 md:py-8 space-y-6">
+      <div className="mx-auto max-w-[1600px] space-y-7 px-5 py-6 md:px-8 md:py-8">
 
         <DashboardHeader />
 
@@ -47,6 +47,7 @@ export default async function ExecutiveOverview({
             icon={CheckCircle2}
             trend={{ value: "-0.8%", positive: false }}
             variant="spotlight"
+            tone="primary"
             className="border-amber-500/20"
           />
           <KpiCard
@@ -55,6 +56,7 @@ export default async function ExecutiveOverview({
             subValue="SAR"
             icon={ShieldAlert}
             variant="spotlight"
+            tone="critical"
             className="border-destructive/25"
           />
           <KpiCard
@@ -63,6 +65,7 @@ export default async function ExecutiveOverview({
             icon={Package}
             trend={{ value: "+5.2%", positive: true }}
             variant="spotlight"
+            tone="success"
           />
         </section>
 
@@ -73,17 +76,20 @@ export default async function ExecutiveOverview({
             value={`${(dashboardData.acceptedValueMTD / 1000000).toFixed(1)}M`}
             subValue="SAR"
             icon={TrendingUp}
+            tone="success"
           />
           <KpiCard
             label={kpiMetadata.acceptancePending.label}
             value={dashboardData.acceptancePending}
             icon={CreditCard}
             trend={{ value: "+14", positive: false }}
+            tone="warning"
           />
           <KpiCard
             label={kpiMetadata.pastDueBacklog.label}
             value={dashboardData.pastDueBacklog}
             icon={Clock}
+            tone="critical"
             className="border-rose-500/15"
           />
         </section>
