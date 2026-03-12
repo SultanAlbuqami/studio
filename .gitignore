@@ -38,8 +38,7 @@ yarn-error.log*
 next-env.d.ts
 
 # local verification artifacts
-.codex-artifacts/after/
-.codex-artifacts/logs/
+.codex-artifacts/
 
 .genkit/*
 .env*
