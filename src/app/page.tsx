@@ -4,6 +4,10 @@ import { ExecutiveBriefAI } from '@/components/dashboard/executive-brief-ai';
 import { PortfolioHealth } from '@/components/dashboard/portfolio-health';
 import { InterventionQueue } from '@/components/dashboard/intervention-queue';
 import { AccountExposure } from '@/components/dashboard/account-exposure';
+import { ExecutiveDecisionDesk } from '@/components/dashboard/executive-decision-desk';
+import { ExecutiveActionRegister } from '@/components/dashboard/executive-action-register';
+import { DataConfidencePanel } from '@/components/dashboard/data-confidence-panel';
+import { ScenarioPlanner } from '@/components/dashboard/scenario-planner';
 import { accountRiskProfiles, dashboardData } from '@/app/lib/dashboard-data';
 import { kpiMetadata } from '@/app/lib/kpi-metadata';
 import { getFirstSearchParamValue } from '@/app/lib/queue-filters';
@@ -38,6 +42,15 @@ export default async function ExecutiveOverview({
       <div className="mx-auto max-w-[1600px] space-y-7 px-5 py-6 md:px-8 md:py-8">
 
         <DashboardHeader />
+
+        <section className="grid gap-6 xl:grid-cols-[1.25fr_0.75fr]">
+          <ExecutiveDecisionDesk />
+
+          <div className="space-y-6">
+            <DataConfidencePanel />
+            <ScenarioPlanner />
+          </div>
+        </section>
 
         {/* ── Spotlight KPIs ── */}
         <section className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -124,6 +137,13 @@ export default async function ExecutiveOverview({
                   <span className="section-label">Operating Brief</span>
                 </div>
                 <ExecutiveBriefAI isAiConfigured={isAiConfigured} compact />
+              </section>
+
+              <section>
+                <div className="section-divider">
+                  <span className="section-label">Action Ownership</span>
+                </div>
+                <ExecutiveActionRegister />
               </section>
 
               <section>

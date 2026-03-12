@@ -4,11 +4,10 @@ import { startTransition, useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import {
   ArrowRight,
-  Bot,
   Loader2,
   MessageSquare,
   SendHorizonal,
-  Sparkles,
+  TowerControl,
   X,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -34,8 +33,6 @@ type ChatMessage = Readonly<{
   role: 'assistant' | 'user';
   content: string;
 }>;
-
-const sessionStorageKey = 'control-tower-guide-opened';
 
 function createInitialMessages(): ChatMessage[] {
   return buildGuideWelcomeMessages().map((message, index) => ({
@@ -68,22 +65,6 @@ export function ControlTowerGuide({
 
     initializedRef.current = true;
     setMessages(createInitialMessages());
-
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    const alreadyOpened = window.sessionStorage.getItem(sessionStorageKey);
-    if (alreadyOpened) {
-      return;
-    }
-
-    const timer = window.setTimeout(() => {
-      setIsOpen(true);
-      window.sessionStorage.setItem(sessionStorageKey, '1');
-    }, 420);
-
-    return () => window.clearTimeout(timer);
   }, [pathname]);
 
   useEffect(() => {
@@ -201,22 +182,24 @@ export function ControlTowerGuide({
 
   const quickActions = [
     {
-      label: 'Current posture',
-      onClick: () => void sendMessage('Summarize the current operating posture.'),
-    },
-    {
-      label: 'About this view',
+      label: 'Top risk',
       onClick: () =>
-        void sendMessage(`What does this view show and what decisions does it support?`),
+        void sendMessage('What is the top risk in this dashboard right now?'),
     },
     {
-      label: 'Key risks',
-      onClick: () => void sendMessage('What are the most critical risks right now?'),
-    },
-    {
-      label: 'Data governance',
+      label: 'Action register',
       onClick: () =>
-        void sendMessage('How are the KPIs in this dashboard governed?'),
+        void sendMessage('Which actions are ready for leadership assignment right now?'),
+    },
+    {
+      label: 'Scenario impact',
+      onClick: () =>
+        void sendMessage('What is the highest-impact scenario in the planner and why?'),
+    },
+    {
+      label: 'Present this view',
+      onClick: () =>
+        void sendMessage('How should I present this view to a VP?'),
     },
   ];
 
@@ -230,7 +213,7 @@ export function ControlTowerGuide({
             className="pointer-events-auto h-auto px-4 py-3 text-sm shadow-[0_24px_80px_rgba(2,16,42,0.45)]"
           >
             <MessageSquare className="mr-2 h-4 w-4" />
-            Open guide
+            Ask the control tower
           </Button>
         </div>
       )}
@@ -247,11 +230,11 @@ export function ControlTowerGuide({
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <div className="flex h-10 w-10 items-center justify-center rounded-2xl border border-primary/25 bg-primary/12 text-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
-                      <Bot className="h-[18px] w-[18px]" />
+                      <TowerControl className="h-[18px] w-[18px]" />
                     </div>
                     <div className="min-w-0">
                       <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/76">
-                        Operations Guide
+                        Executive Q&A
                       </p>
                       <h2
                         id="control-tower-guide-title"
@@ -262,7 +245,8 @@ export function ControlTowerGuide({
                     </div>
                   </div>
                   <p className="mt-3 text-sm leading-relaxed text-slate-300">
-                    Navigate the control tower, understand current operating posture, and identify the next decision-worthy view.
+                    Ask about KPIs, risk accounts, decision owners, scenario
+                    impact, or how to present the current view.
                   </p>
                 </div>
                 <Button
@@ -282,7 +266,7 @@ export function ControlTowerGuide({
                   {currentRoute.title}
                 </span>
                 <span className="rounded-full border border-primary/20 bg-primary/10 px-2.5 py-1 text-[10px] font-medium uppercase tracking-[0.18em] text-primary-foreground">
-                  Operations context
+                  Grounded in current data
                 </span>
               </div>
             </div>
@@ -316,7 +300,7 @@ export function ControlTowerGuide({
                       'max-w-[92%] rounded-2xl px-3.5 py-3 text-sm leading-7 shadow-sm',
                       message.role === 'assistant'
                         ? 'border border-white/10 bg-slate-900/96 text-slate-50 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]'
-                        : 'ml-auto border border-sky-400/15 bg-sky-500 text-white shadow-[0_12px_28px_rgba(14,116,219,0.28)]',
+                        : 'ml-auto border border-primary/20 bg-primary/85 text-slate-950 shadow-[0_12px_28px_rgba(14,116,219,0.22)]',
                     )}
                   >
                     <p className="whitespace-pre-wrap font-medium">{message.content}</p>
@@ -325,9 +309,9 @@ export function ControlTowerGuide({
 
                 {isLoading && (
                   <div className="max-w-[88%] rounded-2xl border border-white/10 bg-slate-900/96 px-3.5 py-3 text-sm text-slate-200">
-                    <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2">
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      Preparing response...
+                      Preparing answer...
                     </div>
                   </div>
                 )}
@@ -345,14 +329,14 @@ export function ControlTowerGuide({
                 <Textarea
                   value={input}
                   onChange={(event) => setInput(event.target.value)}
-                  placeholder="Ask about this view, operating risks, delivery posture, or what to review next..."
+                  placeholder="Ask about any KPI, risk, owner, scenario, or page in this dashboard..."
                   className="min-h-[88px] resize-none border-white/10 !bg-slate-900/94 text-sm leading-relaxed text-slate-50 placeholder:text-slate-400 focus-visible:ring-primary/50"
                   maxLength={1600}
                 />
                 <div className="flex items-center justify-between gap-3">
                   <p className="text-[11px] leading-relaxed text-slate-300">
-                    Ask in English or Arabic. Responses are grounded in
-                    the operating model and current portfolio data.
+                    Ask in English or Arabic. Answers stay bounded to the
+                    dashboard&apos;s current operating context.
                   </p>
                   <Button
                     type="submit"
@@ -363,7 +347,6 @@ export function ControlTowerGuide({
                       <Loader2 className="h-4 w-4 animate-spin" />
                     ) : (
                       <>
-                        <Sparkles className="mr-1.5 h-4 w-4" />
                         Send
                         <SendHorizonal className="ml-1.5 h-4 w-4" />
                       </>

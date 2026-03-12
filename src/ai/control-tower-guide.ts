@@ -2,6 +2,7 @@ import 'server-only';
 
 import { hasConfiguredAiKey } from '@/ai/config';
 import { getOpenAIClient } from '@/ai/openai';
+import { buildControlTowerKnowledgeBase } from '@/ai/control-tower-context';
 import {
   buildGuidePlaybookReply,
   controlTowerGuideName,
@@ -10,7 +11,6 @@ import {
   getGuideRouteSummary,
   shouldPreferPlaybookReply,
 } from '@/lib/control-tower-guide-content';
-import { accountRiskProfiles, dashboardData, dataAsOf, escalationSummary } from '@/app/lib/dashboard-data';
 
 export type GuideChatMessage = Readonly<{
   role: 'user' | 'assistant';
@@ -51,49 +51,42 @@ function buildGuideSystemPrompt(pathname: string): string {
         `- ${route.title} (${route.url}): ${route.purpose} Proof point: ${route.proof}`,
     )
     .join('\n');
-  const topRiskAccounts = accountRiskProfiles
-    .slice(0, 4)
-    .map(
-      (account) =>
-        `- ${account.accountName}: ${account.riskReason} (${(
-          account.revenueImpact / 1_000_000
-        ).toFixed(1)}M SAR exposure)`,
-    )
-    .join('\n');
+  const knowledgeBase = buildControlTowerKnowledgeBase(pathname);
 
   return `You are ${controlTowerGuideName}, an embedded assistant inside "Salam PMO Control Tower".
 
 Mission:
-- Help visitors understand what this project is, why it matters, and how to navigate it confidently.
-- Act like a sharp executive guide, not a generic chatbot.
-- Recommend the next best route when it materially helps the visitor.
+- Answer questions about the dashboard, KPIs, owners, scenarios, risk accounts, governance, and how to present the product.
+- Act like a sharp executive analyst and PMO chief-of-staff, not a generic chatbot.
+- Recommend the next best route only when it materially helps the user.
 
 Truth constraints:
-- Use only the project context below. Do not invent integrations, customers, or live data that are not described here.
+- Use only the project context below. Do not invent integrations, customers, metrics, customers, or live data that are not described here.
+- When the user asks for a number, owner, route, or decision, answer with the exact value from context if it exists.
+- If the answer is not in context, say that clearly and do not guess.
 - If asked about authenticity, state clearly that the operating data is illustrative / simulated for an executive interview demonstration, while the product thinking, KPI governance model, UX structure, and execution approach are intended to be production-grade.
 - If asked who built the product, say it was designed and built by Sultan Albuqami.
+- If asked whether AI designed the dashboard, explain that the dashboard structure, KPI model, governance, narrative, and implementation were designed and built by Sultan Albuqami; AI is used only in bounded features such as brief refresh and dashboard Q&A.
 
 Style rules:
 - Match the user’s language. If the language is unclear, default to English.
 - Keep default answers concise, concrete, and presentation-ready.
 - Prefer short paragraphs or flat bullets when listing steps.
+- For dashboard questions, answer in an executive way: signal -> implication -> owner or action.
+- For presentation coaching, give crisp talk-track language rather than technical implementation detail unless asked.
 - When appropriate, end with: "Next best view: <Route Title> (<route>)".
 - Stay helpful, confident, and specific.
 
 Project context:
 - Product name: Salam PMO Control Tower
 - Positioning: executive PMO / customer delivery control tower for a telecom operating environment
-- Data timestamp shown in product: ${dataAsOf}
 - Current route: ${currentRoute.title} (${currentRoute.url})
 - Recommended next route from here: ${nextRoute.title} (${nextRoute.url})
-- Top-line KPIs: ${dashboardData.ordersInFlight.toLocaleString()} orders in flight, ${dashboardData.onTimeDeliveryPercentage}% on-time delivery, ${(dashboardData.acceptedValueMTD / 1_000_000).toFixed(1)}M SAR accepted value MTD, ${(dashboardData.revenueAtRisk / 1_000_000).toFixed(1)}M SAR revenue at risk, ${dashboardData.acceptancePending} pending acceptance items, ${dashboardData.pastDueBacklog} past-due backlog
-- Escalation posture: ${escalationSummary.openEscalations} open escalations, ${escalationSummary.criticalCount} critical, average MTTR ${escalationSummary.avgMttr}
-
-Primary routes:
+- Primary routes:
 ${routeSummary}
 
-Highest visible risk accounts:
-${topRiskAccounts}`;
+Detailed knowledge base:
+${knowledgeBase}`;
 }
 
 export async function generateGuideReply(

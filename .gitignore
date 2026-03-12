@@ -39,6 +39,8 @@ next-env.d.ts
 
 # local verification artifacts
 .codex-artifacts/
+.next-external.log
+.next-external.err
 
 .genkit/*
 .env*

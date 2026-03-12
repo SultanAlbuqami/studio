@@ -15,7 +15,7 @@ export type GuideRouteSummary = Readonly<{
   }>;
 }>;
 
-export const controlTowerGuideName = 'Control Tower Guide';
+export const controlTowerGuideName = 'Executive Desk';
 
 const executiveSignals = {
   ordersInFlight: '1,485',
@@ -48,6 +48,30 @@ export const guideRouteSummaries: readonly GuideRouteSummary[] = [
         `ابدأ بالإشارات الثلاث الأهم: ${executiveSignals.onTimeDelivery} التزام بالتسليم، ${executiveSignals.revenueAtRisk} إيراد معرّض، و${executiveSignals.ordersInFlight} طلبًا نشطًا.`,
         'استخدم أقسام المخاطر والتدخلات لتوضيح ما يحتاج رعاية الإدارة هذا الأسبوع، لا مجرد استعراض تاريخي للأداء.',
         'بعدها انتقل إلى Delivery Control Tower لإثبات كيف تتحول الإشارة العامة إلى مالك واضح وقرار بزمن محدد وأثر متوقع.',
+      ],
+    },
+  },
+  {
+    title: 'VP Briefing',
+    url: '/briefing',
+    purpose:
+      'Condenses the control tower into one meeting-ready page for sponsor reviews, printouts, and VP-level portfolio posture.',
+    proof:
+      'Shows that the product can switch from operating console to concise executive brief without losing decision ownership.',
+    leadershipQuestion: {
+      en: 'If leadership has only one page and five minutes, what should be decided now and why should they trust it?',
+      ar: 'إذا كان لدى الإدارة صفحة واحدة وخمس دقائق فقط، فما الذي يجب حسمه الآن ولماذا يمكن الوثوق به؟',
+    },
+    presentationSteps: {
+      en: [
+        'Use this page when the audience wants the shortest path from portfolio signal to owner-backed action.',
+        'Frame the page as a leadership pack, not an analyst workspace.',
+        'Use it to prove that the product supports the meeting room as well as day-to-day operations.',
+      ],
+      ar: [
+        'استخدم هذه الصفحة عندما يريد الجمهور أقصر طريق من الإشارة إلى الإجراء بمالك واضح.',
+        'قدّمها كحزمة قيادة تنفيذية لا كمساحة عمل تحليلية.',
+        'استخدمها لإثبات أن المنتج يخدم غرفة الاجتماع كما يخدم التشغيل اليومي.',
       ],
     },
   },
@@ -174,7 +198,8 @@ export const guideRouteSummaries: readonly GuideRouteSummary[] = [
 ] as const;
 
 const nextRouteByPathname: Record<string, string> = {
-  '/': '/delivery',
+  '/': '/briefing',
+  '/briefing': '/delivery',
   '/delivery': '/strategic',
   '/strategic': '/explorer',
   '/explorer': '/methodology',
@@ -233,10 +258,10 @@ function buildRecommendedRoute(language: GuideLanguage): string {
     return `المسار الموصى به للعرض
 
 1. Executive Overview لإظهار وضع المحفظة
-2. Delivery Control Tower لإظهار منطق التدخل التنفيذي
-3. Strategic Orders لإظهار حماية الإيراد
-4. Portfolio Explorer لإظهار حالة واحدة قابلة للمساءلة
-5. Data Governance وDeployment لإقفال سؤال المصداقية والتنفيذ
+2. VP Briefing لتلخيص القرارات القابلة للحسم فورًا
+3. Delivery Control Tower لإظهار منطق التدخل التنفيذي
+4. Strategic Orders لإظهار حماية الإيراد
+5. Portfolio Explorer ثم Data Governance وDeployment لإقفال سؤال المصداقية والتنفيذ
 
 اطلب مني: مقدمة 60 ثانية، كيف أشرح هذه الصفحة، أعلى خطر اليوم، أو لماذا يجب أن تثق الإدارة بهذا العمل.`;
   }
@@ -244,10 +269,10 @@ function buildRecommendedRoute(language: GuideLanguage): string {
   return `Recommended live route
 
 1. Executive Overview for portfolio posture
-2. Delivery Control Tower for intervention logic
-3. Strategic Orders for revenue protection
-4. Portfolio Explorer for one accountable case
-5. Data Governance and Deployment for credibility and rollout
+2. VP Briefing for one-page leadership focus
+3. Delivery Control Tower for intervention logic
+4. Strategic Orders for revenue protection
+5. Portfolio Explorer, then Data Governance and Deployment for credibility and rollout
 
 Ask for: a 60-second opener, how to present this page, the top risk today, or why leadership should trust this product.`;
 }
@@ -516,7 +541,8 @@ function identifyGuideIntent(prompt: string): GuideIntent {
 }
 
 export function shouldPreferPlaybookReply(prompt: string): boolean {
-  return identifyGuideIntent(prompt) !== 'default';
+  const intent = identifyGuideIntent(prompt);
+  return intent === 'opener' || intent === 'page' || intent === 'walkthrough';
 }
 
 export function buildGuidePlaybookReply(
@@ -550,6 +576,7 @@ export function buildGuideWelcomeMessages(): string[] {
   return [
     buildExecutiveOpening('en'),
     buildRecommendedRoute('en'),
+    'You can also ask about any KPI, risk account, owner, scenario, briefing page, or governance rule shown in the dashboard.',
   ];
 }
 

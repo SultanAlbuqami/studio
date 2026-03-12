@@ -7,13 +7,16 @@ Live URL: https://pmo-sultan.vercel.app
 ## What this project demonstrates
 
 - Executive portfolio posture across delivery, revenue exposure, and intervention demand
+- Leadership decision queue, owner-backed action register, and deterministic scenario planning
 - Operational drill-downs for delivery control, strategic orders, escalations, booking, and B2C fulfillment
 - Governed KPI definitions with accountable owners, review forums, and thresholds
+- A bounded executive desk for dashboard Q&A and presentation support using OpenAI when configured
 - A productized interview demo that connects design, product thinking, and frontend execution
 
 ## Primary routes
 
 - `/` Executive Overview
+- `/briefing` VP Briefing Pack
 - `/delivery` Delivery Control Tower
 - `/strategic` Strategic Orders
 - `/explorer` Portfolio Explorer
@@ -27,7 +30,7 @@ npm install
 npm run dev
 ```
 
-To enable the global AI guide and the executive brief panel, create `.env.local`
+To enable the executive desk and live brief refresh, create `.env.local`
 and set:
 
 ```bash

@@ -274,3 +274,49 @@
 [dir='rtl'] .sidebar-trigger {
   @apply rotate-180;
 }
+
+@media print {
+  html {
+    color-scheme: light;
+  }
+
+  body {
+    background: white !important;
+    color: black !important;
+  }
+
+  body::before,
+  body::after {
+    display: none !important;
+  }
+
+  [data-sidebar='sidebar'],
+  [data-sidebar='rail'],
+  .print-hidden {
+    display: none !important;
+  }
+
+  #app-content {
+    overflow: visible !important;
+  }
+
+  .executive-card,
+  .command-hero,
+  .command-panel {
+    border-color: rgb(212 212 216 / 1) !important;
+    background: white !important;
+    box-shadow: none !important;
+  }
+
+  .executive-card::before,
+  .executive-card::after,
+  .command-hero::before,
+  .command-hero::after {
+    display: none !important;
+  }
+
+  .section-label,
+  .text-muted-foreground {
+    color: rgb(82 82 91 / 1) !important;
+  }
+}

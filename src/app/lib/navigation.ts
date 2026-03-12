@@ -3,6 +3,7 @@ import {
   AlertTriangle,
   BookOpen,
   ClipboardList,
+  FileText,
   LayoutDashboard,
   Rocket,
   Search,
@@ -24,6 +25,12 @@ export const overviewNavigationItems: readonly AppNavigationItem[] = [
     title: 'Executive Overview',
     url: '/',
     icon: LayoutDashboard,
+    section: 'Overview',
+  },
+  {
+    title: 'VP Briefing',
+    url: '/briefing',
+    icon: FileText,
     section: 'Overview',
   },
   {

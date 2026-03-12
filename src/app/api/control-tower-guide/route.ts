@@ -30,7 +30,7 @@ export async function POST(request: Request) {
         status: 'success',
         mode: 'playbook',
         message:
-          'I can still guide the walkthrough. Ask for a 60-second opener, how to present this page, the top risk today, or why leadership should trust the numbers.',
+          'I can still help from the local playbook. Ask for a 60-second opener, how to present this page, the top risk, or why leadership should trust the numbers.',
       },
       { status: 400 },
     );

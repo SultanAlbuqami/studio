@@ -59,14 +59,18 @@ export default function RootLayout({
         <TooltipProvider delayDuration={300}>
           <SidebarProvider>
             <div className="flex min-h-screen w-full">
-              <AppSidebar />
+              <div className="print-hidden">
+                <AppSidebar />
+              </div>
               <SidebarInset className="flex w-full flex-col overflow-hidden">
-                <AppMobileHeader />
+                <div className="print-hidden">
+                  <AppMobileHeader />
+                </div>
                 <div id="app-content" className="flex flex-1 flex-col overflow-y-auto">
                   <div className="flex-1">
                     {children}
                   </div>
-                  <footer className="mt-8 border-t border-border/20">
+                  <footer className="print-hidden mt-8 border-t border-border/20">
                     <div className="mx-auto max-w-[1600px] px-5 py-3.5 md:px-8">
                       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
                         <p className="text-[11px] text-muted-foreground/60">
@@ -81,7 +85,9 @@ export default function RootLayout({
                 </div>
               </SidebarInset>
             </div>
-            <ControlTowerGuide isAiConfigured={isAiConfigured} />
+            <div className="print-hidden">
+              <ControlTowerGuide isAiConfigured={isAiConfigured} />
+            </div>
           </SidebarProvider>
         </TooltipProvider>
       </body>

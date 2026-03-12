@@ -54,6 +54,27 @@ const headerContextByTitle: Record<string, HeaderContext> = {
       cadenceValue: 'Daily PMO bridge + weekly steering',
     },
   },
+  'VP Briefing Pack': {
+    description:
+      'Condensed leadership pack for sponsor reviews, decision windows, and print-ready portfolio posture.',
+    highlights: [
+      { label: 'Mode', value: 'Meeting-ready briefing view' },
+      { label: 'Focus', value: 'Decision ownership and exposed value' },
+      { label: 'Best use', value: 'VP review or sponsor steering' },
+    ],
+    note:
+      'This briefing view compresses the dashboard into a short executive pack: portfolio posture, the calls that matter now, and the ownership needed to move them.',
+    posture: {
+      score: 93,
+      label: 'Prepared',
+      caption: 'Briefing posture',
+      tone: 'success',
+      primarySignalLabel: 'Primary signal',
+      primarySignalValue: 'Acceptance clearance and infrastructure readiness remain the fastest revenue-protection levers',
+      cadenceLabel: 'Best use',
+      cadenceValue: 'Leadership review, sponsor call, or print pack',
+    },
+  },
   'Portfolio Explorer': {
     description:
       'Search the live portfolio by project, customer, region, or segment to isolate exposure and coverage gaps.',

@@ -14,7 +14,6 @@ import {
   dashboardData,
 } from '@/app/lib/dashboard-data';
 import {
-  Sparkles,
   Loader2,
   TriangleAlert,
   AlertCircle,
@@ -23,7 +22,8 @@ import {
   ArrowRight,
   Target,
   User,
-  Zap,
+  FileText,
+  RefreshCcw,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -240,7 +240,7 @@ export function ExecutiveBriefAI({
   const fetchBrief = useCallback(async () => {
     if (!isAiConfigured) {
       setFallbackMessage(
-        'Configure OPENAI_API_KEY in your environment to enable AI analysis.'
+        'Configure OPENAI_API_KEY in your environment to enable live brief refresh.'
       );
       return;
     }
@@ -259,7 +259,7 @@ export function ExecutiveBriefAI({
       }
     } catch {
       setFallbackMessage(
-        'AI analysis could not be completed. The dashboard remains fully operational.'
+        'Live brief refresh could not be completed. The dashboard remains fully operational.'
       );
     } finally {
       setLoading(false);
@@ -283,13 +283,13 @@ export function ExecutiveBriefAI({
       <Card className="executive-card overflow-hidden">
         <div className="flex items-start justify-between gap-3 px-4 py-3 border-b border-border/30">
           <div className="flex items-start gap-2.5">
-            <Sparkles className="mt-0.5 h-3.5 w-3.5 text-primary" />
+            <FileText className="mt-0.5 h-3.5 w-3.5 text-primary" />
             <div className="min-w-0">
-              <p className="text-sm font-semibold">Executive Brief</p>
+              <p className="text-sm font-semibold">Operating Brief</p>
               <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/60">
                 {compact
                   ? 'Key signals from current operating snapshot.'
-                  : 'Synthesized signals from the current portfolio and delivery snapshot.'}
+                  : 'Current executive note grounded in the approved portfolio and delivery snapshot.'}
               </p>
             </div>
           </div>
@@ -306,13 +306,13 @@ export function ExecutiveBriefAI({
                   {loading ? (
                     <Loader2 className="h-3 w-3 animate-spin" />
                   ) : (
-                    <Zap className="h-3 w-3" />
+                    <RefreshCcw className="h-3 w-3" />
                   )}
-                  {loading ? 'Updating…' : 'Refresh'}
+                  {loading ? 'Refreshing…' : 'Refresh brief'}
                 </Button>
               </TooltipTrigger>
               <TooltipContent side="bottom" className="max-w-[240px] text-xs leading-relaxed">
-                Refresh the executive brief with the latest operating data.
+                Refresh the operating brief using the latest approved dashboard context.
               </TooltipContent>
             </Tooltip>
           )}
@@ -343,7 +343,7 @@ export function ExecutiveBriefAI({
             <div className="flex items-start gap-2 mt-3 pt-3 border-t border-border/20">
               <TriangleAlert className="mt-0.5 h-3 w-3 text-muted-foreground/40 shrink-0" />
               <p className="text-[11px] text-muted-foreground/50">
-                Brief refresh unavailable. Showing latest cached signals.
+                Live brief refresh unavailable. Showing the current approved operating note.
               </p>
             </div>
           )}
