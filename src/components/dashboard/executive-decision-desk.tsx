@@ -19,7 +19,7 @@ const domainLabels: Record<ExecutiveDecisionCard['domain'], string> = {
 };
 
 export function ExecutiveDecisionDesk() {
-  const visibleDecisions = executiveDecisionQueue.slice(0, 4);
+  const visibleDecisions = executiveDecisionQueue.slice(0, 3);
   const criticalCount = visibleDecisions.filter(
     (item) => item.priority === 'critical',
   ).length;
@@ -40,7 +40,7 @@ export function ExecutiveDecisionDesk() {
           </div>
 
           <div className="grid min-w-[220px] gap-2 sm:grid-cols-2">
-            <div className="rounded-[1.25rem] border border-white/10 bg-background/35 px-4 py-3">
+            <div className="rounded-[1.1rem] border border-white/8 bg-background/28 px-4 py-3">
               <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/72">
                 Live decisions
               </p>
@@ -48,7 +48,7 @@ export function ExecutiveDecisionDesk() {
                 {visibleDecisions.length}
               </p>
             </div>
-            <div className="rounded-[1.25rem] border border-white/10 bg-background/35 px-4 py-3">
+            <div className="rounded-[1.1rem] border border-white/8 bg-background/28 px-4 py-3">
               <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/72">
                 Critical now
               </p>
@@ -65,19 +65,19 @@ export function ExecutiveDecisionDesk() {
           {visibleDecisions.map((item) => (
             <article
               key={item.id}
-              className="rounded-[1.4rem] border border-border/40 bg-background/25 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]"
+              className="rounded-[1.25rem] border border-border/35 bg-background/22 p-4"
             >
               <div className="flex flex-wrap items-center gap-2">
                 <span className="rounded-full border border-white/10 bg-background/55 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-foreground/80">
                   {domainLabels[item.domain]}
                 </span>
-                <span className="rounded-full border border-white/10 bg-background/55 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-muted-foreground/80">
-                  {item.region}
-                </span>
                 <span
                   className={`rounded-full border px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] ${priorityStyles[item.priority]}`}
                 >
                   {item.priority}
+                </span>
+                <span className="text-[11px] text-muted-foreground/72">
+                  {item.region} · {item.decisionWindow}
                 </span>
               </div>
 
@@ -90,7 +90,7 @@ export function ExecutiveDecisionDesk() {
                 </p>
               </div>
 
-              <div className="mt-4 rounded-[1.1rem] border border-primary/15 bg-primary/[0.06] p-3.5">
+              <div className="mt-4 rounded-[1rem] border border-primary/12 bg-primary/[0.05] p-3.5">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/74">
                   Decision Required
                 </p>
@@ -99,47 +99,18 @@ export function ExecutiveDecisionDesk() {
                 </p>
               </div>
 
-              <div className="mt-4 grid gap-2 sm:grid-cols-3">
-                <div className="rounded-[1rem] border border-white/10 bg-background/35 p-3">
-                  <div className="flex items-start gap-2">
-                    <User className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
-                    <div>
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/72">
-                        Owner
-                      </p>
-                      <p className="mt-2 text-sm leading-relaxed text-foreground/92">
-                        {item.owner}
-                      </p>
-                    </div>
-                  </div>
+              <div className="mt-4 grid gap-2 text-[11px] text-muted-foreground/78 sm:grid-cols-3">
+                <div className="flex items-center gap-1.5 rounded-[0.95rem] border border-white/8 bg-background/24 px-3 py-2.5">
+                  <User className="h-3.5 w-3.5 shrink-0 text-primary" />
+                  <span>{item.owner}</span>
                 </div>
-
-                <div className="rounded-[1rem] border border-white/10 bg-background/35 p-3">
-                  <div className="flex items-start gap-2">
-                    <Clock3 className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
-                    <div>
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/72">
-                        Window
-                      </p>
-                      <p className="mt-2 text-sm leading-relaxed text-foreground/92">
-                        {item.decisionWindow}
-                      </p>
-                    </div>
-                  </div>
+                <div className="flex items-center gap-1.5 rounded-[0.95rem] border border-white/8 bg-background/24 px-3 py-2.5">
+                  <Clock3 className="h-3.5 w-3.5 shrink-0 text-primary" />
+                  <span>{item.decisionWindow}</span>
                 </div>
-
-                <div className="rounded-[1rem] border border-white/10 bg-background/35 p-3">
-                  <div className="flex items-start gap-2">
-                    <MapPin className="mt-0.5 h-3.5 w-3.5 shrink-0 text-primary" />
-                    <div>
-                      <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/72">
-                        Review forum
-                      </p>
-                      <p className="mt-2 text-sm leading-relaxed text-foreground/92">
-                        {item.reviewForum}
-                      </p>
-                    </div>
-                  </div>
+                <div className="flex items-center gap-1.5 rounded-[0.95rem] border border-white/8 bg-background/24 px-3 py-2.5">
+                  <MapPin className="h-3.5 w-3.5 shrink-0 text-primary" />
+                  <span>{item.reviewForum}</span>
                 </div>
               </div>
 
@@ -148,7 +119,7 @@ export function ExecutiveDecisionDesk() {
                   Evidence
                 </p>
                 <div className="flex flex-wrap gap-2">
-                  {item.evidence.map((evidence) => (
+                  {item.evidence.slice(0, 2).map((evidence) => (
                     <span
                       key={evidence}
                       className="rounded-full border border-white/10 bg-background/55 px-2.5 py-1 text-[11px] text-foreground/86"
@@ -156,10 +127,15 @@ export function ExecutiveDecisionDesk() {
                       {evidence}
                     </span>
                   ))}
+                  {item.evidence.length > 2 && (
+                    <span className="rounded-full border border-white/10 bg-background/45 px-2.5 py-1 text-[11px] text-muted-foreground/76">
+                      +{item.evidence.length - 2} more
+                    </span>
+                  )}
                 </div>
               </div>
 
-              <div className="mt-4 rounded-[1rem] border border-border/35 bg-background/30 p-3">
+              <div className="mt-4 rounded-[1rem] border border-border/30 bg-background/24 p-3">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/72">
                   Expected impact
                 </p>

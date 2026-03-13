@@ -1,6 +1,5 @@
 import {
   Activity,
-  Calendar as CalendarIcon,
   Clock,
   Layers,
   Sparkles,
@@ -295,11 +294,6 @@ export function DashboardHeader({
       value: hideFilters ? 'Reference and governance view' : 'All portfolios',
     },
     {
-      icon: CalendarIcon,
-      label: hideFilters ? 'Operating window' : 'Reporting window',
-      value: hideFilters ? 'Governed release planning' : 'Q1 2026',
-    },
-    {
       icon: Clock,
       label: 'Snapshot',
       value: timestamp,
@@ -315,9 +309,9 @@ export function DashboardHeader({
               <Sparkles className="h-3.5 w-3.5" />
               Executive control mode
             </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.26em] text-muted-foreground/86">
-              <Activity className="h-3.5 w-3.5 text-primary" />
-              Live operating signal
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-white/8 bg-white/[0.03] px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground/78">
+              <Activity className="h-3.5 w-3.5 text-primary/90" />
+              Live
             </span>
           </div>
 
@@ -335,11 +329,11 @@ export function DashboardHeader({
             </div>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-3 sm:grid-cols-2 xl:max-w-4xl xl:grid-cols-3">
             {resolvedHighlights.map((item) => (
               <div
                 key={`${item.label}-${item.value}`}
-                className="rounded-[1.4rem] border border-white/10 bg-background/35 px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]"
+                className="rounded-[1.25rem] border border-white/8 bg-background/28 px-4 py-3.5"
               >
                 <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-primary/72">
                   {item.label}
@@ -352,7 +346,7 @@ export function DashboardHeader({
           </div>
 
           {resolvedNote && (
-            <div className="rounded-[1.5rem] border border-primary/15 bg-primary/[0.08] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)]">
+            <div className="rounded-[1.35rem] border border-primary/12 bg-primary/[0.05] px-4 py-4">
               <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/78">
                 {resolvedNoteLabel}
               </p>
@@ -369,15 +363,15 @@ export function DashboardHeader({
               <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/72">
                 Operating posture
               </p>
-              <p className="mt-2 font-headline text-xl font-semibold tracking-[-0.04em] text-foreground">
-                Executive mode
+              <p className="mt-2 font-headline text-lg font-semibold tracking-[-0.04em] text-foreground">
+                Executive view
               </p>
               <p className="mt-1 text-xs leading-relaxed text-muted-foreground/78">
-                The control-tower shell mirrors a premium utility-console layout, but translated into executive operations.
+                Calm, decision-led posture for leadership reviews without overcrowding the page.
               </p>
             </div>
-            <span className="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.28em] text-primary/82">
-              Sync locked
+            <span className="rounded-full border border-primary/18 bg-primary/8 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/78">
+              Synced
             </span>
           </div>
 
@@ -391,15 +385,8 @@ export function DashboardHeader({
             />
 
             <div className="space-y-4">
-              <div className="command-switch">
-                <span className="command-switch__item command-switch__item--active">
-                  Executive
-                </span>
-                <span className="command-switch__item">Operational</span>
-              </div>
-
               <div className="grid gap-3 sm:grid-cols-2">
-                <div className="rounded-[1.25rem] border border-white/10 bg-background/35 p-3.5">
+                <div className="rounded-[1.1rem] border border-white/8 bg-background/28 p-3.5">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/72">
                     {posture.primarySignalLabel}
                   </p>
@@ -407,7 +394,7 @@ export function DashboardHeader({
                     {posture.primarySignalValue}
                   </p>
                 </div>
-                <div className="rounded-[1.25rem] border border-white/10 bg-background/35 p-3.5">
+                <div className="rounded-[1.1rem] border border-white/8 bg-background/28 p-3.5">
                   <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/72">
                     {posture.cadenceLabel}
                   </p>
@@ -423,11 +410,11 @@ export function DashboardHeader({
             {telemetryRows.map((row) => (
               <div
                 key={row.label}
-                className="flex items-center justify-between gap-3 rounded-[1.25rem] border border-white/10 bg-background/25 px-3.5 py-3"
+                className="flex items-center justify-between gap-3 rounded-[1.1rem] border border-white/8 bg-background/20 px-3.5 py-3"
               >
                 <div className="flex min-w-0 items-center gap-3">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[1rem] border border-primary/20 bg-primary/10 text-primary shadow-[0_0_28px_rgba(73,177,255,0.14)]">
-                    <row.icon className="h-4 w-4" />
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[0.95rem] border border-primary/14 bg-primary/8 text-primary">
+                    <row.icon className="h-3.5 w-3.5" />
                   </div>
                   <div className="min-w-0">
                     <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/68">

@@ -14,7 +14,7 @@ const priorityStyles = {
 } as const;
 
 export function InterventionQueue() {
-  const visibleInterventions = executiveInterventions.slice(0, 3);
+  const visibleInterventions = executiveInterventions.slice(0, 2);
   const hiddenCount = executiveInterventions.length - visibleInterventions.length;
   const [navigatingHref, setNavigatingHref] = useState<string | null>(null);
 
@@ -57,47 +57,47 @@ export function InterventionQueue() {
               key={item.title}
               href={item.href}
               onClick={() => setNavigatingHref(item.href)}
-              className="block rounded-lg border border-border/35 bg-background/25 p-2.5 transition-colors hover:bg-muted/10"
+              className="block rounded-[1rem] border border-border/30 bg-background/22 p-3 transition-colors hover:bg-muted/8"
             >
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0">
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="text-[13px] font-semibold leading-tight text-foreground">
-                    {item.title}
+              <div className="flex items-start justify-between gap-3">
+                <div className="min-w-0">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="text-[13px] font-semibold leading-tight text-foreground">
+                      {item.title}
+                    </p>
+                    <span
+                      className={`rounded border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${
+                        priorityStyles[item.priority]
+                      }`}
+                    >
+                      {item.priority}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-[12px] leading-relaxed text-muted-foreground">
+                    {item.summary}
                   </p>
-                  <span
-                    className={`rounded border px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest ${
-                      priorityStyles[item.priority]
-                    }`}
-                  >
-                    {item.priority}
-                  </span>
                 </div>
-                <p className="mt-1 text-[12px] leading-relaxed text-muted-foreground">
-                  {item.summary}
-                </p>
+                <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground/40" />
               </div>
-              <ArrowRight className="mt-0.5 h-3.5 w-3.5 shrink-0 text-muted-foreground/40" />
-            </div>
 
-            <div className="mt-2.5 grid gap-1.5 sm:grid-cols-2">
-              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/78">
-                <User className="h-3 w-3 shrink-0" />
-                <span>Accountable owner: {item.owner}</span>
+              <div className="mt-3 grid gap-1.5 text-[11px] text-muted-foreground/76 sm:grid-cols-2">
+                <div className="flex items-center gap-1.5">
+                  <User className="h-3 w-3 shrink-0" />
+                  <span>{item.owner}</span>
+                </div>
+                <div className="flex items-center gap-1.5 sm:justify-end">
+                  <Clock3 className="h-3 w-3 shrink-0" />
+                  <span>{item.timing}</span>
+                </div>
               </div>
-              <div className="flex items-center gap-1.5 text-[11px] text-muted-foreground/78 sm:justify-end">
-                <Clock3 className="h-3 w-3 shrink-0" />
-                <span>Decision window: {item.timing}</span>
-              </div>
-            </div>
 
-            <p className="mt-2 text-[11px] leading-relaxed text-foreground/80">
-              <span className="font-semibold text-muted-foreground/70">
-                Impact:
-              </span>{' '}
-              {item.impact}
-            </p>
-          </Link>
+              <p className="mt-2.5 text-[11px] leading-relaxed text-foreground/80">
+                <span className="font-semibold text-muted-foreground/70">
+                  Impact:
+                </span>{' '}
+                {item.impact}
+              </p>
+            </Link>
           );
         })}
 
