@@ -1,7 +1,7 @@
 import 'server-only';
 
 import { hasConfiguredAiKey } from '@/ai/config';
-import { getOpenAIClient } from '@/ai/openai';
+import { getAiClient } from '@/ai/client';
 import { buildControlTowerKnowledgeBase } from '@/ai/control-tower-context';
 import {
   buildGuidePlaybookReply,
@@ -11,6 +11,7 @@ import {
   getGuideRouteSummary,
   shouldPreferPlaybookReply,
 } from '@/lib/control-tower-guide-content';
+import { getAiModel } from '@/ai/config';
 
 export type GuideChatMessage = Readonly<{
   role: 'user' | 'assistant';
@@ -24,7 +25,7 @@ type GuideReplyResult =
     mode: 'ai' | 'playbook';
   };
 
-const GUIDE_MODEL = 'gpt-4o-mini';
+const GUIDE_MODEL = getAiModel();
 let guideLiveReplyHealth: 'unknown' | 'healthy' | 'invalid' = 'unknown';
 
 function sanitizeMessages(messages: GuideChatMessage[]): GuideChatMessage[] {
@@ -114,7 +115,7 @@ export async function generateGuideReply(
   }
 
   try {
-    const client = getOpenAIClient();
+    const client = getAiClient();
     const response = await client.chat.completions.create({
       model: GUIDE_MODEL,
       temperature: 0.4,

@@ -88,7 +88,7 @@ const aiGuardrails = [
   'Manual only. The brief is generated when a leader requests it; there is no automatic run on page load or schedule.',
   'Source-bounded. AI receives a curated KPI snapshot and approved context, not unrestricted raw enterprise data.',
   'Human-reviewed. Recommendations stay advisory until the PMO or operations owner accepts and assigns them.',
-  'Graceful fallback. If OpenAI is unavailable or the key is missing, the dashboard keeps serving a static executive brief.',
+  'Graceful fallback. If Gemini is unavailable or the key or quota is missing, the dashboard keeps serving a static executive brief.',
   'Governed vocabulary. Recovery wording, escalation framing, and account-risk narrative are centralized in the shared decision dataset before they reach the AI layer.',
 ] as const;
 

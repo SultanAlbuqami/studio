@@ -1,7 +1,7 @@
 'use server';
 
-import { getOpenAIClient } from '@/ai/openai';
-import { hasConfiguredAiKey } from '@/ai/config';
+import { getAiClient } from '@/ai/client';
+import { getAiModel, hasConfiguredAiKey } from '@/ai/config';
 
 // ── Types ──
 
@@ -61,9 +61,22 @@ export type ExecutiveBriefGenerationResult =
 // ── Messages ──
 
 const MISSING_KEY_MSG =
-  'AI analysis requires an OpenAI API key. Configure OPENAI_API_KEY in your environment.';
+  'AI analysis requires a Gemini API key. Configure GEMINI_API_KEY or GOOGLE_API_KEY in your environment.';
 const UNAVAILABLE_MSG =
-  'AI analysis could not be completed. Verify your OpenAI API key and try again.';
+  'AI analysis could not be completed. Verify your Gemini API key, quota, and billing details and try again.';
+
+function getUnavailableMessage(error: unknown): string {
+  if (
+    typeof error === 'object' &&
+    error !== null &&
+    'status' in error &&
+    Number(error.status) === 429
+  ) {
+    return 'AI analysis is temporarily unavailable because the Gemini API quota is exhausted. Showing the approved operating brief instead.';
+  }
+
+  return UNAVAILABLE_MSG;
+}
 
 // ── Prompt ──
 
@@ -156,10 +169,10 @@ export async function generateExecutiveBrief(
   }
 
   try {
-    const client = getOpenAIClient();
+    const client = getAiClient();
 
     const response = await client.chat.completions.create({
-      model: 'gpt-4o-mini',
+      model: getAiModel(),
       temperature: 0.3,
       max_tokens: 1500,
       messages: [
@@ -193,6 +206,6 @@ export async function generateExecutiveBrief(
     };
   } catch (error) {
     console.error('Executive brief generation failed:', error);
-    return { status: 'unavailable', message: UNAVAILABLE_MSG };
+    return { status: 'unavailable', message: getUnavailableMessage(error) };
   }
 }

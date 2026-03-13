@@ -240,7 +240,7 @@ export function ExecutiveBriefAI({
   const fetchBrief = useCallback(async () => {
     if (!isAiConfigured) {
       setFallbackMessage(
-        'Configure OPENAI_API_KEY in your environment to enable live brief refresh.'
+        'Configure GEMINI_API_KEY or GOOGLE_API_KEY in your environment to enable live brief refresh.'
       );
       return;
     }

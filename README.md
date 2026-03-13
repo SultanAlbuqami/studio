@@ -10,7 +10,7 @@ Live URL: https://pmo-sultan.vercel.app
 - Leadership decision queue, owner-backed action register, and deterministic scenario planning
 - Operational drill-downs for delivery control, strategic orders, escalations, booking, and B2C fulfillment
 - Governed KPI definitions with accountable owners, review forums, and thresholds
-- A bounded executive desk for dashboard Q&A and presentation support using OpenAI when configured
+- A bounded executive desk for dashboard Q&A and presentation support using Gemini when configured
 - A productized interview demo that connects design, product thinking, and frontend execution
 
 ## Primary routes
@@ -34,7 +34,8 @@ To enable the executive desk and live brief refresh, create `.env.local`
 and set:
 
 ```bash
-OPENAI_API_KEY=your_openai_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.5-flash
 ```
 
 Production build:
