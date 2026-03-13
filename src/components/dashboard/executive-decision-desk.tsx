@@ -19,7 +19,7 @@ const domainLabels: Record<ExecutiveDecisionCard['domain'], string> = {
 };
 
 export function ExecutiveDecisionDesk() {
-  const visibleDecisions = executiveDecisionQueue.slice(0, 3);
+  const visibleDecisions = executiveDecisionQueue.slice(0, 2);
   const criticalCount = visibleDecisions.filter(
     (item) => item.priority === 'critical',
   ).length;
