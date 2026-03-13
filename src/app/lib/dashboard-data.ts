@@ -1731,14 +1731,14 @@ export const dashboardData: DashboardInput = {
   acceptancePending: 184,
   pastDueBacklog: 72,
   weeklyExecutionTrendDescription:
-    'Significant improvement in execution speed for B2B Fiber projects, but slowdown observed due to equipment lead times in Managed Security sector.',
+    'Execution is improving across Internet Services and Cloud Services, but provisioning pace is slowing in Managed Services and Cyber Security handovers.',
   portfolioStatusDistributionDescription:
     '72% On Track, 18% At Risk (Permits & Supply Chain), 10% Critical Delay.',
   revenueAtRiskByFamily: [
-    { family: 'Salam B2B Fiber', revenue: 4500000 },
-    { family: 'Dedicated Internet (DIA)', revenue: 3100000 },
-    { family: 'Managed VPN/SD-WAN', revenue: 2800000 },
-    { family: 'Cloud & Data Centers', revenue: 2000000 },
+    { family: 'Internet Services', revenue: 4500000 },
+    { family: 'Cyber Security Services', revenue: 3100000 },
+    { family: 'Managed Services', revenue: 2800000 },
+    { family: 'Cloud Services', revenue: 2000000 },
   ],
   topAtRiskAccounts: accountRiskProfiles.map((item) => ({
     accountName: item.accountName,

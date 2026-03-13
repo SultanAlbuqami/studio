@@ -76,6 +76,30 @@ export const guideRouteSummaries: readonly GuideRouteSummary[] = [
     },
   },
   {
+    title: 'Salam Service Portfolio',
+    url: '/portfolio',
+    purpose:
+      'Maps the dashboard to Salam&apos;s official consumer, business, and wholesale service coverage so the product story is anchored in the real portfolio.',
+    proof:
+      'Shows that the control tower is tuned to Salam&apos;s service reality, not presented as a generic telecom operations shell.',
+    leadershipQuestion: {
+      en: 'What does Salam actually sell across consumer, business, and wholesale, and how does this control tower cover those domains?',
+      ar: 'ما الذي تبيعه سلام فعليًا عبر قطاعات الأفراد والأعمال والجملة، وكيف يغطي هذا الـ control tower تلك المجالات؟',
+    },
+    presentationSteps: {
+      en: [
+        'Use this page to ground the product in Salam&apos;s real service portfolio before diving into delivery or governance.',
+        'Show the three segments, the official service families, and the routes in the dashboard that govern them.',
+        'Use it when the audience asks whether the demo is truly aligned to Salam or is just a generic PMO concept.',
+      ],
+      ar: [
+        'استخدم هذه الصفحة لتثبيت العرض على محفظة خدمات سلام الفعلية قبل الدخول في التنفيذ أو الحوكمة.',
+        'اعرض القطاعات الثلاثة، عائلات الخدمات الرسمية، والصفحات داخل الداشبورد التي تحكمها.',
+        'هذه أفضل صفحة عندما يسأل الجمهور: هل هذا العمل متوافق فعلًا مع سلام أم أنه مجرد مفهوم PMO عام؟',
+      ],
+    },
+  },
+  {
     title: 'Delivery Control Tower',
     url: '/delivery',
     purpose:
@@ -198,7 +222,8 @@ export const guideRouteSummaries: readonly GuideRouteSummary[] = [
 ] as const;
 
 const nextRouteByPathname: Record<string, string> = {
-  '/': '/briefing',
+  '/': '/portfolio',
+  '/portfolio': '/briefing',
   '/briefing': '/delivery',
   '/delivery': '/strategic',
   '/strategic': '/explorer',
@@ -227,7 +252,7 @@ function buildExecutiveOpening(language: GuideLanguage): string {
   if (language === 'ar') {
     return `الافتتاحية التنفيذية
 
-هذا العمل يجيب بسرعة على ثلاثة أسئلة للإدارة العليا:
+هذا العمل يجيب بسرعة على ثلاثة أسئلة للإدارة العليا عبر محفظة سلام للأفراد والأعمال والجملة:
 - ماذا يتعثر الآن؟
 - ما الإيراد المعرّض؟
 - أين يغيّر تدخل الإدارة النتيجة؟
@@ -241,7 +266,7 @@ function buildExecutiveOpening(language: GuideLanguage): string {
 
   return `Executive opening
 
-This product answers three leadership questions fast:
+This product answers three leadership questions fast across Salam&apos;s consumer, business, and wholesale portfolio:
 - what is slipping
 - what revenue is exposed
 - where sponsor intervention changes the outcome
@@ -258,10 +283,11 @@ function buildRecommendedRoute(language: GuideLanguage): string {
     return `المسار الموصى به للعرض
 
 1. Executive Overview لإظهار وضع المحفظة
-2. VP Briefing لتلخيص القرارات القابلة للحسم فورًا
-3. Delivery Control Tower لإظهار منطق التدخل التنفيذي
-4. Strategic Orders لإظهار حماية الإيراد
-5. Portfolio Explorer ثم Data Governance وDeployment لإقفال سؤال المصداقية والتنفيذ
+2. Salam Service Portfolio لربط القصة بمحفظة سلام الرسمية
+3. VP Briefing لتلخيص القرارات القابلة للحسم فورًا
+4. Delivery Control Tower لإظهار منطق التدخل التنفيذي
+5. Strategic Orders لإظهار حماية الإيراد
+6. Portfolio Explorer ثم Data Governance وDeployment لإقفال سؤال المصداقية والتنفيذ
 
 اطلب مني: مقدمة 60 ثانية، كيف أشرح هذه الصفحة، أعلى خطر اليوم، أو لماذا يجب أن تثق الإدارة بهذا العمل.`;
   }
@@ -269,10 +295,11 @@ function buildRecommendedRoute(language: GuideLanguage): string {
   return `Recommended live route
 
 1. Executive Overview for portfolio posture
-2. VP Briefing for one-page leadership focus
-3. Delivery Control Tower for intervention logic
-4. Strategic Orders for revenue protection
-5. Portfolio Explorer, then Data Governance and Deployment for credibility and rollout
+2. Salam Service Portfolio to anchor the story in Salam&apos;s actual service coverage
+3. VP Briefing for one-page leadership focus
+4. Delivery Control Tower for intervention logic
+5. Strategic Orders for revenue protection
+6. Portfolio Explorer, then Data Governance and Deployment for credibility and rollout
 
 Ask for: a 60-second opener, how to present this page, the top risk today, or why leadership should trust this product.`;
 }
@@ -313,7 +340,7 @@ function build60SecondOpener(pathname: string, language: GuideLanguage): string 
   if (language === 'ar') {
     return `مقدمة 60 ثانية
 
-هذا العمل عبارة عن Executive PMO control tower صُمم ليجيب بسرعة على ثلاثة أسئلة: ماذا يتعثر، ما الإيراد المعرّض، وأين يغيّر تدخل الإدارة النتيجة.
+هذا العمل عبارة عن Executive PMO control tower لسلام، صُمم ليجيب بسرعة على ثلاثة أسئلة عبر محفظة الأفراد والأعمال والجملة: ماذا يتعثر، ما الإيراد المعرّض، وأين يغيّر تدخل الإدارة النتيجة.
 
 اليوم لدينا ${executiveSignals.ordersInFlight} طلبًا نشطًا، الالتزام عند ${executiveSignals.onTimeDelivery}، والتعرض المالي عند ${executiveSignals.revenueAtRisk}. الأهم هنا ليس الأرقام وحدها، بل أن المنصة تربط كل إشارة بقرار ومالك وإيقاع حوكمة واضح.
 
@@ -322,7 +349,7 @@ function build60SecondOpener(pathname: string, language: GuideLanguage): string 
 
   return `60-second opener
 
-This project is an executive PMO control tower built to answer three leadership questions fast: what is slipping, what revenue is exposed, and where sponsor intervention changes the outcome.
+This project is an executive PMO control tower for Salam, built to answer three leadership questions fast across consumer, business, and wholesale services: what is slipping, what revenue is exposed, and where sponsor intervention changes the outcome.
 
 Today the portfolio shows ${executiveSignals.ordersInFlight} live orders, ${executiveSignals.onTimeDelivery} on-time delivery, and ${executiveSignals.revenueAtRisk} at risk. The real point is not the numbers alone. It is that every signal is linked to a decision, an owner, and a governance rhythm.
 
@@ -334,10 +361,11 @@ function buildThreeMinuteWalkthrough(language: GuideLanguage): string {
     return `السيناريو التنفيذي خلال 3 دقائق
 
 1. ابدأ من Executive Overview لقراءة وضع المحفظة في أقل من 30 ثانية.
-2. انتقل إلى Delivery Control Tower وأظهر حالة واحدة حيث يغيّر تدخل الإدارة النتيجة.
-3. افتح Strategic Orders لتوضح كيف تُدار الطلبات عالية القيمة قبل أن يتحول التأخير إلى خطر إيرادي.
-4. استخدم Portfolio Explorer لإثبات أن المنصة لا تتوقف عند المؤشرات العامة، بل تصل إلى حالة واحدة قابلة للنقاش.
-5. اختم بـ Data Governance وDeployment لتثبت أن الأرقام محكومة وأن العمل قابل للتحول إلى منصة تشغيل فعلية.
+2. إذا كان السؤال عن مواءمة العمل مع سلام، افتح Salam Service Portfolio لتثبيت محفظة الخدمات الرسمية.
+3. انتقل إلى Delivery Control Tower وأظهر حالة واحدة حيث يغيّر تدخل الإدارة النتيجة.
+4. افتح Strategic Orders لتوضح كيف تُدار الطلبات عالية القيمة قبل أن يتحول التأخير إلى خطر إيرادي.
+5. استخدم Portfolio Explorer لإثبات أن المنصة لا تتوقف عند المؤشرات العامة، بل تصل إلى حالة واحدة قابلة للنقاش.
+6. اختم بـ Data Governance وDeployment لتثبت أن الأرقام محكومة وأن العمل قابل للتحول إلى منصة تشغيل فعلية.
 
 هذه الرحلة تُظهر التفكير التنفيذي، والانضباط التشغيلي، وجاهزية المنتج للتبني داخل المؤسسة.`;
   }
@@ -345,10 +373,11 @@ function buildThreeMinuteWalkthrough(language: GuideLanguage): string {
   return `3-minute executive walkthrough
 
 1. Start on Executive Overview and frame the portfolio in under 30 seconds.
-2. Move to Delivery Control Tower and show one case where sponsor intervention changes the outcome.
-3. Open Strategic Orders to show how high-value exposure is governed before it becomes revenue slippage.
-4. Use Portfolio Explorer to prove the product can move from portfolio posture to one accountable case.
-5. Close on Data Governance and Deployment to prove the numbers are governed and the model is deployable.
+2. If the audience asks how well this fits Salam, open Salam Service Portfolio to ground the story in official service coverage.
+3. Move to Delivery Control Tower and show one case where sponsor intervention changes the outcome.
+4. Open Strategic Orders to show how high-value exposure is governed before it becomes revenue slippage.
+5. Use Portfolio Explorer to prove the product can move from portfolio posture to one accountable case.
+6. Close on Data Governance and Deployment to prove the numbers are governed and the model is deployable.
 
 That sequence shows product thinking, operating discipline, and enterprise readiness in one narrative.`;
 }

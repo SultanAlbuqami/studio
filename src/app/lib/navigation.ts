@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react';
 import {
   AlertTriangle,
   BookOpen,
+  Globe2,
   ClipboardList,
   FileText,
   LayoutDashboard,
@@ -37,6 +38,12 @@ export const overviewNavigationItems: readonly AppNavigationItem[] = [
     title: 'Portfolio Explorer',
     url: '/explorer',
     icon: Search,
+    section: 'Overview',
+  },
+  {
+    title: 'Service Portfolio',
+    url: '/portfolio',
+    icon: Globe2,
     section: 'Overview',
   },
 ] as const;

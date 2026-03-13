@@ -8,6 +8,7 @@ import { ExecutiveDecisionDesk } from '@/components/dashboard/executive-decision
 import { ExecutiveActionRegister } from '@/components/dashboard/executive-action-register';
 import { DataConfidencePanel } from '@/components/dashboard/data-confidence-panel';
 import { ScenarioPlanner } from '@/components/dashboard/scenario-planner';
+import { SalamServiceCoverage } from '@/components/dashboard/salam-service-coverage';
 import { accountRiskProfiles, dashboardData } from '@/app/lib/dashboard-data';
 import { kpiMetadata } from '@/app/lib/kpi-metadata';
 import { getFirstSearchParamValue } from '@/app/lib/queue-filters';
@@ -105,6 +106,13 @@ export default async function ExecutiveOverview({
             tone="critical"
             className="border-rose-500/15"
           />
+        </section>
+
+        <section>
+          <div className="section-divider">
+            <span className="section-label">Salam Coverage</span>
+          </div>
+          <SalamServiceCoverage />
         </section>
 
         {/* ── Main Dashboard Body ── */}

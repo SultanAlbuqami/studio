@@ -12,6 +12,10 @@ import {
   executiveScenarios,
   strategicDecisionQueue,
 } from '@/app/lib/dashboard-data';
+import {
+  salamOfficialSources,
+  salamServiceSegments,
+} from '@/app/lib/salam-service-portfolio';
 import { kpiMetadata } from '@/app/lib/kpi-metadata';
 import {
   getGuideNextRoute,
@@ -103,6 +107,20 @@ export function buildControlTowerKnowledgeBase(pathname: string): string {
     .map((item) => `- ${item.label}: ${item.value}. ${item.detail}`)
     .join('\n');
 
+  const servicePortfolio = salamServiceSegments
+    .map((segment) => {
+      const categories = segment.categories
+        .map((category) => category.name)
+        .join(', ');
+
+      return `- ${segment.title}: ${segment.overview} Categories: ${categories}. Control-tower lens: ${segment.controlTowerLens}`;
+    })
+    .join('\n');
+
+  const officialSourceLibrary = salamOfficialSources
+    .map((source) => `- ${source.label}: ${source.url}. ${source.note}`)
+    .join('\n');
+
   return `Control Tower knowledge base
 
 Current route:
@@ -125,6 +143,12 @@ Global dashboard snapshot:
 
 Routes:
 ${routeCatalog}
+
+Official Salam service portfolio:
+${servicePortfolio}
+
+Official source library:
+${officialSourceLibrary}
 
 Executive decision queue:
 ${decisionQueue}

@@ -10,6 +10,7 @@ Live URL: https://pmo-sultan.vercel.app
 - Leadership decision queue, owner-backed action register, and deterministic scenario planning
 - Operational drill-downs for delivery control, strategic orders, escalations, booking, and B2C fulfillment
 - Governed KPI definitions with accountable owners, review forums, and thresholds
+- Official Salam service-portfolio coverage across consumer, business, and wholesale references
 - A bounded executive desk for dashboard Q&A and presentation support using Gemini when configured
 - A productized interview demo that connects design, product thinking, and frontend execution
 
@@ -17,6 +18,7 @@ Live URL: https://pmo-sultan.vercel.app
 
 - `/` Executive Overview
 - `/briefing` VP Briefing Pack
+- `/portfolio` Salam Service Portfolio
 - `/delivery` Delivery Control Tower
 - `/strategic` Strategic Orders
 - `/explorer` Portfolio Explorer

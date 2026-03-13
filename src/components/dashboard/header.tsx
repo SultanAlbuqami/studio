@@ -35,14 +35,14 @@ type HeaderContext = {
 const headerContextByTitle: Record<string, HeaderContext> = {
   'Operations Control Tower': {
     description:
-      'Delivery health, revenue exposure, and intervention priorities across all active customer programs.',
+      'Delivery health, service assurance, and revenue exposure across Salam consumer, business, and wholesale operating domains.',
     highlights: [
       { label: 'Focus', value: 'Revenue at risk + milestone drift' },
       { label: 'Cadence', value: 'Daily intervention, weekly PMO review' },
-      { label: 'Scope', value: 'All active customer programs' },
+      { label: 'Scope', value: 'Consumer + Business + Wholesale portfolios' },
     ],
     note:
-      'Use the operating brief and intervention rail as the executive decision queue. The dashboard is designed to pull attention toward slippage that can still be contained.',
+      'Use the operating brief and intervention rail as the executive decision queue. The dashboard is designed to pull attention toward slippage that can still be contained across Salam service lines, not just one delivery queue.',
     posture: {
       score: 89,
       label: 'Stable',
@@ -52,6 +52,27 @@ const headerContextByTitle: Record<string, HeaderContext> = {
       primarySignalValue: 'Revenue timing still hinges on acceptance clearance',
       cadenceLabel: 'Decision tempo',
       cadenceValue: 'Daily PMO bridge + weekly steering',
+    },
+  },
+  'Salam Service Portfolio': {
+    description:
+      'Official service-coverage view linking Salam consumer, business, and wholesale offerings to the control-tower scope.',
+    highlights: [
+      { label: 'Source base', value: 'Official Salam public references' },
+      { label: 'Focus', value: 'What Salam sells and what the tower governs' },
+      { label: 'Best use', value: 'Portfolio grounding before operational deep dives' },
+    ],
+    note:
+      'This page anchors the demo in Salam&apos;s actual public portfolio so the operating model reads like a Salam control tower, not a generic telecom mock-up.',
+    posture: {
+      score: 94,
+      label: 'Aligned',
+      caption: 'Portfolio fit',
+      tone: 'success',
+      primarySignalLabel: 'Primary signal',
+      primarySignalValue: 'The control tower now maps directly to official Salam service domains and customer segments',
+      cadenceLabel: 'Best use',
+      cadenceValue: 'Portfolio framing, executive grounding, and service-coverage alignment',
     },
   },
   'VP Briefing Pack': {

@@ -1,6 +1,12 @@
+import Link from 'next/link';
 import { DashboardHeader } from '@/components/dashboard/header';
 import { Card } from '@/components/ui/card';
 import { kpiMetadata, type KpiMetadataKey } from '@/app/lib/kpi-metadata';
+import {
+  salamOfficialSources,
+  salamServiceCoverageSummary,
+  salamServiceSegments,
+} from '@/app/lib/salam-service-portfolio';
 import { Database, ShieldCheck, Info, AlertTriangle, Target, CheckCircle2, Users } from 'lucide-react';
 import { MethodologyClient } from './methodology-client';
 
@@ -30,13 +36,24 @@ export default function MethodologyPage() {
                 <p className="text-sm font-semibold">Service Taxonomy</p>
               </div>
               <div className="text-sm text-muted-foreground space-y-2">
-                <p>Data is structured around Salam&apos;s core service families:</p>
-                <ul className="list-disc list-inside space-y-1 text-xs">
-                  <li>B2B Fiber & Connectivity</li>
-                  <li>Managed VPN & SD-WAN</li>
-                  <li>Salam Cloud & Data Centers</li>
-                  <li>B2C Fiber-to-the-Home (FTTH)</li>
-                </ul>
+                <p>
+                  The taxonomy is now mapped to Salam&apos;s official public
+                  portfolio structure across{' '}
+                  {salamServiceCoverageSummary.segments} segments and{' '}
+                  {salamServiceCoverageSummary.categories} service domains:
+                </p>
+                <div className="space-y-2 text-xs">
+                  {salamServiceSegments.map((segment) => (
+                    <div key={segment.key} className="rounded-md border border-border/30 bg-background/25 p-2.5">
+                      <p className="font-semibold text-foreground/86">
+                        {segment.title}
+                      </p>
+                      <p className="mt-1 leading-relaxed">
+                        {segment.categories.map((category) => category.name).join(' · ')}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </Card>
@@ -48,8 +65,22 @@ export default function MethodologyPage() {
                 <p className="text-sm font-semibold">Data Integrity</p>
               </div>
               <div className="text-sm text-muted-foreground space-y-2">
-                <p>Taxonomy derived from official public Salam records. Operational metrics are synthetic for demonstration.</p>
-                <p>Lead times align with industry benchmarks for KSA telecom operations.</p>
+                <p>
+                  Taxonomy derived from {salamOfficialSources.length} official
+                  Salam public references. Operational metrics remain synthetic
+                  for demonstration.
+                </p>
+                <p>
+                  Lead times align with industry benchmarks for KSA telecom
+                  operations, while service-family naming is tied back to Salam
+                  references.
+                </p>
+                <Link
+                  href="/portfolio"
+                  className="inline-flex items-center gap-1.5 text-xs font-medium text-primary transition-colors hover:text-primary/80"
+                >
+                  Open the Salam service portfolio map
+                </Link>
               </div>
             </div>
           </Card>
