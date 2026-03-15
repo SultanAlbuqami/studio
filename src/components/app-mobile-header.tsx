@@ -10,6 +10,7 @@ import {
   referenceNavigationItems,
 } from '@/app/lib/navigation';
 import { cn } from '@/lib/utils';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 const mobileNavigationGroups = [
   {
@@ -60,6 +61,10 @@ export function AppMobileHeader() {
           </span>
         </div>
 
+        <div className="mt-4 flex justify-end">
+          <ThemeToggle compact />
+        </div>
+
         <div className="mt-5 space-y-3">
           <p className="text-[10px] font-semibold uppercase tracking-[0.26em] text-primary/68">
             Quick navigation
@@ -79,10 +84,11 @@ export function AppMobileHeader() {
                     <Link
                       key={item.url}
                       href={item.url}
+                      aria-current={isActive ? 'page' : undefined}
                       className={cn(
                         'inline-flex min-h-10 items-center gap-2 rounded-full border px-3 py-2 text-[12px] font-medium transition-all',
                         isActive
-                          ? 'border-primary/25 bg-primary/12 text-primary shadow-[0_0_22px_rgba(73,177,255,0.18)]'
+                          ? 'border-primary/30 bg-primary/14 text-primary shadow-[0_0_22px_rgba(73,177,255,0.18)]'
                           : 'border-white/10 bg-background/30 text-muted-foreground hover:border-white/20 hover:text-foreground',
                       )}
                     >

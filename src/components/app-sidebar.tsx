@@ -24,6 +24,7 @@ import {
   SidebarRail,
   SidebarFooter,
 } from "@/components/ui/sidebar"
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export function AppSidebar() {
   const pathname = usePathname()
@@ -40,9 +41,12 @@ export function AppSidebar() {
             isActive={pathname === item.url}
             tooltip={item.title}
             size={size}
-            className="rounded-[1rem] border border-transparent px-3 py-2.5 text-[13px] font-medium text-sidebar-foreground/82 transition-all hover:border-white/8 hover:bg-white/[0.03] hover:text-white data-[active=true]:border-primary/18 data-[active=true]:bg-primary/[0.08] data-[active=true]:text-white [&>svg]:text-primary/82 data-[active=true]:[&>svg]:text-primary"
+            className="rounded-[1rem] border border-transparent px-3 py-2.5 text-[13px] font-medium text-sidebar-foreground/82 transition-all hover:border-white/8 hover:bg-white/[0.03] hover:text-white data-[active=true]:border-primary/30 data-[active=true]:bg-primary/[0.14] data-[active=true]:text-white data-[active=true]:shadow-[0_0_0_1px_rgba(73,177,255,0.16),0_12px_24px_rgba(8,15,40,0.24)] [&>svg]:text-primary/82 data-[active=true]:[&>svg]:text-primary"
           >
-            <Link href={item.url}>
+            <Link
+              href={item.url}
+              aria-current={pathname === item.url ? 'page' : undefined}
+            >
               <item.icon className="h-4 w-4" />
               <span>{item.title}</span>
             </Link>
@@ -100,6 +104,9 @@ export function AppSidebar() {
           <p className="mt-2 text-xs leading-relaxed text-sidebar-foreground/82">
             {dataAsOf}
           </p>
+          <div className="mt-3">
+            <ThemeToggle compact />
+          </div>
         </div>
 
         <SidebarMenu>{renderNavSection(referenceNavigationItems)}</SidebarMenu>

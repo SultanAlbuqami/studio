@@ -34,7 +34,12 @@ export function DeliveryTrendChart({ data }: DeliveryTrendChartProps) {
         <p className="text-xs text-muted-foreground mt-0.5">Avg cycle time — last 6 months</p>
       </div>
       <CardContent className="px-5 pb-5 pt-0">
-        <ChartContainer config={trendConfig} className="h-[160px] w-full">
+        <ChartContainer
+          config={trendConfig}
+          className="h-[160px] w-full"
+          role="img"
+          aria-label="Line chart showing order-to-activate cycle time over the last six months."
+        >
           <LineChart data={data} margin={{ top: 8, right: 4, left: -24, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" strokeOpacity={0.5} />
             <XAxis

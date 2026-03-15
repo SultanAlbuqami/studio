@@ -22,7 +22,10 @@ const sora = Sora({
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://pmo-sultan.vercel.app'),
-  title: 'Salam PMO | Control Tower',
+  title: {
+    default: 'Salam PMO | Control Tower',
+    template: '%s | Salam PMO Control Tower',
+  },
   description: 'Customer delivery operations control tower for portfolio health, service activation, and revenue protection.',
   alternates: {
     canonical: '/',
@@ -47,8 +50,27 @@ export default function RootLayout({
     <html
       lang="en"
       dir="ltr"
+      suppressHydrationWarning
       className={`${manrope.variable} ${sora.variable} dark`}
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              try {
+                var theme = localStorage.getItem('control-tower-theme');
+                if (theme === 'light') {
+                  document.documentElement.classList.remove('dark');
+                } else {
+                  document.documentElement.classList.add('dark');
+                }
+              } catch (error) {
+                document.documentElement.classList.add('dark');
+              }
+            `,
+          }}
+        />
+      </head>
       <body className="font-sans antialiased bg-background text-foreground">
         <a
           href="#app-content"
@@ -76,7 +98,7 @@ export default function RootLayout({
                         <p className="text-[11px] text-muted-foreground/60">
                           Salam PMO Control Tower &middot; Customer Delivery Operations
                         </p>
-                        <p className="text-[11px] text-muted-foreground/44">
+                        <p className="text-[11px] text-muted-foreground/68">
                           Operating data is illustrative. Directionally aligned with enterprise PMO workflows.
                         </p>
                       </div>

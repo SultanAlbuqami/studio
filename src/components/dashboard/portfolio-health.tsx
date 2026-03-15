@@ -56,7 +56,12 @@ export function PortfolioHealth() {
         </div>
 
         <CardContent className="px-5 pb-5 pt-0">
-          <ChartContainer config={executionConfig} className="h-[280px] w-full">
+          <ChartContainer
+            config={executionConfig}
+            className="h-[280px] w-full"
+            role="img"
+            aria-label="Bar chart comparing weekly delivery actuals against target across six operating reviews."
+          >
             <BarChart
               data={executionTrendChartData}
               margin={{ top: 16, right: 6, left: -22, bottom: 0 }}
@@ -150,13 +155,15 @@ export function PortfolioHealth() {
 
         <CardContent className="px-5 pb-5 pt-1">
           <div className="flex flex-col items-center gap-5">
-            <ControlStatusOrb
-              score={postureScore}
-              label="On Track"
-              caption="Active distribution"
-              tone="stable"
-              size="lg"
-            />
+            <div role="img" aria-label={`Portfolio status indicator showing ${postureScore}% of programs on track.`}>
+              <ControlStatusOrb
+                score={postureScore}
+                label="On Track"
+                caption="Active distribution"
+                tone="stable"
+                size="lg"
+              />
+            </div>
 
             <div className="w-full space-y-3">
               {portfolioDistributionData.map((item) => (

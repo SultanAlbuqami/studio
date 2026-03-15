@@ -1,5 +1,7 @@
 'use server';
 
+import { unstable_cache } from 'next/cache';
+import { z } from 'zod';
 import { getAiClient } from '@/ai/client';
 import { getAiModel, hasConfiguredAiKey } from '@/ai/config';
 
@@ -57,6 +59,25 @@ export interface ExecutiveBriefUnavailable {
 export type ExecutiveBriefGenerationResult =
   | ExecutiveBriefResult
   | ExecutiveBriefUnavailable;
+
+const briefBulletSchema = z.object({
+  title: z.string().min(3),
+  detail: z.string().min(10),
+  severity: z.enum(['critical', 'warning', 'info']),
+});
+
+const recommendationSchema = z.object({
+  title: z.string().min(3),
+  rationale: z.string().min(10),
+  priority: z.enum(['critical', 'high', 'medium']),
+  owner: z.string().min(2),
+  impact: z.string().min(10),
+});
+
+const executiveBriefSchema = z.object({
+  briefBullets: z.array(briefBulletSchema).min(3).max(5),
+  recommendations: z.array(recommendationSchema).min(3).max(5),
+});
 
 // ── Messages ──
 
@@ -161,49 +182,65 @@ ${interventions}${escalationBlock}`;
 
 // ── Core Function ──
 
+function parseExecutiveBriefPayload(content: string): ExecutiveBriefResult {
+  const parsedJson = JSON.parse(content) as unknown;
+  const parsed = executiveBriefSchema.parse(parsedJson);
+
+  return {
+    status: 'success',
+    briefBullets: parsed.briefBullets,
+    recommendations: parsed.recommendations,
+  };
+}
+
+async function generateExecutiveBriefUncached(
+  input: DashboardInput,
+  model: string,
+): Promise<ExecutiveBriefResult> {
+  const client = getAiClient();
+  const response = await client.chat.completions.create({
+    model,
+    temperature: 0.3,
+    max_tokens: 1500,
+    messages: [
+      { role: 'system', content: buildSystemPrompt() },
+      { role: 'user', content: buildUserPrompt(input) },
+    ],
+  });
+
+  const content = response.choices[0]?.message?.content;
+  const textContent = typeof content === 'string' ? content.trim() : '';
+
+  if (!textContent) {
+    throw new Error('AI executive brief response was empty.');
+  }
+
+  return parseExecutiveBriefPayload(textContent);
+}
+
+const generateExecutiveBriefCached = unstable_cache(
+  async (
+    serializedInput: string,
+    model: string,
+  ): Promise<ExecutiveBriefResult> => {
+    const input = JSON.parse(serializedInput) as DashboardInput;
+    return generateExecutiveBriefUncached(input, model);
+  },
+  ['executive-brief'],
+  { revalidate: 60 * 30 },
+);
+
 export async function generateExecutiveBrief(
-  input: DashboardInput
+  input: DashboardInput,
 ): Promise<ExecutiveBriefGenerationResult> {
   if (!hasConfiguredAiKey()) {
     return { status: 'unavailable', message: MISSING_KEY_MSG };
   }
 
   try {
-    const client = getAiClient();
-
-    const response = await client.chat.completions.create({
-      model: getAiModel(),
-      temperature: 0.3,
-      max_tokens: 1500,
-      messages: [
-        { role: 'system', content: buildSystemPrompt() },
-        { role: 'user', content: buildUserPrompt(input) },
-      ],
-    });
-
-    const content = response.choices[0]?.message?.content?.trim();
-    if (!content) {
-      return { status: 'unavailable', message: UNAVAILABLE_MSG };
-    }
-
-    const parsed = JSON.parse(content) as {
-      briefBullets: BriefBullet[];
-      recommendations: Recommendation[];
-    };
-
-    if (
-      !Array.isArray(parsed.briefBullets) ||
-      !Array.isArray(parsed.recommendations) ||
-      parsed.briefBullets.length === 0
-    ) {
-      return { status: 'unavailable', message: UNAVAILABLE_MSG };
-    }
-
-    return {
-      status: 'success',
-      briefBullets: parsed.briefBullets,
-      recommendations: parsed.recommendations,
-    };
+    const model = getAiModel();
+    const serializedInput = JSON.stringify(input);
+    return await generateExecutiveBriefCached(serializedInput, model);
   } catch (error) {
     console.error('Executive brief generation failed:', error);
     return { status: 'unavailable', message: getUnavailableMessage(error) };

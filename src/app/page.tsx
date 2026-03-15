@@ -20,6 +20,7 @@ import {
 import { kpiMetadata } from '@/app/lib/kpi-metadata';
 import { getFirstSearchParamValue } from '@/app/lib/queue-filters';
 import { hasConfiguredAiKey } from '@/ai/config';
+import { buildPageMetadata } from '@/app/lib/page-metadata';
 import {
   ArrowRight,
   CheckCircle2,
@@ -37,6 +38,8 @@ type ExecutiveOverviewProps = {
     focus?: string | string[];
   }>;
 };
+
+export const metadata = buildPageMetadata('/');
 
 export default async function ExecutiveOverview({
   searchParams,

@@ -6,6 +6,7 @@ import {
 } from 'lucide-react';
 import { dataAsOf } from '@/app/lib/dashboard-meta';
 import { ControlStatusOrb } from '@/components/dashboard/control-status-orb';
+import { DashboardBreadcrumbs } from '@/components/dashboard/dashboard-breadcrumbs';
 
 type HeaderHighlight = {
   label: string;
@@ -304,6 +305,8 @@ export function DashboardHeader({
     <header className="command-hero">
       <div className="relative z-[1] grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.85fr)] xl:items-center">
         <div className="min-w-0 space-y-5">
+          <DashboardBreadcrumbs />
+
           <div className="flex flex-wrap items-center gap-2">
             <span className="command-pill">
               <Sparkles className="h-3.5 w-3.5" />

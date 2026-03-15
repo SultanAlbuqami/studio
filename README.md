@@ -46,3 +46,27 @@ Production build:
 npm run build
 npm run start -- -p 9002
 ```
+
+## نبذة عربية
+
+هذا المشروع عبارة عن لوحة تحكم تنفيذية تجريبية لمنصب `Director Customer PMO`
+في شركة سلام، وتركّز على:
+
+- متابعة صحة التنفيذ والتسليم
+- حماية الإيراد المعرض للخطر
+- إدارة التصعيدات والتعافي
+- ربط كل KPI بمالك ومصدر ومنتدى مراجعة
+
+لتشغيل المشروع محلياً:
+
+```bash
+npm install
+npm run dev
+```
+
+ولتفعيل التحديث الذكي للملخص التنفيذي:
+
+```bash
+GEMINI_API_KEY=your_gemini_api_key_here
+GEMINI_MODEL=gemini-2.5-flash
+```

@@ -168,7 +168,12 @@ export default function B2CPage() {
               </div>
             </div>
             <CardContent className="px-5 pb-5 pt-0">
-              <ChartContainer config={installChartConfig} className="h-[200px] w-full">
+              <ChartContainer
+                config={installChartConfig}
+                className="h-[200px] w-full"
+                role="img"
+                aria-label="Bar chart showing weekly completed consumer installations across the last six weeks."
+              >
                 <BarChart data={b2cWeeklyTrend} margin={{ top: 8, right: 4, left: -24, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" strokeOpacity={0.5} />
                   <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
@@ -186,7 +191,12 @@ export default function B2CPage() {
               <p className="text-xs text-muted-foreground mt-0.5">Customer satisfaction score — last 6 weeks</p>
             </div>
             <CardContent className="px-5 pb-5 pt-0">
-              <ChartContainer config={csatChartConfig} className="h-[200px] w-full">
+              <ChartContainer
+                config={csatChartConfig}
+                className="h-[200px] w-full"
+                role="img"
+                aria-label="Line chart showing weekly post-install customer satisfaction scores across the last six weeks."
+              >
                 <LineChart data={b2cWeeklyTrend} margin={{ top: 8, right: 4, left: -24, bottom: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" strokeOpacity={0.5} />
                   <XAxis dataKey="week" axisLine={false} tickLine={false} tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }} />
