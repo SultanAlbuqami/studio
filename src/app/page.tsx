@@ -170,7 +170,7 @@ export default async function ExecutiveOverview({
                       <p className="mt-1 text-[12px] leading-relaxed text-muted-foreground">
                         {primaryScenarioEffect.label}: {primaryScenarioEffect.current}
                         {primaryScenarioEffect.unit === 'M SAR' ? ` ${primaryScenarioEffect.unit}` : primaryScenarioEffect.unit ?? ''}
-                        {' -> '}
+                        {' → '}
                         {primaryScenarioEffect.projected}
                         {primaryScenarioEffect.unit === 'M SAR' ? ` ${primaryScenarioEffect.unit}` : primaryScenarioEffect.unit ?? ''}
                       </p>

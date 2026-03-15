@@ -33,6 +33,9 @@ const statusToneClass: Record<string, string> = {
 
 export function PortfolioHealth() {
   const postureScore = portfolioDistributionData[0]?.value ?? 0;
+  const lastActual = executionTrendChartData.at(-1)?.deliveries ?? 0;
+  const prevActual = executionTrendChartData.at(-2)?.deliveries ?? 0;
+  const momentum = lastActual - prevActual;
 
   return (
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-5">
@@ -130,8 +133,8 @@ export function PortfolioHealth() {
               <p className="text-[10px] font-semibold uppercase tracking-[0.24em] text-primary/72">
                 Momentum
               </p>
-              <p className="mt-2 font-headline text-[1.65rem] font-semibold tracking-[-0.05em] text-emerald-200">
-                +7
+              <p className={`mt-2 font-headline text-[1.65rem] font-semibold tracking-[-0.05em] ${momentum >= 0 ? 'text-emerald-200' : 'text-rose-200'}`}>
+                {momentum >= 0 ? '+' : ''}{momentum}
               </p>
             </div>
           </div>
@@ -148,7 +151,7 @@ export function PortfolioHealth() {
               Portfolio Status
             </p>
             <p className="mt-1 text-xs text-muted-foreground/72">
-              Circular emphasis on the current operating mix, echoing the reference-style scan center.
+              Distribution of active programs by operating state across the live portfolio.
             </p>
           </div>
         </div>

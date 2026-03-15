@@ -110,8 +110,7 @@ export function ExecutiveActionRegister({
           <div>
             <p className="text-sm font-semibold">Action Register</p>
             <p className="mt-1 text-[11px] leading-relaxed text-muted-foreground/72">
-              Explicit owner, due label, linked KPI, and next forum for each
-              action that leadership might assign live.
+              Owner-backed actions with linked KPIs and review forums — ready for leadership assignment.
             </p>
           </div>
           <div className="flex flex-wrap gap-1.5 text-[10px]">
